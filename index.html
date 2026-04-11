@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Pinut — Gestión de Producción</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Pinut">
+<meta name="theme-color" content="#1e3d2c">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" onerror="this.remove()">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 924.64 1030.49'%3E%3Cpath fill='%231e3d2c' d='M453.54,0l92.46,13.59-30.44,238.73,95.52-92.87,80.43,12.56-72.07,182.74,140.78-49.42,60.33,69.46s-159.36,139.85-180.16,199.31c0,0,247.69-4.01,250.99,3.28l33.26,91.34-226.47,101.34s54.04,39.79,157.83,67.72c0,0-56.45,118.08-207.96,118.08,0,0-72.92,74.63-177.47,74.63s-221.82-84.7-221.82-84.7c0,0-167.72,33.16-248.75-107.64l202.88-129.08-180.09-20.29,32.54-88.72s79.96-18.98,235.88-51.42c0,0-31.72-55.73-176.74-99.07l-44.18-104.57s111.87-10.87,263.28,32.39c0,0-1.37-41.87-139.48-162.89l38.8-60.36s39.85-6.86,145.52,77.55L453.54,0Z'/%3E%3C/svg%3E">
@@ -295,39 +299,99 @@ tbody tr:hover { background: var(--rosa-light); }
 .chart-container svg { width: 100%; display: block; }
 
 /* =====================================================
-   MOBILE NAV
+   MOBILE HEADER + HAMBURGUESA
    ===================================================== */
-.mobile-nav {
+.mobile-header {
   display: none;
   position: fixed;
-  bottom: 0; left: 0; right: 0;
-  height: var(--nav-h);
+  top: 0; left: 0; right: 0;
+  height: 56px;
   background: var(--verde);
-  z-index: 100;
-  border-top: 1px solid rgba(255,255,255,0.1);
+  z-index: 200;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
-.mobile-nav-items {
+.mobile-header-logo {
   display: flex;
-  height: 100%;
+  align-items: center;
+  gap: 10px;
 }
-.mobile-nav-item {
-  flex: 1;
+.mobile-header-logo .isotipo { width: 26px; height: auto; }
+.mobile-header-logo .wordmark { width: 68px; height: auto; }
+.mobile-hamburger {
+  width: 40px; height: 40px;
+  background: transparent;
+  border: none;
+  color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 3px;
+  gap: 5px;
   cursor: pointer;
-  color: rgba(255,255,255,0.65);
-  font-size: 10px;
-  font-weight: 700;
-  transition: var(--transition);
-  border: none;
-  background: transparent;
+  border-radius: 6px;
+  transition: background var(--transition);
   padding: 0;
 }
-.mobile-nav-item.active { color: var(--rosa); }
-.mobile-nav-item svg { width: 22px; height: 22px; }
+.mobile-hamburger:hover { background: rgba(255,255,255,0.12); }
+.mobile-hamburger span {
+  display: block;
+  width: 22px; height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: transform 0.22s ease, opacity 0.22s ease;
+}
+.mobile-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.mobile-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.mobile-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+/* Overlay detrás del menú */
+.mobile-menu-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 198;
+  background: rgba(0,0,0,0.25);
+}
+.mobile-menu-overlay.open { display: block; }
+/* Menú desplegable */
+.mobile-menu {
+  position: fixed;
+  top: 56px; right: 0;
+  width: 230px;
+  background: var(--verde);
+  z-index: 199;
+  border-radius: 0 0 0 var(--radius);
+  box-shadow: -4px 4px 20px rgba(0,0,0,0.22);
+  overflow: hidden;
+  transform: translateY(-8px) scale(0.98);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  transform-origin: top right;
+}
+.mobile-menu.open {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+  pointer-events: all;
+}
+.mobile-menu a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 20px;
+  color: rgba(255,255,255,0.78);
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  text-decoration: none;
+}
+.mobile-menu a:last-child { border-bottom: none; }
+.mobile-menu a:hover { background: rgba(255,255,255,0.09); color: #fff; }
+.mobile-menu a.active { background: var(--rosa); color: #fff; }
 
 /* =====================================================
    MODAL
@@ -407,11 +471,11 @@ tbody tr:hover { background: var(--rosa-light); }
    ===================================================== */
 @media (max-width: 768px) {
   .sidebar { display: none; }
-  .mobile-nav { display: flex; }
-  .main { margin-left: 0; padding-bottom: calc(var(--nav-h) + 16px); }
-  .page-body { padding: 16px; }
-  .page-header { padding: 14px 16px; }
-  .page-header h1 { font-size: 18px; }
+  .mobile-header { display: flex; }
+  .main { margin-left: 0; padding-top: 56px; padding-bottom: 24px; }
+  .page-header { top: 56px; padding: 12px 16px; }
+  .page-header h1 { font-size: 17px; }
+  .page-body { padding: 14px 16px; }
   .dashboard-grid { grid-template-columns: 1fr; }
   .kpi-grid { grid-template-columns: repeat(2, 1fr); }
   .form-row { grid-template-columns: 1fr; }
@@ -456,7 +520,7 @@ tbody tr:hover { background: var(--rosa-light); }
 /* Toast */
 .toast {
   position: fixed;
-  bottom: 80px;
+  bottom: 24px;
   right: 20px;
   background: var(--verde);
   color: #fff;
@@ -476,6 +540,25 @@ tbody tr:hover { background: var(--rosa-light); }
 
 /* Highlight total row */
 .total-row td { font-weight: 800; color: var(--verde); background: var(--verde-light) !important; }
+
+/* Sección Compras */
+.card-amarillo { border-color: rgba(233,170,58,0.45); background: #fff; }
+.compras-tandas-info {
+  background: #fef3d0;
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #7a5200;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+/* checkbox inline */
+input[type="checkbox"] {
+  width: 16px !important;
+  height: 16px !important;
+  accent-color: var(--rosa);
+  cursor: pointer;
+}
 
 /* MP semaforo bar */
 .stock-bar { height: 6px; border-radius: 3px; background: #eee; margin-top: 4px; }
@@ -537,6 +620,10 @@ tbody tr:hover { background: var(--rosa-light); }
       <a class="nav-link" data-section="materiaprima">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
         Materia Prima
+      </a>
+      <a class="nav-link" data-section="compras">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        Compras
       </a>
     </div>
     <div class="sidebar-footer">
@@ -807,37 +894,127 @@ tbody tr:hover { background: var(--rosa-light); }
         </div>
       </section>
 
+      <!-- SECCIÓN COMPRAS -->
+      <section class="section" id="section-compras">
+        <div class="card card-amarillo">
+          <div class="card-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--amarillo)" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+            Calculadora de compra de materia prima
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>¿Para qué querés comprar?</label>
+              <select id="compras-objetivo" onchange="onComprasObjetivoChange()">
+                <option value="tandas">Cantidad de tandas</option>
+                <option value="bolsas">Cantidad de bolsas</option>
+              </select>
+            </div>
+          </div>
+          <div id="compras-input-tandas">
+            <div class="form-group" style="max-width:240px;">
+              <label>Número de tandas</label>
+              <input type="number" id="compras-num-tandas" min="1" value="1">
+            </div>
+          </div>
+          <div id="compras-input-bolsas" style="display:none;">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Bolsas de 250g a producir</label>
+                <input type="number" id="compras-bolsas-250" min="0" value="0" oninput="actualizarInfoTandas()">
+              </div>
+              <div class="form-group">
+                <label>Bolsas de 500g a producir</label>
+                <input type="number" id="compras-bolsas-500" min="0" value="0" oninput="actualizarInfoTandas()">
+              </div>
+            </div>
+            <div class="compras-tandas-info" id="compras-tandas-info"></div>
+          </div>
+          <div class="form-group" style="margin-top:4px;">
+            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px;font-weight:700;color:var(--bordo);">
+              <input type="checkbox" id="compras-descontar-stock" checked>
+              Descontar stock de materia prima disponible
+            </label>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-primary" onclick="calcularCompras()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Calcular
+            </button>
+          </div>
+        </div>
+        <div class="card" id="compras-resultado" style="display:none;">
+          <div class="card-title" style="justify-content:space-between;">
+            <span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--amarillo)" stroke-width="2.5" style="margin-right:6px;vertical-align:middle;"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+              Lista de compra estimada
+            </span>
+            <button class="btn btn-secondary btn-sm" onclick="exportarCSVComprasCalc()">Exportar CSV</button>
+          </div>
+          <div id="compras-resumen-info" class="compras-tandas-info" style="margin-bottom:14px;"></div>
+          <div class="table-wrap">
+            <table id="compras-tabla-resultado"></table>
+          </div>
+          <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+            <button class="btn btn-primary" onclick="abrirModalCompra()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+              Registrar compra real
+            </button>
+            <span class="text-sm text-muted">Guardá la compra real cuando la hagas efectiva</span>
+          </div>
+        </div>
+      </section>
+
     </div><!-- /page-body -->
   </main>
 
 </div><!-- /app-layout -->
 
-<!-- MOBILE NAV -->
-<nav class="mobile-nav" id="mobile-nav">
-  <div class="mobile-nav-items">
-    <button class="mobile-nav-item active" data-section="dashboard" onclick="navTo('dashboard')">
-      <svg viewBox="0 0 924.64 1030.49" xmlns="http://www.w3.org/2000/svg" style="width:22px;height:22px;">
-        <path fill="currentColor" d="M453.54,0l92.46,13.59-30.44,238.73,95.52-92.87,80.43,12.56-72.07,182.74,140.78-49.42,60.33,69.46s-159.36,139.85-180.16,199.31c0,0,247.69-4.01,250.99,3.28l33.26,91.34-226.47,101.34s54.04,39.79,157.83,67.72c0,0-56.45,118.08-207.96,118.08,0,0-72.92,74.63-177.47,74.63s-221.82-84.7-221.82-84.7c0,0-167.72,33.16-248.75-107.64l202.88-129.08-180.09-20.29,32.54-88.72s79.96-18.98,235.88-51.42c0,0-31.72-55.73-176.74-99.07l-44.18-104.57s111.87-10.87,263.28,32.39c0,0-1.37-41.87-139.48-162.89l38.8-60.36s39.85-6.86,145.52,77.55L453.54,0Z"/>
-      </svg>
-      Inicio
-    </button>
-    <button class="mobile-nav-item" data-section="produccion" onclick="navTo('produccion')">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20h20M6 20V10l6-7 6 7v10"/><path d="M10 20v-5h4v5"/></svg>
-      Producción
-    </button>
-    <button class="mobile-nav-item" data-section="ventas" onclick="navTo('ventas')">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-      Ventas
-    </button>
-    <button class="mobile-nav-item" data-section="materiaprima" onclick="navTo('materiaprima')">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-      MP
-    </button>
-    <button class="mobile-nav-item" data-section="receta" onclick="navTo('receta')">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
-      Receta
-    </button>
+<!-- MOBILE HEADER -->
+<header class="mobile-header" id="mobile-header">
+  <div class="mobile-header-logo">
+    <svg class="isotipo" viewBox="0 0 924.64 1030.49" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#ffffff" d="M453.54,0l92.46,13.59-30.44,238.73,95.52-92.87,80.43,12.56-72.07,182.74,140.78-49.42,60.33,69.46s-159.36,139.85-180.16,199.31c0,0,247.69-4.01,250.99,3.28l33.26,91.34-226.47,101.34s54.04,39.79,157.83,67.72c0,0-56.45,118.08-207.96,118.08,0,0-72.92,74.63-177.47,74.63s-221.82-84.7-221.82-84.7c0,0-167.72,33.16-248.75-107.64l202.88-129.08-180.09-20.29,32.54-88.72s79.96-18.98,235.88-51.42c0,0-31.72-55.73-176.74-99.07l-44.18-104.57s111.87-10.87,263.28,32.39c0,0-1.37-41.87-139.48-162.89l38.8-60.36s39.85-6.86,145.52,77.55L453.54,0Z"/>
+    </svg>
+    <svg class="wordmark" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#ffffff" d="M270.11,453.05c-28.01,0-47.83,16.06-57.05,39.63l-1.71-36.21h-50.91v242.57h58.08v-100.1c9.57,19.13,26.99,31.77,51.59,31.77,43.73,0,70.38-32.8,70.38-89.51s-25.96-88.14-70.38-88.14ZM249.96,588c-20.16,0-31.43-16.06-31.43-44.41v-3.42c0-29.38,11.96-44.41,31.43-44.41s32.11,14.01,32.11,46.12-12.3,46.12-32.11,46.12Z"/>
+      <path fill="#ffffff" d="M378.41,380.96c-23.57,0-33.82,8.54-33.82,28.02s10.25,27.67,33.82,27.67,33.82-8.54,33.82-27.67-10.25-28.02-33.82-28.02Z"/>
+      <rect fill="#ffffff" x="349.37" y="456.47" width="58.08" height="170.82"/>
+      <path fill="#ffffff" d="M535.22,453.05c-26.99,0-47.83,12.3-58.42,36.56l-1.71-33.14h-51.93v170.82h58.08v-90.19c0-28.36,14.01-39.63,30.75-39.63,14.35,0,24.26,7.86,24.26,32.11v97.71h58.08v-113.77c0-39.63-23.92-60.47-59.1-60.47Z"/>
+      <path fill="#ffffff" d="M913.75,581.85c-6.83,4.78-14.01,7.52-24.6,7.52-14.35,0-22.55-6.49-22.55-22.89v-68.67h51.25v-41.34h-51.25v-54.32l-58.08,16.06v38.26h-87.12v90.54c0,27.33-13.32,39.29-31.43,39.29-15.03,0-23.57-7.17-23.57-30.41v-99.42h-58.08v114.11c0,43.05,23.57,60.13,58.42,60.13,27.67,0,48.51-11.27,59.1-35.19l1.71,31.77h51.93v-129.48h29.04v78.24c.34,39.63,24.26,54.66,62.86,54.66,17.77,0,36.9-5.12,48.17-12.98l-5.81-35.87Z"/>
+    </svg>
   </div>
+  <button class="mobile-hamburger" id="mobile-hamburger" onclick="toggleMobileMenu()" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- OVERLAY + MENÚ HAMBURGUESA -->
+<div class="mobile-menu-overlay" id="mobile-menu-overlay" onclick="cerrarMobileMenu()"></div>
+<nav class="mobile-menu" id="mobile-menu">
+  <a class="nav-link active" data-section="dashboard" onclick="navTo('dashboard')">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+    Dashboard
+  </a>
+  <a class="nav-link" data-section="receta" onclick="navTo('receta')">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>
+    Receta
+  </a>
+  <a class="nav-link" data-section="produccion" onclick="navTo('produccion')">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 20h20M6 20V10l6-7 6 7v10"/><path d="M10 20v-5h4v5"/></svg>
+    Producción
+  </a>
+  <a class="nav-link" data-section="ventas" onclick="navTo('ventas')">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+    Ventas
+  </a>
+  <a class="nav-link" data-section="materiaprima" onclick="navTo('materiaprima')">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+    Materia Prima
+  </a>
+  <a class="nav-link" data-section="compras" onclick="navTo('compras')">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+    Compras
+  </a>
 </nav>
 
 <!-- MODALES -->
@@ -975,20 +1152,46 @@ const SECTION_TITLES = {
   produccion: 'Producción',
   ventas: 'Ventas',
   materiaprima: 'Materia Prima',
+  compras: 'Compras',
 };
 
 function navTo(sectionId) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nav-link, .mobile-nav-item').forEach(a => a.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(a => a.classList.remove('active'));
 
   const section = document.getElementById('section-' + sectionId);
   if (section) section.classList.add('active');
 
-  document.querySelectorAll('[data-section="' + sectionId + '"]').forEach(el => el.classList.add('active'));
+  document.querySelectorAll('.nav-link[data-section="' + sectionId + '"]').forEach(el => el.classList.add('active'));
 
   document.getElementById('page-title').textContent = SECTION_TITLES[sectionId] || '';
 
+  cerrarMobileMenu();
   renderSection(sectionId);
+}
+
+/* =====================================================
+   HAMBURGUESA MOBILE
+   ===================================================== */
+
+function toggleMobileMenu() {
+  const menu = document.getElementById('mobile-menu');
+  const overlay = document.getElementById('mobile-menu-overlay');
+  const btn = document.getElementById('mobile-hamburger');
+  const isOpen = menu.classList.contains('open');
+  if (isOpen) {
+    cerrarMobileMenu();
+  } else {
+    menu.classList.add('open');
+    overlay.classList.add('open');
+    btn.classList.add('open');
+  }
+}
+
+function cerrarMobileMenu() {
+  document.getElementById('mobile-menu').classList.remove('open');
+  document.getElementById('mobile-menu-overlay').classList.remove('open');
+  document.getElementById('mobile-hamburger').classList.remove('open');
 }
 
 function navegarYAbrir(section, btnId) {
@@ -1009,6 +1212,7 @@ function renderSection(id) {
   else if (id === 'produccion') renderProduccion();
   else if (id === 'ventas') renderVentas();
   else if (id === 'materiaprima') renderMateriaprima();
+  else if (id === 'compras') renderCompras();
 }
 
 /* =====================================================
@@ -1793,6 +1997,143 @@ function eliminarCompra(id) {
 }
 
 /* =====================================================
+   SECCIÓN COMPRAS
+   ===================================================== */
+
+let ultimoCalculoCompras = null; // para exportar CSV
+
+function renderCompras() {
+  // Rellenar select de ingrediente del modal con los datos actuales
+  const sel = document.getElementById('compra-ingrediente');
+  if (sel) {
+    sel.innerHTML = state.receta.ingredientes.map(i =>
+      `<option value="${i.nombre}">${i.nombre}</option>`
+    ).join('');
+  }
+  actualizarInfoTandas();
+}
+
+function onComprasObjetivoChange() {
+  const objetivo = document.getElementById('compras-objetivo').value;
+  document.getElementById('compras-input-tandas').style.display = objetivo === 'tandas' ? 'block' : 'none';
+  document.getElementById('compras-input-bolsas').style.display = objetivo === 'bolsas' ? 'block' : 'none';
+  document.getElementById('compras-resultado').style.display = 'none';
+  actualizarInfoTandas();
+}
+
+function actualizarInfoTandas() {
+  const infoEl = document.getElementById('compras-tandas-info');
+  if (!infoEl) return;
+  const pesoTanda = getPesoTanda();
+  const b250 = Number(document.getElementById('compras-bolsas-250').value) || 0;
+  const b500 = Number(document.getElementById('compras-bolsas-500').value) || 0;
+  const b250porTanda = getBolsas(pesoTanda, 250);
+  const b500porTanda = getBolsas(pesoTanda, 500);
+  const tandasPor250 = b250porTanda > 0 ? b250 / b250porTanda : 0;
+  const tandasPor500 = b500porTanda > 0 ? b500 / b500porTanda : 0;
+  const total = tandasPor250 + tandasPor500;
+  infoEl.textContent = `Equivale a ${fmt(total, 2)} tanda${total !== 1 ? 's' : ''} (receta actual: ${fmt(pesoTanda)}g/tanda → ${b250porTanda} bolsas 250g + ${b500porTanda} bolsas 500g por tanda)`;
+}
+
+function calcularCompras() {
+  const objetivo = document.getElementById('compras-objetivo').value;
+  const descontarStock = document.getElementById('compras-descontar-stock').checked;
+  const pesoTanda = getPesoTanda();
+
+  let tandasEquiv = 0;
+  let descripcion = '';
+
+  if (objetivo === 'tandas') {
+    tandasEquiv = Number(document.getElementById('compras-num-tandas').value) || 0;
+    descripcion = `${tandasEquiv} tanda${tandasEquiv !== 1 ? 's' : ''}`;
+  } else {
+    const b250 = Number(document.getElementById('compras-bolsas-250').value) || 0;
+    const b500 = Number(document.getElementById('compras-bolsas-500').value) || 0;
+    const b250porTanda = getBolsas(pesoTanda, 250);
+    const b500porTanda = getBolsas(pesoTanda, 500);
+    const t250 = b250porTanda > 0 ? b250 / b250porTanda : 0;
+    const t500 = b500porTanda > 0 ? b500 / b500porTanda : 0;
+    tandasEquiv = t250 + t500;
+    descripcion = `${b250} bolsas 250g + ${b500} bolsas 500g (≈ ${fmt(tandasEquiv, 2)} tandas)`;
+  }
+
+  if (tandasEquiv <= 0) {
+    showToast('Ingresá una cantidad mayor a 0', 'error');
+    return;
+  }
+
+  const stock = getStockCalculado();
+  let totalCosto = 0;
+  const filas = [];
+
+  const rows = state.receta.ingredientes.map(ing => {
+    const necesarioTotal = Number(ing.gramos) * tandasEquiv;
+    const stockDisponible = Math.max(0, stock[ing.nombre] || 0);
+    const aComprar = descontarStock ? Math.max(0, necesarioTotal - stockDisponible) : necesarioTotal;
+    const aComprarKg = aComprar / 1000;
+    const costoEst = aComprarKg * Number(ing.precioPorKg);
+    totalCosto += costoEst;
+    filas.push({ ingrediente: ing.nombre, necesarioTotal, stockDisponible, aComprar, aComprarKg, costoEst, precioPorKg: ing.precioPorKg });
+    const hayQue = aComprar > 0;
+    return `<tr>
+      <td><strong>${ing.nombre}</strong></td>
+      <td>${fmt(necesarioTotal, 0)} gr</td>
+      <td>${fmt(stockDisponible, 0)} gr</td>
+      <td style="font-weight:800;color:${hayQue ? 'var(--rojo)' : 'var(--verde)'}">
+        ${hayQue ? fmt(aComprar, 0) + ' gr' : '<span style="color:var(--verde)">✅ Suficiente</span>'}
+      </td>
+      <td>${aComprarKg.toFixed(3)} kg</td>
+      <td>${fmtPeso(ing.precioPorKg)}</td>
+      <td style="font-weight:${hayQue?'800':'400'}">${hayQue ? fmtPeso(Math.round(costoEst)) : '—'}</td>
+    </tr>`;
+  }).join('');
+
+  ultimoCalculoCompras = { descripcion, filas, totalCosto, descontarStock };
+
+  document.getElementById('compras-tabla-resultado').innerHTML = `
+    <thead><tr>
+      <th>Ingrediente</th>
+      <th>Necesario total</th>
+      <th>Stock disponible</th>
+      <th>A comprar (gr)</th>
+      <th>A comprar (kg)</th>
+      <th>Precio/kg</th>
+      <th>Costo estimado</th>
+    </tr></thead>
+    <tbody>
+      ${rows}
+      <tr class="total-row">
+        <td colspan="6"><strong>Costo total estimado de compra</strong></td>
+        <td><strong>${fmtPeso(Math.round(totalCosto))}</strong></td>
+      </tr>
+    </tbody>
+  `;
+
+  document.getElementById('compras-resumen-info').textContent =
+    `Para producir: ${descripcion}${descontarStock ? ' · Descontando stock disponible' : ' · Sin descontar stock'}`;
+  document.getElementById('compras-resultado').style.display = 'block';
+  document.getElementById('compras-resultado').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function exportarCSVComprasCalc() {
+  if (!ultimoCalculoCompras) return;
+  let csv = 'Ingrediente,Necesario total (gr),Stock disponible (gr),A comprar (gr),A comprar (kg),Precio/kg ($),Costo estimado ($)\n';
+  ultimoCalculoCompras.filas.forEach(f => {
+    csv += `"${f.ingrediente}",${f.necesarioTotal.toFixed(0)},${f.stockDisponible.toFixed(0)},${f.aComprar.toFixed(0)},${f.aComprarKg.toFixed(3)},${f.precioPorKg},${f.costoEst.toFixed(0)}\n`;
+  });
+  csv += `"TOTAL",,,,,, ${Math.round(ultimoCalculoCompras.totalCosto)}\n`;
+  const BOM = '\uFEFF';
+  const blob = new Blob([BOM + csv], { type: 'text/csv;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `pinut-compras-calc-${hoy()}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('CSV exportado');
+}
+
+/* =====================================================
    BACKUP / EXPORTACIÓN
    ===================================================== */
 
@@ -1894,6 +2235,44 @@ function exportarCSV(tipo) {
 }
 
 /* =====================================================
+   PWA — APPLE TOUCH ICON
+   ===================================================== */
+
+function generarAppleTouchIcon() {
+  try {
+    const canvas = document.createElement('canvas');
+    canvas.width = 180; canvas.height = 180;
+    const ctx = canvas.getContext('2d');
+    // Fondo verde Pinut
+    ctx.fillStyle = '#1e3d2c';
+    ctx.beginPath();
+    ctx.roundRect(0, 0, 180, 180, 22);
+    ctx.fill();
+    // Isotipo como SVG incrustado
+    const svgStr = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 924.64 1030.49'><path fill='%23ec937c' d='M453.54,0l92.46,13.59-30.44,238.73,95.52-92.87,80.43,12.56-72.07,182.74,140.78-49.42,60.33,69.46s-159.36,139.85-180.16,199.31c0,0,247.69-4.01,250.99,3.28l33.26,91.34-226.47,101.34s54.04,39.79,157.83,67.72c0,0-56.45,118.08-207.96,118.08,0,0-72.92,74.63-177.47,74.63s-221.82-84.7-221.82-84.7c0,0-167.72,33.16-248.75-107.64l202.88-129.08-180.09-20.29,32.54-88.72s79.96-18.98,235.88-51.42c0,0-31.72-55.73-176.74-99.07l-44.18-104.57s111.87-10.87,263.28,32.39c0,0-1.37-41.87-139.48-162.89l38.8-60.36s39.85-6.86,145.52,77.55L453.54,0Z'/></svg>`;
+    const svgDataUri = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgStr);
+    const img = new Image();
+    img.onload = function() {
+      // El isotipo tiene ratio ~924/1030 ≈ 0.897 (más alto que ancho)
+      const margin = 22;
+      const h = 180 - margin * 2;
+      const w = h * (924.64 / 1030.49);
+      const x = (180 - w) / 2;
+      const y = margin;
+      ctx.drawImage(img, x, y, w, h);
+      try {
+        const dataURI = canvas.toDataURL('image/png');
+        const link = document.createElement('link');
+        link.rel = 'apple-touch-icon';
+        link.href = dataURI;
+        document.head.appendChild(link);
+      } catch(e) { /* canvas tainted en file://, ignorar */ }
+    };
+    img.src = svgDataUri;
+  } catch(e) { /* fallback silencioso */ }
+}
+
+/* =====================================================
    CIERRE DE MODALES AL CLICK FUERA
    ===================================================== */
 
@@ -1914,6 +2293,7 @@ function init() {
     document.getElementById('first-run-banner').style.display = 'flex';
   }
 
+  generarAppleTouchIcon();
   navTo('dashboard');
 }
 
