@@ -253,11 +253,7 @@ tbody tr:hover { background: var(--rosa-light); }
 .form-group { margin-bottom: 16px; }
 .form-row { display: grid; grid-template-columns: 1fr; gap: 14px; }
 .form-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
-@media (max-width: 479px) {
-  .form-actions .btn { width: 100%; justify-content: center; }
-  .card { padding: 14px 12px; }
-  .kpi-card { padding: 14px 10px; }
-}
+/* form-actions, card, kpi-card mobile: ver bloque MOBILE FIXES al final */
 
 /* Alert */
 .alert {
@@ -276,8 +272,8 @@ tbody tr:hover { background: var(--rosa-light); }
 .alert-info { background: var(--rosa-light); color: #7a3020; border-left: 4px solid var(--rosa); }
 
 /* Table wrapper */
-.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: var(--radius-sm); }
-.table-wrap table { white-space: nowrap; }
+.table-wrap { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: var(--radius-sm); }
+.table-wrap table { width: max-content; min-width: 100%; white-space: nowrap; }
 
 /* Semaforo */
 .dot {
@@ -500,7 +496,7 @@ tbody tr:hover { background: var(--rosa-light); }
   .fin-kpi-grid,
   .fin-kpi-grande-grid { grid-template-columns: repeat(2, 1fr); }
   .receta-summary { grid-template-columns: repeat(3, 1fr); }
-  .table-wrap table { white-space: normal; }
+  .table-wrap table { white-space: normal; width: 100%; }
   .toast { left: auto; right: 20px; bottom: 24px; max-width: 320px; transform: translateX(120%); }
   .toast.show { transform: translateX(0); }
 }
@@ -793,6 +789,85 @@ input[type="checkbox"] {
   gap: 12px;
 }
 #first-run-banner button { margin-top: 8px; }
+
+/* =====================================================
+   MOBILE FIXES — PROBLEMAS ESPECÍFICOS DE LAYOUT
+   ===================================================== */
+
+/* P1 — Tablas sin .table-wrap (clientes, cobros) */
+#clientes-tabla,
+#cobros-contenido {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+#clientes-tabla table,
+#cobros-contenido table {
+  width: max-content;
+  min-width: 100%;
+  white-space: nowrap;
+}
+@media (min-width: 768px) {
+  #clientes-tabla table,
+  #cobros-contenido table { width: 100%; white-space: normal; }
+}
+
+@media (max-width: 767px) {
+
+  /* P2 — KPI Finanzas: 1 columna en mobile estrecho */
+  .fin-kpi-grid,
+  .fin-kpi-grande-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  /* P3 — Resumen de tanda (receta-summary): 2 columnas, nunca desborda */
+  .receta-summary {
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+  }
+  .receta-stat .val { font-size: 18px; }
+
+  /* P4 — Formularios: siempre 1 columna en mobile */
+  .form-row { grid-template-columns: 1fr !important; }
+
+  /* P5 — Tabs: scroll horizontal en lugar de wrap */
+  .ventas-tabs-bar,
+  .finanzas-tabs-bar,
+  .receta-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+  }
+  .ventas-tab,
+  .finanzas-tab,
+  .receta-tab,
+  .receta-tab-nueva {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  /* P6 — Botones de registro: ancho completo en mobile */
+  .form-actions {
+    flex-direction: column;
+  }
+  .form-actions .btn {
+    width: 100%;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  /* P7 — Overflow global: evitar que cards o secciones excedan viewport */
+  .card, .section, .page-body, .main {
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  /* Padding de card reducido en mobile para ganar espacio */
+  .card { padding: 14px 12px; }
+  .kpi-card { padding: 14px 10px; }
+}
 </style>
 </head>
 <body>
