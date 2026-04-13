@@ -32,8 +32,18 @@
   --shadow-md: 0 4px 16px rgba(30,61,44,0.14);
   --transition: 0.18s ease;
   --font: 'Nunito', 'Segoe UI', Arial, sans-serif;
+  /* Espaciado */
+  --space-xs: 4px; --space-sm: 8px; --space-md: 16px; --space-lg: 24px; --space-xl: 32px;
+  /* Radius extra */
+  --radius-md: 12px; --radius-lg: 16px;
+  /* Tipografía fluida */
+  --font-sm: clamp(12px, 1.5vw, 14px); --font-md: clamp(14px, 2vw, 16px);
+  --font-lg: clamp(16px, 2.5vw, 20px); --font-xl: clamp(20px, 3vw, 28px);
+  /* Layout */
+  --content-max-width: 1100px; --header-height: 56px;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { overflow-x: hidden; }
 html, body { height: 100%; }
 body {
   font-family: var(--font);
@@ -102,7 +112,7 @@ tbody tr:hover { background: var(--rosa-light); }
 .sidebar {
   width: var(--sidebar-w);
   background: var(--verde);
-  display: flex;
+  display: none;
   flex-direction: column;
   position: fixed;
   top: 0; left: 0; bottom: 0;
@@ -149,25 +159,26 @@ tbody tr:hover { background: var(--rosa-light); }
    MAIN CONTENT
    ===================================================== */
 .main {
-  margin-left: var(--sidebar-w);
+  margin-left: 0;
   flex: 1;
   min-height: 100vh;
+  padding-top: var(--header-height);
   padding-bottom: 24px;
 }
 .page-header {
   background: #fff;
   border-bottom: 1px solid rgba(30,61,44,0.08);
-  padding: 20px 28px;
+  padding: 12px 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: sticky;
-  top: 0;
+  top: var(--header-height);
   z-index: 50;
   box-shadow: var(--shadow);
 }
-.page-header h1 { font-size: 22px; color: var(--verde); }
-.page-body { padding: 24px 28px; }
+.page-header h1 { font-size: 17px; color: var(--verde); }
+.page-body { padding: 14px 16px; }
 .section { display: none; }
 .section.active { display: block; }
 
@@ -226,7 +237,7 @@ tbody tr:hover { background: var(--rosa-light); }
 .badge-rojo { background: #fce8e0; color: var(--rojo); }
 
 /* KPI Cards */
-.kpi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; margin-bottom: 20px; }
+.kpi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 20px; }
 .kpi-card {
   background: #fff;
   border-radius: var(--radius);
@@ -235,13 +246,18 @@ tbody tr:hover { background: var(--rosa-light); }
   border: 1.5px solid rgba(236,147,124,0.3);
   text-align: center;
 }
-.kpi-card .kpi-value { font-size: 26px; font-weight: 900; color: var(--verde); line-height: 1.2; }
+.kpi-card .kpi-value { font-size: 20px; font-weight: 900; color: var(--verde); line-height: 1.2; }
 .kpi-card .kpi-label { font-size: 12px; color: #666; font-weight: 600; margin-top: 4px; }
 
 /* Form elements */
 .form-group { margin-bottom: 16px; }
-.form-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; }
+.form-row { display: grid; grid-template-columns: 1fr; gap: 14px; }
 .form-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+@media (max-width: 479px) {
+  .form-actions .btn { width: 100%; justify-content: center; }
+  .card { padding: 14px 12px; }
+  .kpi-card { padding: 14px 10px; }
+}
 
 /* Alert */
 .alert {
@@ -260,7 +276,8 @@ tbody tr:hover { background: var(--rosa-light); }
 .alert-info { background: var(--rosa-light); color: #7a3020; border-left: 4px solid var(--rosa); }
 
 /* Table wrapper */
-.table-wrap { overflow-x: auto; border-radius: var(--radius-sm); }
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: var(--radius-sm); }
+.table-wrap table { white-space: nowrap; }
 
 /* Semaforo */
 .dot {
@@ -275,7 +292,7 @@ tbody tr:hover { background: var(--rosa-light); }
 /* =====================================================
    DASHBOARD ESPECÍFICO
    ===================================================== */
-.dashboard-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+.dashboard-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
 .quick-actions { display: flex; gap: 12px; flex-wrap: wrap; }
 .quick-btn {
   flex: 1;
@@ -302,7 +319,7 @@ tbody tr:hover { background: var(--rosa-light); }
    MOBILE HEADER + HAMBURGUESA
    ===================================================== */
 .mobile-header {
-  display: none;
+  display: flex;
   position: fixed;
   top: 0; left: 0; right: 0;
   height: 56px;
@@ -422,6 +439,12 @@ tbody tr:hover { background: var(--rosa-light); }
   transition: transform var(--transition);
 }
 .modal-overlay.open .modal { transform: translateY(0); }
+/* Modal mobile */
+@media (max-width: 767px) {
+  .modal { max-width: 95vw; max-height: 90vh; }
+  .modal-body { padding: 16px; }
+  .modal-header { padding: 16px 16px 0; }
+}
 .modal-header {
   padding: 20px 24px 0;
   display: flex;
@@ -453,7 +476,7 @@ tbody tr:hover { background: var(--rosa-light); }
 }
 .receta-summary {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 12px;
   margin-top: 16px;
 }
@@ -467,23 +490,46 @@ tbody tr:hover { background: var(--rosa-light); }
 .receta-stat .lbl { font-size: 12px; color: var(--verde); font-weight: 600; opacity: 0.75; }
 
 /* =====================================================
-   RESPONSIVE
+   RESPONSIVE — MOBILE-FIRST
    ===================================================== */
-@media (max-width: 768px) {
-  .sidebar { display: none; }
-  .mobile-header { display: flex; }
-  .main { margin-left: 0; padding-top: 56px; padding-bottom: 24px; }
-  .page-header { top: 56px; padding: 12px 16px; }
-  .page-header h1 { font-size: 17px; }
-  .page-body { padding: 14px 16px; }
-  .dashboard-grid { grid-template-columns: 1fr; }
+
+/* Tablet (768px+) */
+@media (min-width: 768px) {
+  .page-body { padding: var(--space-lg); }
   .kpi-grid { grid-template-columns: repeat(2, 1fr); }
-  .form-row { grid-template-columns: 1fr; }
-  .quick-btn { min-width: 120px; }
+  .fin-kpi-grid,
+  .fin-kpi-grande-grid { grid-template-columns: repeat(2, 1fr); }
+  .receta-summary { grid-template-columns: repeat(3, 1fr); }
+  .table-wrap table { white-space: normal; }
+  .toast { left: auto; right: 20px; bottom: 24px; max-width: 320px; transform: translateX(120%); }
+  .toast.show { transform: translateX(0); }
 }
-@media (max-width: 480px) {
-  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
-  .kpi-card .kpi-value { font-size: 20px; }
+
+/* Desktop (1024px+) */
+@media (min-width: 1024px) {
+  .sidebar { display: flex; }
+  .mobile-header { display: none; }
+  .main { margin-left: var(--sidebar-w); padding-top: 0; }
+  .page-header { top: 0; padding: 20px 28px; }
+  .page-header h1 { font-size: 22px; }
+  .page-body { padding: 24px 28px; }
+  .dashboard-grid { grid-template-columns: 2fr 1fr; }
+  .kpi-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+  .kpi-card .kpi-value { font-size: 26px; }
+  .fin-kpi-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+  .fin-kpi-grande-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+  .receta-summary { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+  .form-row { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+  .quick-btn { min-width: 140px; }
+}
+
+/* Desktop grande (1440px+) */
+@media (min-width: 1440px) {
+  .page-body {
+    max-width: var(--content-max-width);
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 /* Misc utility */
@@ -520,8 +566,10 @@ tbody tr:hover { background: var(--rosa-light); }
 /* Toast */
 .toast {
   position: fixed;
-  bottom: 24px;
-  right: 20px;
+  bottom: 16px;
+  left: 12px;
+  right: 12px;
+  max-width: none;
   background: var(--verde);
   color: #fff;
   padding: 12px 20px;
@@ -530,13 +578,22 @@ tbody tr:hover { background: var(--rosa-light); }
   font-size: 14px;
   box-shadow: var(--shadow-md);
   z-index: 2000;
-  transform: translateX(120%);
+  transform: translateY(120%);
   transition: transform 0.3s ease;
-  max-width: 300px;
+  word-wrap: break-word;
 }
-.toast.show { transform: translateX(0); }
+.toast.show { transform: translateY(0); }
 .toast.error { background: var(--rojo); }
 .toast.warn { background: var(--amarillo); color: var(--bordo); }
+
+/* Receta table — scrollable en mobile */
+#receta-contenido { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+/* Textos largos */
+h1, h2, h3, h4, p, td, th, label, .card-title, .btn, .badge {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
 
 /* Highlight total row */
 .total-row td { font-weight: 800; color: var(--verde); background: var(--verde-light) !important; }
@@ -693,19 +750,36 @@ input[type="checkbox"] {
   text-align: center;
   box-shadow: var(--shadow-md);
 }
-.kpi-grande .kpi-val { font-size: 26px; font-weight: 900; color: #fff; line-height: 1.1; }
-.kpi-grande .kpi-lbl { font-size: 12px; color: rgba(255,255,255,0.75); margin-top: 5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+.kpi-grande .kpi-val { font-size: 22px; font-weight: 900; color: #fff; line-height: 1.1; }
+.kpi-grande .kpi-lbl { font-size: 11px; color: rgba(255,255,255,0.75); margin-top: 5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
 .kpi-grande.negativo { background: var(--rojo); }
 .kpi-grande.positivo { background: #2e7d32; }
 .fin-progress-wrap { margin-top: 10px; }
 .fin-progress-bar { height: 10px; background: rgba(255,255,255,0.3); border-radius: 5px; overflow: hidden; }
 .fin-progress-fill { height: 100%; background: #fff; border-radius: 5px; transition: width 0.6s; }
 .fin-pct-label { font-size: 13px; font-weight: 800; color: rgba(255,255,255,0.9); margin-bottom: 4px; }
-.fin-kpi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-bottom: 20px; }
-.fin-kpi-grande-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin-bottom: 20px; }
+.fin-kpi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 20px; }
+.fin-kpi-grande-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 20px; }
 .proyeccion-card { background: #fff; border-radius: var(--radius); padding: 20px; border: 1.5px solid rgba(30,61,44,0.12); box-shadow: var(--shadow); margin-bottom: 16px; }
 .proyeccion-card h3 { color: var(--verde); font-size: 16px; margin-bottom: 12px; }
 .gastos-form-inline { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; }
+
+/* Filtros inline de ventas/gastos */
+.filter-bar { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+/* Evitar que header-actions desborde en mobile */
+#header-actions { flex-shrink: 0; max-width: 60%; display: flex; justify-content: flex-end; }
+
+/* Campos date custom-range apilados en mobile */
+#venta-custom-range,
+#finanzas-resumen-custom-range,
+#finanzas-gastos-custom-range { display: none; flex-wrap: wrap; gap: var(--space-md); }
+
+/* KPI grande mayor en desktop */
+@media (min-width: 1024px) {
+  .kpi-grande .kpi-val { font-size: 26px; }
+  .kpi-grande .kpi-lbl { font-size: 12px; }
+}
 
 /* First run banner */
 #first-run-banner {
