@@ -564,6 +564,149 @@ input[type="checkbox"] {
 .stock-bar { height: 6px; border-radius: 3px; background: #eee; margin-top: 4px; }
 .stock-bar-fill { height: 100%; border-radius: 3px; transition: width 0.4s; }
 
+/* Receta Tabs */
+.receta-tabs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  border-bottom: 2px solid rgba(30,61,44,0.1);
+  padding-bottom: 12px;
+}
+.receta-tab {
+  padding: 7px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: 13px;
+  background: #fff;
+  border: 1.5px solid rgba(30,61,44,0.2);
+  color: var(--verde);
+  cursor: pointer;
+  transition: var(--transition);
+}
+.receta-tab:hover:not(.active) { background: var(--verde-light); }
+.receta-tab.active { background: var(--rosa); color: #fff; border-color: var(--rosa); }
+.receta-tab-nueva {
+  background: transparent;
+  border: 1.5px dashed rgba(30,61,44,0.3);
+  color: var(--verde);
+  font-weight: 700;
+  font-size: 13px;
+  padding: 7px 14px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+}
+.receta-tab-nueva:hover { background: var(--verde-light); border-color: var(--verde); }
+.receta-table input[type="number"],
+.receta-table input[type="text"] {
+  padding: 5px 8px;
+  font-size: 13px;
+}
+.receta-table input[type="number"] { width: 90px; }
+.receta-table input[type="text"]  { width: 130px; }
+
+/* Ventas sub-tabs */
+.ventas-tabs-bar {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 0;
+  border-bottom: 2px solid rgba(30,61,44,0.15);
+  padding-bottom: 0;
+  flex-wrap: wrap;
+}
+.ventas-tab {
+  padding: 9px 18px;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  font-weight: 700;
+  font-size: 13px;
+  background: rgba(30,61,44,0.05);
+  border: 1.5px solid rgba(30,61,44,0.15);
+  border-bottom: none;
+  color: var(--verde);
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+  bottom: -2px;
+}
+.ventas-tab:hover:not(.active) { background: var(--verde-light); }
+.ventas-tab.active {
+  background: var(--crema);
+  border-color: rgba(30,61,44,0.25);
+  border-bottom-color: var(--crema);
+  color: var(--rosa);
+}
+.ventas-panel { display: none; }
+.ventas-panel.active { display: block; }
+.toggle-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--verde);
+}
+.kpi-pendiente { background: var(--rojo) !important; }
+.kpi-pendiente .kpi-value, .kpi-pendiente .kpi-label { color: #fff !important; }
+.badge-pagado { background: #d4edda; color: #155724; padding: 3px 8px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+.badge-pendiente-pago { background: #f8d7da; color: var(--rojo); padding: 3px 8px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+.badge-entregado { background: #d4edda; color: #155724; padding: 3px 8px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+.badge-pendiente-entrega { background: #fff3cd; color: #856404; padding: 3px 8px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+.cliente-row-expandible { cursor: pointer; }
+.cliente-row-expandible:hover { background: var(--rosa-light) !important; }
+.cliente-detalle { background: var(--verde-light) !important; }
+
+/* Finanzas */
+.finanzas-tabs-bar {
+  display: flex;
+  gap: 4px;
+  border-bottom: 2px solid rgba(30,61,44,0.15);
+  padding-bottom: 0;
+  flex-wrap: wrap;
+  margin-bottom: 0;
+}
+.finanzas-tab {
+  padding: 9px 18px;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  font-weight: 700;
+  font-size: 13px;
+  background: rgba(30,61,44,0.05);
+  border: 1.5px solid rgba(30,61,44,0.15);
+  border-bottom: none;
+  color: var(--verde);
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+  bottom: -2px;
+}
+.finanzas-tab:hover:not(.active) { background: var(--verde-light); }
+.finanzas-tab.active { background: var(--crema); border-color: rgba(30,61,44,0.25); border-bottom-color: var(--crema); color: var(--rosa); }
+.finanzas-panel { display: none; }
+.finanzas-panel.active { display: block; }
+.kpi-grande {
+  background: var(--verde);
+  color: #fff;
+  border-radius: var(--radius);
+  padding: 24px 20px;
+  text-align: center;
+  box-shadow: var(--shadow-md);
+}
+.kpi-grande .kpi-val { font-size: 26px; font-weight: 900; color: #fff; line-height: 1.1; }
+.kpi-grande .kpi-lbl { font-size: 12px; color: rgba(255,255,255,0.75); margin-top: 5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+.kpi-grande.negativo { background: var(--rojo); }
+.kpi-grande.positivo { background: #2e7d32; }
+.fin-progress-wrap { margin-top: 10px; }
+.fin-progress-bar { height: 10px; background: rgba(255,255,255,0.3); border-radius: 5px; overflow: hidden; }
+.fin-progress-fill { height: 100%; background: #fff; border-radius: 5px; transition: width 0.6s; }
+.fin-pct-label { font-size: 13px; font-weight: 800; color: rgba(255,255,255,0.9); margin-bottom: 4px; }
+.fin-kpi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-bottom: 20px; }
+.fin-kpi-grande-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin-bottom: 20px; }
+.proyeccion-card { background: #fff; border-radius: var(--radius); padding: 20px; border: 1.5px solid rgba(30,61,44,0.12); box-shadow: var(--shadow); margin-bottom: 16px; }
+.proyeccion-card h3 { color: var(--verde); font-size: 16px; margin-bottom: 12px; }
+.gastos-form-inline { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; }
+
 /* First run banner */
 #first-run-banner {
   background: var(--rosa-light);
@@ -624,6 +767,10 @@ input[type="checkbox"] {
       <a class="nav-link" data-section="compras">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
         Compras
+      </a>
+      <a class="nav-link" data-section="finanzas">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        Finanzas
       </a>
     </div>
     <div class="sidebar-footer">
@@ -721,58 +868,8 @@ input[type="checkbox"] {
 
       <!-- SECCIÓN RECETA -->
       <section class="section" id="section-receta">
-        <div class="card">
-          <div class="card-title" style="justify-content:space-between;">
-            <span>Ingredientes por tanda</span>
-            <button class="btn btn-primary" onclick="guardarReceta()">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-              Guardar receta activa
-            </button>
-          </div>
-          <div id="receta-last-saved" class="text-sm text-muted mb-8"></div>
-          <div class="table-wrap">
-            <table class="receta-table" id="receta-table"></table>
-          </div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
-          <div class="card card-verde">
-            <div class="card-title">Resumen de la tanda</div>
-            <div class="receta-summary" id="receta-summary"></div>
-          </div>
-          <div class="card card-rosa">
-            <div class="card-title">Costos por formato</div>
-            <div id="receta-costos"></div>
-            <hr class="divider">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-              <div class="form-group">
-                <label>Etiqueta ($/u)</label>
-                <input type="number" id="emp-etiqueta" min="0" oninput="recalcularReceta()">
-              </div>
-              <div class="form-group">
-                <label>Bolsa ($/u)</label>
-                <input type="number" id="emp-bolsa" min="0" oninput="recalcularReceta()">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card" style="margin-top:0;">
-          <div class="card-title" style="justify-content:space-between;">
-            <span>Precios de venta</span>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label>Precio bolsa 250g ($)</label>
-              <input type="number" id="precio-250" min="0" oninput="guardarPreciosVenta()">
-            </div>
-            <div class="form-group">
-              <label>Precio bolsa 500g ($)</label>
-              <input type="number" id="precio-500" min="0" oninput="guardarPreciosVenta()">
-            </div>
-          </div>
-        </div>
-        <div style="text-align:right;">
-          <button class="btn btn-secondary btn-sm" onclick="exportarCSV('receta')">Exportar receta CSV</button>
-        </div>
+        <div id="receta-tabs-bar"></div>
+        <div id="receta-contenido"></div>
       </section>
 
       <!-- SECCIÓN PRODUCCIÓN -->
@@ -780,6 +877,10 @@ input[type="checkbox"] {
         <div class="card card-verde" id="prod-form-card">
           <div class="card-title">Nueva producción</div>
           <div class="form-row">
+            <div class="form-group">
+              <label>Receta</label>
+              <select id="prod-receta-id" onchange="actualizarPreviewProd()"></select>
+            </div>
             <div class="form-group">
               <label>Fecha</label>
               <input type="date" id="prod-fecha">
@@ -813,9 +914,15 @@ input[type="checkbox"] {
 
       <!-- SECCIÓN VENTAS -->
       <section class="section" id="section-ventas">
+
+        <!-- Formulario nueva venta -->
         <div class="card card-rosa" id="venta-form-card">
           <div class="card-title">Registrar venta</div>
           <div class="form-row">
+            <div class="form-group">
+              <label>Comprador / Cliente</label>
+              <input type="text" id="venta-comprador" placeholder="Nombre (opcional)">
+            </div>
             <div class="form-group">
               <label>Fecha</label>
               <input type="date" id="venta-fecha">
@@ -824,6 +931,7 @@ input[type="checkbox"] {
               <label>Formato</label>
               <select id="venta-formato" onchange="actualizarPrecioVenta()">
                 <option value="250">Bolsa 250g</option>
+                <option value="300">Bolsa 300g</option>
                 <option value="500">Bolsa 500g</option>
               </select>
             </div>
@@ -835,6 +943,28 @@ input[type="checkbox"] {
               <label>Precio unitario ($)</label>
               <input type="number" id="venta-precio" min="0">
             </div>
+            <div class="form-group">
+              <label>Medio de pago</label>
+              <select id="venta-medio-pago">
+                <option value="Efectivo">Efectivo</option>
+                <option value="Transferencia">Transferencia</option>
+                <option value="Otro">Otro</option>
+              </select>
+            </div>
+          </div>
+          <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:flex-end;margin-top:8px;">
+            <label class="toggle-label">
+              <input type="checkbox" id="venta-pagado" checked onchange="toggleFechaPago()">
+              ¿Ya pagó?
+            </label>
+            <label class="toggle-label">
+              <input type="checkbox" id="venta-entregado" checked>
+              ¿Ya se entregó?
+            </label>
+            <div class="form-group" id="venta-fecha-pago-grupo" style="display:none;max-width:200px;margin:0;">
+              <label>Fecha estimada de pago</label>
+              <input type="date" id="venta-fecha-pago">
+            </div>
           </div>
           <div id="venta-stock-info" class="text-sm text-muted mt-4"></div>
           <div class="form-actions">
@@ -844,20 +974,77 @@ input[type="checkbox"] {
             </button>
           </div>
         </div>
-        <div class="card">
-          <div class="card-title" style="justify-content:space-between;">
-            <span>Historial de ventas</span>
-            <button class="btn btn-secondary btn-sm" onclick="exportarCSV('ventas')">Exportar CSV</button>
-          </div>
-          <div class="filter-bar" id="venta-filters">
-            <button class="filter-btn active" data-filter="mes" onclick="setVentaFilter('mes',this)">Este mes</button>
-            <button class="filter-btn" data-filter="semana" onclick="setVentaFilter('semana',this)">Esta semana</button>
-            <button class="filter-btn" data-filter="hoy" onclick="setVentaFilter('hoy',this)">Hoy</button>
-            <button class="filter-btn" data-filter="todo" onclick="setVentaFilter('todo',this)">Todo</button>
-          </div>
-          <div id="ventas-resumen" class="kpi-grid" style="margin-bottom:16px;"></div>
-          <div class="table-wrap" id="ventas-historial"></div>
+
+        <!-- Sub-tabs de ventas -->
+        <div class="ventas-tabs-bar" style="margin-top:20px;">
+          <button class="ventas-tab active" onclick="setVentaTab('historial',this)">Historial</button>
+          <button class="ventas-tab" id="tab-cobros" onclick="setVentaTab('cobros',this)">Cobros pendientes</button>
+          <button class="ventas-tab" onclick="setVentaTab('clientes',this)">Clientes</button>
         </div>
+
+        <!-- Panel: Historial -->
+        <div id="ventas-panel-historial" class="ventas-panel active">
+          <div class="card" style="margin-top:0;border-top-left-radius:0;">
+            <div class="card-title" style="justify-content:space-between;">
+              <span>Historial de ventas</span>
+              <button class="btn btn-secondary btn-sm" onclick="exportarCSV('ventas')">Exportar CSV</button>
+            </div>
+            <!-- Filtro período -->
+            <div class="filter-bar" style="margin-bottom:6px;">
+              <button class="filter-btn active" data-period="mes" onclick="setVentaPeriodo('mes',this)">Este mes</button>
+              <button class="filter-btn" data-period="semana" onclick="setVentaPeriodo('semana',this)">Esta semana</button>
+              <button class="filter-btn" data-period="hoy" onclick="setVentaPeriodo('hoy',this)">Hoy</button>
+              <button class="filter-btn" data-period="anio" onclick="setVentaPeriodo('anio',this)">Este año</button>
+              <button class="filter-btn" data-period="todo" onclick="setVentaPeriodo('todo',this)">Todo</button>
+              <button class="filter-btn" data-period="custom" onclick="setVentaPeriodo('custom',this)">Personalizado</button>
+            </div>
+            <!-- Rango personalizado (oculto por defecto) -->
+            <div id="venta-custom-range" style="display:none;gap:12px;align-items:flex-end;flex-wrap:wrap;margin-bottom:8px;">
+              <div class="form-group" style="max-width:180px;margin:0;">
+                <label>Desde</label>
+                <input type="date" id="venta-rango-desde" onchange="renderHistorialVentas()">
+              </div>
+              <div class="form-group" style="max-width:180px;margin:0;">
+                <label>Hasta</label>
+                <input type="date" id="venta-rango-hasta" onchange="renderHistorialVentas()">
+              </div>
+            </div>
+            <!-- Filtros pago / entrega -->
+            <div style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:12px;align-items:center;">
+              <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+                <span style="font-size:12px;font-weight:700;color:var(--verde);">Pago:</span>
+                <button class="filter-btn active" data-pago="todos" onclick="setVentaFiltroPago('todos',this)">Todos</button>
+                <button class="filter-btn" data-pago="pagados" onclick="setVentaFiltroPago('pagados',this)">Pagados</button>
+                <button class="filter-btn" data-pago="pendientes" onclick="setVentaFiltroPago('pendientes',this)">Pendientes</button>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+                <span style="font-size:12px;font-weight:700;color:var(--verde);">Entrega:</span>
+                <button class="filter-btn active" data-entrega="todos" onclick="setVentaFiltroEntrega('todos',this)">Todos</button>
+                <button class="filter-btn" data-entrega="entregados" onclick="setVentaFiltroEntrega('entregados',this)">Entregados</button>
+                <button class="filter-btn" data-entrega="pendientes" onclick="setVentaFiltroEntrega('pendientes',this)">Pendientes</button>
+              </div>
+            </div>
+            <div id="ventas-resumen" class="kpi-grid" style="margin-bottom:16px;"></div>
+            <div class="table-wrap" id="ventas-historial"></div>
+          </div>
+        </div>
+
+        <!-- Panel: Cobros pendientes -->
+        <div id="ventas-panel-cobros" class="ventas-panel">
+          <div id="cobros-contenido" style="margin-top:0;"></div>
+        </div>
+
+        <!-- Panel: Clientes -->
+        <div id="ventas-panel-clientes" class="ventas-panel">
+          <div class="card" style="margin-top:0;border-top-left-radius:0;border-top-right-radius:0;">
+            <div class="card-title">Clientes</div>
+            <div style="max-width:320px;margin-bottom:16px;">
+              <input type="text" id="clientes-buscar" placeholder="Buscar por nombre..." oninput="filtrarClientes(this.value)">
+            </div>
+            <div id="clientes-tabla"></div>
+          </div>
+        </div>
+
       </section>
 
       <!-- SECCIÓN MATERIA PRIMA -->
@@ -878,6 +1065,10 @@ input[type="checkbox"] {
         <div class="card card-verde">
           <div class="card-title">¿Qué necesito comprar?</div>
           <div class="flex items-center gap-12 mb-8" style="flex-wrap:wrap;">
+            <div style="flex:1;min-width:180px;" class="form-group" style="margin:0;">
+              <label>Receta</label>
+              <select id="nec-receta-id" onchange="calcularNecesidades()"></select>
+            </div>
             <div style="flex:1;min-width:180px;" class="form-group" style="margin:0;">
               <label>Tandas adicionales a producir</label>
               <input type="number" id="tandas-planificadas" min="1" value="1" oninput="calcularNecesidades()">
@@ -902,6 +1093,10 @@ input[type="checkbox"] {
             Calculadora de compra de materia prima
           </div>
           <div class="form-row">
+            <div class="form-group">
+              <label>Receta</label>
+              <select id="compras-receta-id" onchange="actualizarInfoTandas()"></select>
+            </div>
             <div class="form-group">
               <label>¿Para qué querés comprar?</label>
               <select id="compras-objetivo" onchange="onComprasObjetivoChange()">
@@ -964,6 +1159,126 @@ input[type="checkbox"] {
         </div>
       </section>
 
+      <!-- SECCIÓN FINANZAS -->
+      <section class="section" id="section-finanzas">
+
+        <!-- Tabs -->
+        <div class="finanzas-tabs-bar">
+          <button class="finanzas-tab active" onclick="setFinanzasTab('resumen',this)">Resumen</button>
+          <button class="finanzas-tab" onclick="setFinanzasTab('gastos',this)">Gastos</button>
+          <button class="finanzas-tab" onclick="setFinanzasTab('proyecciones',this)">Proyecciones</button>
+        </div>
+
+        <!-- Panel: Resumen -->
+        <div id="finanzas-panel-resumen" class="finanzas-panel active">
+          <div class="card" style="margin-top:0;border-top-left-radius:0;">
+            <div class="filter-bar" style="margin-bottom:6px;">
+              <button class="filter-btn active" data-fin-period="todo" onclick="setFinResumenPeriodo('todo',this)">Todo</button>
+              <button class="filter-btn" data-fin-period="mes" onclick="setFinResumenPeriodo('mes',this)">Este mes</button>
+              <button class="filter-btn" data-fin-period="semana" onclick="setFinResumenPeriodo('semana',this)">Esta semana</button>
+              <button class="filter-btn" data-fin-period="anio" onclick="setFinResumenPeriodo('anio',this)">Este año</button>
+              <button class="filter-btn" data-fin-period="hoy" onclick="setFinResumenPeriodo('hoy',this)">Hoy</button>
+              <button class="filter-btn" data-fin-period="custom" onclick="setFinResumenPeriodo('custom',this)">Personalizado</button>
+            </div>
+            <div id="finanzas-resumen-custom-range" style="display:none;gap:12px;flex-wrap:wrap;margin-bottom:8px;">
+              <div class="form-group" style="max-width:180px;margin:0;"><label>Desde</label><input type="date" id="fin-res-desde" onchange="renderFinanzasResumen()"></div>
+              <div class="form-group" style="max-width:180px;margin:0;"><label>Hasta</label><input type="date" id="fin-res-hasta" onchange="renderFinanzasResumen()"></div>
+            </div>
+            <div id="finanzas-resumen-content"></div>
+          </div>
+        </div>
+
+        <!-- Panel: Gastos -->
+        <div id="finanzas-panel-gastos" class="finanzas-panel">
+          <!-- Gasto histórico inicial -->
+          <div class="card card-verde" style="margin-top:0;border-top-left-radius:0;border-top-right-radius:0;">
+            <div class="card-title">Inversión histórica (anterior a la app)</div>
+            <div id="gasto-inicial-display">
+              <p class="text-sm text-muted" style="margin-bottom:8px;">Este monto representa inversiones realizadas antes de usar la app (ingredientes, equipamiento, empaque inicial, etc.).</p>
+              <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+                <div style="font-size:24px;font-weight:900;color:var(--verde);" id="gasto-inicial-valor-display">$148.900</div>
+                <button class="btn btn-secondary btn-sm" onclick="editarGastoInicial()">Editar</button>
+              </div>
+            </div>
+            <div id="gasto-inicial-edit" style="display:none;">
+              <div style="display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;">
+                <div class="form-group" style="max-width:220px;margin:0;">
+                  <label>Monto total ($)</label>
+                  <input type="number" id="gasto-inicial-input" min="0" placeholder="148900">
+                </div>
+                <button class="btn btn-primary btn-sm" onclick="guardarGastoInicial()">Guardar</button>
+                <button class="btn btn-secondary btn-sm" onclick="cancelarEditGastoInicial()">Cancelar</button>
+              </div>
+            </div>
+          </div>
+          <!-- Agregar gasto manual -->
+          <div class="card">
+            <div class="card-title">Agregar gasto</div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Descripción</label>
+                <input type="text" id="gasto-descripcion" placeholder="ej: Compra de bolsas extra">
+              </div>
+              <div class="form-group" style="max-width:180px;">
+                <label>Monto ($)</label>
+                <input type="number" id="gasto-monto" min="0" placeholder="0">
+              </div>
+              <div class="form-group" style="max-width:180px;">
+                <label>Fecha</label>
+                <input type="date" id="gasto-fecha">
+              </div>
+              <div class="form-group" style="max-width:200px;">
+                <label>Categoría</label>
+                <select id="gasto-categoria">
+                  <option value="Materia Prima">Materia Prima</option>
+                  <option value="Empaque">Empaque</option>
+                  <option value="Equipamiento">Equipamiento</option>
+                  <option value="Marketing">Marketing</option>
+                  <option value="Otros">Otros</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button class="btn btn-primary" onclick="guardarGastoManual()">Agregar gasto</button>
+            </div>
+          </div>
+          <!-- Tabla unificada -->
+          <div class="card">
+            <div class="card-title" style="justify-content:space-between;">
+              <span>Todos los gastos</span>
+              <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+                <select id="fin-gas-cat-filtro" onchange="setFinGasCat(this.value)" style="width:auto;font-size:13px;padding:5px 10px;">
+                  <option value="todos">Todas las categorías</option>
+                  <option value="Materia Prima">Materia Prima</option>
+                  <option value="Empaque">Empaque</option>
+                  <option value="Equipamiento">Equipamiento</option>
+                  <option value="Marketing">Marketing</option>
+                  <option value="Otros">Otros</option>
+                </select>
+              </div>
+            </div>
+            <div class="filter-bar" style="margin-bottom:10px;">
+              <button class="filter-btn active" data-fin-gas-period="todo" onclick="setFinGasPeriodo('todo',this)">Todo</button>
+              <button class="filter-btn" data-fin-gas-period="mes" onclick="setFinGasPeriodo('mes',this)">Este mes</button>
+              <button class="filter-btn" data-fin-gas-period="semana" onclick="setFinGasPeriodo('semana',this)">Esta semana</button>
+              <button class="filter-btn" data-fin-gas-period="anio" onclick="setFinGasPeriodo('anio',this)">Este año</button>
+              <button class="filter-btn" data-fin-gas-period="custom" onclick="setFinGasPeriodo('custom',this)">Personalizado</button>
+            </div>
+            <div id="finanzas-gastos-custom-range" style="display:none;gap:12px;flex-wrap:wrap;margin-bottom:8px;">
+              <div class="form-group" style="max-width:180px;margin:0;"><label>Desde</label><input type="date" id="fin-gas-desde" onchange="renderGastosTabla()"></div>
+              <div class="form-group" style="max-width:180px;margin:0;"><label>Hasta</label><input type="date" id="fin-gas-hasta" onchange="renderGastosTabla()"></div>
+            </div>
+            <div class="table-wrap" id="finanzas-gastos-tabla"></div>
+          </div>
+        </div>
+
+        <!-- Panel: Proyecciones -->
+        <div id="finanzas-panel-proyecciones" class="finanzas-panel">
+          <div id="finanzas-proy-content" style="margin-top:0;"></div>
+        </div>
+
+      </section>
+
     </div><!-- /page-body -->
   </main>
 
@@ -1015,6 +1330,10 @@ input[type="checkbox"] {
     <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
     Compras
   </a>
+  <a class="nav-link" data-section="finanzas" onclick="navTo('finanzas')">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+    Finanzas
+  </a>
 </nav>
 
 <!-- MODALES -->
@@ -1065,6 +1384,26 @@ input[type="checkbox"] {
   </div>
 </div>
 
+<div class="modal-overlay" id="modal-nueva-receta">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Nueva receta</h3>
+      <button class="modal-close" onclick="cerrarModal('modal-nueva-receta')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Nombre de la receta</label>
+        <input type="text" id="nueva-receta-nombre" placeholder="ej: Granola con chocolate" maxlength="60">
+      </div>
+      <p class="text-sm text-muted" style="margin-bottom:16px;">Se copiará la estructura de ingredientes y empaque de la receta activa como punto de partida.</p>
+      <div class="form-actions">
+        <button class="btn btn-primary" onclick="confirmarNuevaReceta()">Crear receta</button>
+        <button class="btn btn-secondary" onclick="cerrarModal('modal-nueva-receta')">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
@@ -1074,54 +1413,126 @@ input[type="checkbox"] {
    ===================================================== */
 
 const KEYS = {
-  receta: 'pinut_receta',
+  recetas: 'pinut_recetas',
+  recetaActivaId: 'pinut_receta_activa_id',
   producciones: 'pinut_producciones',
   ventas: 'pinut_ventas',
   comprasMp: 'pinut_compras_mp',
   stockFisico: 'pinut_stock_fisico',
-  preciosVenta: 'pinut_precios_venta',
-  ultimoGuardadoReceta: 'pinut_receta_saved_at',
+  gastosManual: 'pinut_gastos_manuales',
+  gastoInicial: 'pinut_gasto_inicial',
 };
 
-const INGREDIENTES_DEFAULT = [
-  { nombre: 'Copos de maíz', gramos: 200, precioPorKg: 3928.57 },
-  { nombre: 'Avena',         gramos: 350, precioPorKg: 1890 },
-  { nombre: 'Frutos secos',  gramos: 200, precioPorKg: 12550 },
-  { nombre: 'Nueces',        gramos: 100, precioPorKg: 19500 },
-  { nombre: 'Semillas',      gramos: 100, precioPorKg: 2350 },
-  { nombre: 'Girasol',       gramos: 150, precioPorKg: 3600 },
-  { nombre: 'Coco',          gramos: 50,  precioPorKg: 7500 },
-  { nombre: 'Azúcar mascabo',gramos: 200, precioPorKg: 2950 },
-  { nombre: 'Miel',          gramos: 200, precioPorKg: 4500 },
+const RECETA_DEFAULT_INGREDIENTES = [
+  { nombre: 'Copos de maíz',       gramos: 250, precioPorKg: 3928 },
+  { nombre: 'Avena',               gramos: 350, precioPorKg: 1900 },
+  { nombre: 'Maní',                gramos: 100, precioPorKg: 2800 },
+  { nombre: 'Almendras',           gramos: 100, precioPorKg: 18700 },
+  { nombre: 'Nueces',              gramos: 100, precioPorKg: 19500 },
+  { nombre: 'Mix de semillas',     gramos: 50,  precioPorKg: 2350 },
+  { nombre: 'Semillas de girasol', gramos: 200, precioPorKg: 3600 },
+  { nombre: 'Coco rallado',        gramos: 50,  precioPorKg: 7500 },
+  { nombre: 'Azúcar mascabo',      gramos: 160, precioPorKg: 2950 },
+  { nombre: 'Miel',                gramos: 180, precioPorKg: 4500 },
 ];
 
-const STOCK_INICIAL_DEFAULT = {
-  'Copos de maíz': 500, 'Avena': 650, 'Frutos secos': 800,
-  'Nueces': 900, 'Semillas': 850, 'Girasol': 850,
-  'Coco': 200, 'Azúcar mascabo': 850, 'Miel': 800,
+const RECETA_DEFAULT_EMPAQUE = {
+  precioEtiquetas: 30000, unidadesEtiquetas: 100,
+  precioBolsas: 14000, unidadesBolsas: 100
 };
 
+const STOCK_INICIAL_DEFAULT = {
+  'Copos de maíz': 1950, 'Avena': 2450, 'Maní': 960,
+  'Almendras': 970, 'Nueces': 970, 'Mix de semillas': 600,
+  'Semillas de girasol': 1180, 'Coco rallado': 1000,
+  'Azúcar mascabo': 1340, 'Miel': 2000,
+};
+
+function crearRecetaDefault(nombre) {
+  return {
+    id: Date.now().toString(),
+    nombre: nombre || 'Granola Clásica',
+    ingredientes: JSON.parse(JSON.stringify(RECETA_DEFAULT_INGREDIENTES)),
+    empaque: Object.assign({}, RECETA_DEFAULT_EMPAQUE),
+    precioVenta250: 3600, precioVenta300: 4500, precioVenta500: 6500,
+    fechaCreacion: new Date().toISOString(),
+    fechaModificacion: new Date().toISOString(),
+  };
+}
+
 let state = {
-  receta: null,
+  recetas: [],
+  recetaActivaId: null,
   producciones: [],
   ventas: [],
   comprasMp: [],
   stockFisico: {},
-  preciosVenta: { precio250: 3600, precio500: 6500 },
+  gastosManual: [],
+  gastoInicial: 148900,
 };
 
-let ventaFilter = 'mes';
+// Finanzas state
+let finanzasTab = 'resumen';
+let finResumenPeriodo = 'todo';
+let finGasPeriodo = 'todo';
+let finGasCat = 'todos';
+
+let ventaFilter = 'mes'; // alias legacy
+let ventaFilterPeriodo = 'mes';
+let ventaFilterPago = 'todos';
+let ventaFilterEntrega = 'todos';
+let ventaFilterDesde = '';
+let ventaFilterHasta = '';
+let ventaTab = 'historial';
+let clienteBusqueda = '';
+let clienteExpandido = null;
+let ultimoCalculoCompras = null;
 
 /* =====================================================
    PERSISTENCIA
    ===================================================== */
 
 function cargarDatos() {
-  const r = localStorage.getItem(KEYS.receta);
-  state.receta = r ? JSON.parse(r) : {
-    ingredientes: JSON.parse(JSON.stringify(INGREDIENTES_DEFAULT)),
-    empaque: { etiquetas: 300, bolsas: 140 }
-  };
+  // Migrar pinut_receta viejo (v1) al nuevo formato multi-receta
+  const oldReceta = localStorage.getItem('pinut_receta');
+  if (oldReceta) {
+    try {
+      const r = JSON.parse(oldReceta);
+      const oldPV = localStorage.getItem('pinut_precios_venta');
+      let pv = { precio250: 3600, precio500: 6500 };
+      if (oldPV) { try { pv = JSON.parse(oldPV); } catch(e) {} }
+      const rec = crearRecetaDefault('Granola Clásica');
+      if (r.ingredientes && r.ingredientes.length > 0) rec.ingredientes = r.ingredientes;
+      rec.precioVenta250 = pv.precio250 || 3600;
+      rec.precioVenta500 = pv.precio500 || 6500;
+      state.recetas = [rec];
+      state.recetaActivaId = rec.id;
+      guardarEnStorage(KEYS.recetas, state.recetas);
+      guardarEnStorage(KEYS.recetaActivaId, state.recetaActivaId);
+      localStorage.removeItem('pinut_receta');
+      localStorage.removeItem('pinut_receta_saved_at');
+      localStorage.removeItem('pinut_precios_venta');
+    } catch(e) {
+      const rec = crearRecetaDefault('Granola Clásica');
+      state.recetas = [rec]; state.recetaActivaId = rec.id;
+      guardarEnStorage(KEYS.recetas, state.recetas);
+      guardarEnStorage(KEYS.recetaActivaId, state.recetaActivaId);
+    }
+  } else {
+    const rs = localStorage.getItem(KEYS.recetas);
+    if (rs) {
+      try { state.recetas = JSON.parse(rs); } catch(e) { state.recetas = []; }
+    }
+    if (!state.recetas || state.recetas.length === 0) {
+      const rec = crearRecetaDefault('Granola Clásica');
+      state.recetas = [rec];
+      guardarEnStorage(KEYS.recetas, state.recetas);
+    }
+    const aid = localStorage.getItem(KEYS.recetaActivaId);
+    state.recetaActivaId = (aid && state.recetas.find(r => r.id === aid)) ? aid : state.recetas[0].id;
+    guardarEnStorage(KEYS.recetaActivaId, state.recetaActivaId);
+  }
+
   const p = localStorage.getItem(KEYS.producciones);
   state.producciones = p ? JSON.parse(p) : [];
   const v = localStorage.getItem(KEYS.ventas);
@@ -1130,8 +1541,56 @@ function cargarDatos() {
   state.comprasMp = c ? JSON.parse(c) : [];
   const sf = localStorage.getItem(KEYS.stockFisico);
   state.stockFisico = sf ? JSON.parse(sf) : JSON.parse(JSON.stringify(STOCK_INICIAL_DEFAULT));
-  const pv = localStorage.getItem(KEYS.preciosVenta);
-  state.preciosVenta = pv ? JSON.parse(pv) : { precio250: 3600, precio500: 6500 };
+
+  // Gastos manuales y gasto inicial
+  const gm = localStorage.getItem(KEYS.gastosManual);
+  state.gastosManual = gm ? JSON.parse(gm) : [];
+  const gi = localStorage.getItem(KEYS.gastoInicial);
+  if (gi !== null) {
+    state.gastoInicial = Number(gi);
+  } else {
+    state.gastoInicial = 148900;
+    localStorage.setItem(KEYS.gastoInicial, '148900');
+  }
+
+  // Migrar ventas existentes sin los nuevos campos
+  let ventasMigradas = false;
+  state.ventas.forEach(venta => {
+    if (venta.pagado === undefined) { venta.pagado = true; ventasMigradas = true; }
+    if (venta.entregado === undefined) { venta.entregado = true; ventasMigradas = true; }
+    if (venta.comprador === undefined) { venta.comprador = ''; ventasMigradas = true; }
+    if (venta.medioPago === undefined) { venta.medioPago = 'Efectivo'; ventasMigradas = true; }
+    if (venta.fechaEstPago === undefined) { venta.fechaEstPago = ''; ventasMigradas = true; }
+  });
+  if (ventasMigradas) guardarEnStorage(KEYS.ventas, state.ventas);
+
+  // Datos iniciales: cargar ventas históricas solo si está vacío
+  if (state.ventas.length === 0) {
+    const ventasIniciales = [
+      // 500g @ $6500
+      { id: 1744066001, fecha: '2025-04-08', formato: 500, cantidad: 1, precio: 6500, comprador: 'Lucas',     medioPago: 'Efectivo', pagado: true,  entregado: true,  fechaEstPago: '' },
+      { id: 1744066002, fecha: '2025-04-08', formato: 500, cantidad: 1, precio: 6500, comprador: 'Chon',      medioPago: 'Efectivo', pagado: true,  entregado: true,  fechaEstPago: '' },
+      { id: 1744066003, fecha: '2025-04-08', formato: 500, cantidad: 1, precio: 6500, comprador: 'Pupi',      medioPago: 'Efectivo', pagado: true,  entregado: true,  fechaEstPago: '' },
+      { id: 1744066004, fecha: '2025-04-08', formato: 500, cantidad: 1, precio: 6500, comprador: 'Lu Marino', medioPago: 'Efectivo', pagado: true,  entregado: true,  fechaEstPago: '' },
+      { id: 1744066005, fecha: '2025-04-08', formato: 500, cantidad: 1, precio: 6500, comprador: 'Lu Toia',   medioPago: 'Efectivo', pagado: true,  entregado: true,  fechaEstPago: '' },
+      { id: 1744066006, fecha: '2025-04-08', formato: 500, cantidad: 1, precio: 6500, comprador: 'Ale',       medioPago: 'Efectivo', pagado: true,  entregado: true,  fechaEstPago: '' },
+      { id: 1744066007, fecha: '2025-04-08', formato: 500, cantidad: 1, precio: 6500, comprador: 'Juani',     medioPago: 'Efectivo', pagado: false, entregado: true,  fechaEstPago: '' },
+      { id: 1744066008, fecha: '2025-04-08', formato: 500, cantidad: 1, precio: 6500, comprador: 'Mili',      medioPago: 'Efectivo', pagado: true,  entregado: true,  fechaEstPago: '' },
+      // 250g @ $3600
+      { id: 1744066009, fecha: '2025-04-08', formato: 250, cantidad: 1, precio: 3600, comprador: 'Jose',      medioPago: 'Efectivo', pagado: true,  entregado: true,  fechaEstPago: '' },
+      // 300g @ $4500
+      { id: 1744066010, fecha: '2025-04-08', formato: 300, cantidad: 1, precio: 4500, comprador: 'Vicki',     medioPago: 'Efectivo', pagado: true,  entregado: true,  fechaEstPago: '' },
+      { id: 1744066011, fecha: '2025-04-08', formato: 300, cantidad: 1, precio: 4500, comprador: 'Tizi',      medioPago: 'Efectivo', pagado: true,  entregado: true,  fechaEstPago: '' },
+      { id: 1744066012, fecha: '2025-04-08', formato: 300, cantidad: 1, precio: 4500, comprador: 'Pili',      medioPago: 'Efectivo', pagado: true,  entregado: true,  fechaEstPago: '' },
+      { id: 1744066013, fecha: '2025-04-08', formato: 300, cantidad: 1, precio: 4500, comprador: 'Rena',      medioPago: 'Efectivo', pagado: true,  entregado: true,  fechaEstPago: '' },
+      { id: 1744066014, fecha: '2025-04-08', formato: 300, cantidad: 1, precio: 4500, comprador: 'Yas',       medioPago: 'Efectivo', pagado: true,  entregado: true,  fechaEstPago: '' },
+      { id: 1744066015, fecha: '2025-04-08', formato: 300, cantidad: 1, precio: 4500, comprador: 'Lo',        medioPago: 'Efectivo', pagado: false, entregado: true,  fechaEstPago: '' },
+      { id: 1744066016, fecha: '2025-04-08', formato: 300, cantidad: 1, precio: 4500, comprador: 'Abri',      medioPago: 'Efectivo', pagado: false, entregado: true,  fechaEstPago: '' },
+      { id: 1744066017, fecha: '2025-04-08', formato: 300, cantidad: 1, precio: 4500, comprador: 'Valen',     medioPago: 'Efectivo', pagado: false, entregado: true,  fechaEstPago: '' },
+    ];
+    state.ventas = ventasIniciales;
+    guardarEnStorage(KEYS.ventas, state.ventas);
+  }
 }
 
 function guardarEnStorage(key, data) {
@@ -1140,6 +1599,14 @@ function guardarEnStorage(key, data) {
 
 function esPrimeraVez() {
   return !localStorage.getItem(KEYS.producciones) && !localStorage.getItem(KEYS.ventas);
+}
+
+function getRecetaActiva() {
+  return state.recetas.find(r => r.id === state.recetaActivaId) || state.recetas[0] || null;
+}
+
+function getRecetaPorId(id) {
+  return state.recetas.find(r => r.id === id) || null;
 }
 
 /* =====================================================
@@ -1153,6 +1620,7 @@ const SECTION_TITLES = {
   ventas: 'Ventas',
   materiaprima: 'Materia Prima',
   compras: 'Compras',
+  finanzas: 'Finanzas',
 };
 
 function navTo(sectionId) {
@@ -1213,6 +1681,7 @@ function renderSection(id) {
   else if (id === 'ventas') renderVentas();
   else if (id === 'materiaprima') renderMateriaprima();
   else if (id === 'compras') renderCompras();
+  else if (id === 'finanzas') renderFinanzas();
 }
 
 /* =====================================================
@@ -1262,9 +1731,11 @@ function cerrarModal(id) {
    CÁLCULOS DE RECETA
    ===================================================== */
 
-function getPesoTanda() {
-  return state.receta.ingredientes.reduce((s, i) => s + Number(i.gramos), 0);
+function getPesoTandaReceta(r) {
+  if (!r) return 0;
+  return r.ingredientes.reduce((s, i) => s + Number(i.gramos), 0);
 }
+function getPesoTanda() { return getPesoTandaReceta(getRecetaActiva()); }
 
 function getBolsas(pesoTanda, formato) {
   return Math.floor(pesoTanda / formato);
@@ -1274,29 +1745,33 @@ function getCostoIngrediente(ing) {
   return (Number(ing.gramos) / 1000) * Number(ing.precioPorKg);
 }
 
-function getCostoTotalIngredientes() {
-  return state.receta.ingredientes.reduce((s, i) => s + getCostoIngrediente(i), 0);
+function getCostoTotalIngredientesReceta(r) {
+  if (!r) return 0;
+  return r.ingredientes.reduce((s, i) => s + getCostoIngrediente(i), 0);
 }
+function getCostoTotalIngredientes() { return getCostoTotalIngredientesReceta(getRecetaActiva()); }
 
-function getCostoEmpaque() {
-  return Number(state.receta.empaque.etiquetas) + Number(state.receta.empaque.bolsas);
+function getCostoEmpaquePorBolsa(r) {
+  if (!r) return 0;
+  const emp = r.empaque;
+  const cEt = emp.unidadesEtiquetas > 0 ? emp.precioEtiquetas / emp.unidadesEtiquetas : 0;
+  const cBol = emp.unidadesBolsas > 0 ? emp.precioBolsas / emp.unidadesBolsas : 0;
+  return cEt + cBol;
 }
+function getCostoEmpaque() { return getCostoEmpaquePorBolsa(getRecetaActiva()); }
 
-function getCostoPor250(pesoTanda) {
-  const bolsas = getBolsas(pesoTanda, 250);
+function getCostoPorFormato(formato, receta) {
+  const r = receta || getRecetaActiva();
+  if (!r) return 0;
+  const pesoTanda = getPesoTandaReceta(r);
+  const bolsas = getBolsas(pesoTanda, formato);
   if (!bolsas) return 0;
-  const subtotal = getCostoTotalIngredientes();
-  const totalEmpaque = bolsas * getCostoEmpaque();
-  return (subtotal + totalEmpaque) / bolsas;
+  const subtotal = getCostoTotalIngredientesReceta(r);
+  return (subtotal + bolsas * getCostoEmpaquePorBolsa(r)) / bolsas;
 }
-
-function getCostoPor500(pesoTanda) {
-  const bolsas = getBolsas(pesoTanda, 500);
-  if (!bolsas) return 0;
-  const subtotal = getCostoTotalIngredientes();
-  const totalEmpaque = bolsas * getCostoEmpaque();
-  return (subtotal + totalEmpaque) / bolsas;
-}
+function getCostoPor250(pt, r) { return getCostoPorFormato(250, r); }
+function getCostoPor300(pt, r) { return getCostoPorFormato(300, r); }
+function getCostoPor500(pt, r) { return getCostoPorFormato(500, r); }
 
 /* =====================================================
    STOCK CALCULADO
@@ -1304,29 +1779,39 @@ function getCostoPor500(pesoTanda) {
 
 function getStockCalculado() {
   const stock = {};
-  state.receta.ingredientes.forEach(i => {
-    const inicial = state.stockFisico[i.nombre] || 0;
+  // Recopilar todos los ingredientes de todas las recetas, compras y stockFisico
+  const nombres = new Set();
+  state.recetas.forEach(r => r.ingredientes.forEach(i => nombres.add(i.nombre)));
+  Object.keys(state.stockFisico).forEach(k => nombres.add(k));
+  state.comprasMp.forEach(c => nombres.add(c.ingrediente));
+  nombres.forEach(nombre => {
+    const inicial = state.stockFisico[nombre] || 0;
     const comprado = state.comprasMp
-      .filter(c => c.ingrediente === i.nombre)
+      .filter(c => c.ingrediente === nombre)
       .reduce((s, c) => s + Number(c.cantidad), 0);
-    const consumido = state.producciones
-      .reduce((s, p) => s + (Number(p.tandas) * Number(i.gramos)), 0);
-    stock[i.nombre] = inicial + comprado - consumido;
+    // Usa ingredientesUsados para cálculo preciso cross-receta
+    const consumido = state.producciones.reduce((s, p) => {
+      const iu = (p.ingredientesUsados || []).find(x => x.nombre === nombre);
+      return s + (iu ? Number(iu.gramos) : 0);
+    }, 0);
+    stock[nombre] = inicial + comprado - consumido;
   });
   return stock;
 }
 
 function getInventarioProducto() {
-  let b250 = 0, b500 = 0;
+  let b250 = 0, b300 = 0, b500 = 0;
   state.producciones.forEach(p => {
-    b250 += Number(p.bolsas250);
-    b500 += Number(p.bolsas500);
+    b250 += Number(p.bolsas250 || 0);
+    b300 += Number(p.bolsas300 || 0);
+    b500 += Number(p.bolsas500 || 0);
   });
   state.ventas.forEach(v => {
     if (Number(v.formato) === 250) b250 -= Number(v.cantidad);
+    else if (Number(v.formato) === 300) b300 -= Number(v.cantidad);
     else b500 -= Number(v.cantidad);
   });
-  return { b250, b500 };
+  return { b250, b300, b500 };
 }
 
 /* =====================================================
@@ -1341,10 +1826,8 @@ function renderDashboard() {
 }
 
 function getKPIsmes() {
-  const hoyDate = new Date();
-  const mes = hoyDate.getMonth();
-  const anio = hoyDate.getFullYear();
-
+  const ahora = new Date();
+  const mes = ahora.getMonth(), anio = ahora.getFullYear();
   const prodMes = state.producciones.filter(p => {
     const d = new Date(p.fecha + 'T12:00:00');
     return d.getMonth() === mes && d.getFullYear() === anio;
@@ -1353,22 +1836,20 @@ function getKPIsmes() {
     const d = new Date(v.fecha + 'T12:00:00');
     return d.getMonth() === mes && d.getFullYear() === anio;
   });
-
   const tandas = prodMes.reduce((s, p) => s + Number(p.tandas), 0);
   const v250 = ventasMes.filter(v => Number(v.formato) === 250).reduce((s, v) => s + Number(v.cantidad), 0);
+  const v300 = ventasMes.filter(v => Number(v.formato) === 300).reduce((s, v) => s + Number(v.cantidad), 0);
   const v500 = ventasMes.filter(v => Number(v.formato) === 500).reduce((s, v) => s + Number(v.cantidad), 0);
-  const ingresos = ventasMes.reduce((s, v) => s + (Number(v.cantidad) * Number(v.precio)), 0);
-
-  const pesoTanda = getPesoTanda();
-  const costo250 = getCostoPor250(pesoTanda);
-  const costo500 = getCostoPor500(pesoTanda);
+  const ingresos = ventasMes.reduce((s, v) => s + Number(v.cantidad) * Number(v.precio), 0);
+  const r = getRecetaActiva();
+  const c250 = getCostoPorFormato(250, r), c300 = getCostoPorFormato(300, r), c500 = getCostoPorFormato(500, r);
   const costo = ventasMes.reduce((s, v) => {
-    return s + (Number(v.cantidad) * (Number(v.formato) === 250 ? costo250 : costo500));
+    const f = Number(v.formato);
+    return s + Number(v.cantidad) * (f === 250 ? c250 : f === 300 ? c300 : c500);
   }, 0);
   const ganancia = ingresos - costo;
   const margen = ingresos > 0 ? (ganancia / ingresos * 100) : 0;
-
-  return { tandas, v250, v500, ingresos, ganancia, margen };
+  return { tandas, v250, v300, v500, ingresos, ganancia, margen };
 }
 
 function renderKPIs() {
@@ -1376,6 +1857,7 @@ function renderKPIs() {
   const items = [
     { label: 'Tandas del mes', value: k.tandas },
     { label: 'Bolsas 250g vendidas', value: k.v250 },
+    { label: 'Bolsas 300g vendidas', value: k.v300 },
     { label: 'Bolsas 500g vendidas', value: k.v500 },
     { label: 'Ingresos del mes', value: fmtPeso(k.ingresos) },
     { label: 'Ganancia del mes', value: fmtPeso(k.ganancia) },
@@ -1441,24 +1923,20 @@ function renderChart() {
 function renderAlertas() {
   const stock = getStockCalculado();
   const inv = getInventarioProducto();
-  const pesoTanda = getPesoTanda();
   const kpis = getKPIsmes();
+  const r = getRecetaActiva();
   let html = '';
-
-  // Stock crítico (0 o negativo)
-  state.receta.ingredientes.forEach(ing => {
-    const s = stock[ing.nombre] || 0;
-    if (s <= 0) {
-      html += `<div class="alert alert-rojo">🚨 <strong>${ing.nombre}</strong>: sin stock</div>`;
-    } else if (s < ing.gramos) {
-      html += `<div class="alert alert-amarillo">⚠️ <strong>${ing.nombre}</strong>: stock bajo (${fmt(s)}g)</div>`;
-    }
-  });
-
+  if (r) {
+    r.ingredientes.forEach(ing => {
+      const s = stock[ing.nombre] || 0;
+      if (s <= 0) html += `<div class="alert alert-rojo">🚨 <strong>${ing.nombre}</strong>: sin stock</div>`;
+      else if (s < ing.gramos) html += `<div class="alert alert-amarillo">⚠️ <strong>${ing.nombre}</strong>: stock bajo (${fmt(s)}g)</div>`;
+    });
+  }
   if (inv.b250 < 3) html += `<div class="alert alert-amarillo">⚠️ Poco stock de bolsas 250g (${inv.b250} unidades)</div>`;
+  if (inv.b300 > 0 && inv.b300 < 3) html += `<div class="alert alert-amarillo">⚠️ Poco stock de bolsas 300g (${inv.b300} unidades)</div>`;
   if (inv.b500 < 3) html += `<div class="alert alert-amarillo">⚠️ Poco stock de bolsas 500g (${inv.b500} unidades)</div>`;
   if (kpis.margen < 20 && kpis.ingresos > 0) html += `<div class="alert alert-rojo">📉 Margen bajo: ${fmt(kpis.margen, 1)}%</div>`;
-
   if (!html) html = `<div class="alert alert-verde">✅ Todo en orden, sin alertas activas</div>`;
   document.getElementById('alertas-panel').innerHTML = html;
 }
@@ -1466,17 +1944,11 @@ function renderAlertas() {
 function renderInvProductoDash() {
   const inv = getInventarioProducto();
   document.getElementById('inv-producto-dash').innerHTML = `
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-      <div class="receta-stat">
-        <div class="val">${inv.b250}</div>
-        <div class="lbl">Bolsas 250g</div>
-      </div>
-      <div class="receta-stat">
-        <div class="val">${inv.b500}</div>
-        <div class="lbl">Bolsas 500g</div>
-      </div>
-    </div>
-  `;
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+      <div class="receta-stat"><div class="val">${inv.b250}</div><div class="lbl">Bolsas 250g</div></div>
+      <div class="receta-stat"><div class="val">${inv.b300}</div><div class="lbl">Bolsas 300g</div></div>
+      <div class="receta-stat"><div class="val">${inv.b500}</div><div class="lbl">Bolsas 500g</div></div>
+    </div>`;
 }
 
 /* =====================================================
@@ -1484,122 +1956,387 @@ function renderInvProductoDash() {
    ===================================================== */
 
 function renderReceta() {
-  const r = state.receta;
-  const pesoTanda = getPesoTanda();
+  renderRecetaTabs();
+  renderRecetaContenido();
+}
+
+function renderRecetaTabs() {
+  const bar = document.getElementById('receta-tabs-bar');
+  const tabs = state.recetas.map(r => `
+    <button class="receta-tab${r.id === state.recetaActivaId ? ' active' : ''}" onclick="setRecetaActiva('${r.id}')">${r.nombre}</button>
+  `).join('');
+  bar.innerHTML = tabs + `<button class="receta-tab receta-tab-nueva" onclick="abrirModalNuevaReceta()">+ Nueva receta</button>`;
+}
+
+function setRecetaActiva(id) {
+  state.recetaActivaId = id;
+  guardarEnStorage(KEYS.recetaActivaId, id);
+  renderRecetaTabs();
+  renderRecetaContenido();
+}
+
+function renderRecetaContenido() {
+  const r = getRecetaActiva();
+  const contenido = document.getElementById('receta-contenido');
+  if (!r) {
+    contenido.innerHTML = '<p>No hay recetas. Creá una con el botón "+ Nueva receta".</p>';
+    return;
+  }
+
+  const pesoTanda = getPesoTandaReceta(r);
   const bolsas250 = getBolsas(pesoTanda, 250);
+  const bolsas300 = getBolsas(pesoTanda, 300);
   const bolsas500 = getBolsas(pesoTanda, 500);
-  const costoIngredientes = getCostoTotalIngredientes();
-  const costoEmpaque = getCostoEmpaque();
 
-  // Fill empaque inputs
-  document.getElementById('emp-etiqueta').value = r.empaque.etiquetas;
-  document.getElementById('emp-bolsa').value = r.empaque.bolsas;
-  document.getElementById('precio-250').value = state.preciosVenta.precio250;
-  document.getElementById('precio-500').value = state.preciosVenta.precio500;
+  const costoIngredientes = r.ingredientes.reduce((s, ing) => s + ing.gramos * ing.precioPorKg / 1000, 0);
+  const costoEmpByFmt = (fmt_) => getCostoEmpaquePorBolsa(r);
 
-  // Last saved
-  const ls = localStorage.getItem(KEYS.ultimoGuardadoReceta);
-  document.getElementById('receta-last-saved').textContent = ls ? 'Último guardado: ' + ls : '';
-
-  // Table
   const rows = r.ingredientes.map((ing, idx) => {
     const pct = pesoTanda > 0 ? (ing.gramos / pesoTanda * 100).toFixed(1) : 0;
-    const costoTanda = getCostoIngrediente(ing);
-    const cost250 = bolsas250 > 0 ? (costoTanda / bolsas250).toFixed(0) : '-';
-    const cost500 = bolsas500 > 0 ? (costoTanda / bolsas500).toFixed(0) : '-';
+    const costoTanda = ing.gramos * ing.precioPorKg / 1000;
+    const c250 = bolsas250 > 0 ? fmtPeso((costoTanda / bolsas250).toFixed(0)) : '-';
+    const c300 = bolsas300 > 0 ? fmtPeso((costoTanda / bolsas300).toFixed(0)) : '-';
+    const c500 = bolsas500 > 0 ? fmtPeso((costoTanda / bolsas500).toFixed(0)) : '-';
     return `<tr>
-      <td><strong>${ing.nombre}</strong></td>
+      <td><input type="text" value="${ing.nombre}" data-idx="${idx}" data-field="nombre" class="rec-input" oninput="onRecetaNombreInput(this)"></td>
       <td><input type="number" min="0" value="${ing.gramos}" data-idx="${idx}" data-field="gramos" class="rec-input" oninput="onRecetaInput(this)"></td>
-      <td>${pct}%</td>
+      <td id="rec-pct-${idx}">${pct}%</td>
       <td><input type="number" min="0" step="0.01" value="${ing.precioPorKg}" data-idx="${idx}" data-field="precioPorKg" class="rec-input" oninput="onRecetaInput(this)"></td>
-      <td>${fmtPeso(costoTanda)}</td>
-      <td>${bolsas250 > 0 ? fmtPeso(cost250) : '-'}</td>
-      <td>${bolsas500 > 0 ? fmtPeso(cost500) : '-'}</td>
+      <td id="rec-costo-${idx}">${fmtPeso(costoTanda)}</td>
+      <td id="rec-c250-${idx}">${c250}</td>
+      <td id="rec-c300-${idx}">${c300}</td>
+      <td id="rec-c500-${idx}">${c500}</td>
+      <td><button class="btn-icon" onclick="eliminarIngrediente(${idx})" title="Eliminar">✕</button></td>
     </tr>`;
   }).join('');
 
-  const totalCosto250 = bolsas250 > 0 ? getCostoPor250(pesoTanda) : 0;
-  const totalCosto500 = bolsas500 > 0 ? getCostoPor500(pesoTanda) : 0;
+  const totalC250 = bolsas250 > 0 ? fmtPeso((costoIngredientes / bolsas250).toFixed(0)) : '-';
+  const totalC300 = bolsas300 > 0 ? fmtPeso((costoIngredientes / bolsas300).toFixed(0)) : '-';
+  const totalC500 = bolsas500 > 0 ? fmtPeso((costoIngredientes / bolsas500).toFixed(0)) : '-';
 
-  document.getElementById('receta-table').innerHTML = `
-    <thead><tr>
-      <th>Ingrediente</th><th>Gramos/tanda</th><th>% del total</th>
-      <th>Precio/kg ($)</th><th>Costo/tanda</th><th>Costo/250g</th><th>Costo/500g</th>
-    </tr></thead>
-    <tbody>
-      ${rows}
-      <tr class="total-row">
-        <td><strong>TOTAL</strong></td>
-        <td><strong>${fmt(pesoTanda)} gr</strong></td>
-        <td>100%</td>
-        <td>—</td>
-        <td><strong>${fmtPeso(costoIngredientes)}</strong></td>
-        <td><strong>${bolsas250 > 0 ? fmtPeso((costoIngredientes/bolsas250).toFixed(0)) : '-'}</strong></td>
-        <td><strong>${bolsas500 > 0 ? fmtPeso((costoIngredientes/bolsas500).toFixed(0)) : '-'}</strong></td>
-      </tr>
-    </tbody>
+  const costoEmp = getCostoEmpaquePorBolsa(r);
+  const ct250 = bolsas250 > 0 ? getCostoPorFormato(250, r) : 0;
+  const ct300 = bolsas300 > 0 ? getCostoPorFormato(300, r) : 0;
+  const ct500 = bolsas500 > 0 ? getCostoPorFormato(500, r) : 0;
+
+  function margenBadge(precio, costo) {
+    if (!precio || !costo) return '-';
+    const m = ((precio - costo) / precio * 100).toFixed(1);
+    const cls = m > 30 ? 'badge-verde' : m > 15 ? 'badge-amarillo' : 'badge-rojo';
+    return `<span class="badge ${cls}">${m}%</span>`;
+  }
+
+  contenido.innerHTML = `
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+      <input type="text" id="receta-nombre-input" value="${r.nombre}" style="font-size:18px;font-weight:700;border:none;border-bottom:2px solid var(--verde);background:transparent;padding:4px 8px;width:260px;" oninput="onRecetaNombreTabInput(this)">
+      ${state.recetas.length > 1 ? `<button class="btn btn-outline" onclick="eliminarRecetaActiva()" style="color:var(--rojo,#c0392b);border-color:var(--rojo,#c0392b);">Eliminar receta</button>` : ''}
+      <span id="receta-last-saved" style="margin-left:auto;font-size:12px;color:#888;"></span>
+    </div>
+
+    <div class="card" style="margin-bottom:20px;">
+      <div class="card-header"><h3>Ingredientes</h3></div>
+      <div style="overflow-x:auto;">
+        <table class="receta-table" id="receta-table-el">
+          <thead><tr>
+            <th>Ingrediente</th><th>Gramos/tanda</th><th>%</th>
+            <th>Precio/kg ($)</th><th>Costo/tanda</th><th>Costo/250g</th><th>Costo/300g</th><th>Costo/500g</th><th></th>
+          </tr></thead>
+          <tbody>
+            ${rows}
+            <tr class="total-row">
+              <td><strong>TOTAL</strong></td>
+              <td id="rec-total-peso"><strong>${fmt(pesoTanda)} gr</strong></td>
+              <td>100%</td><td>—</td>
+              <td id="rec-total-costo"><strong>${fmtPeso(costoIngredientes)}</strong></td>
+              <td id="rec-total-c250"><strong>${totalC250}</strong></td>
+              <td id="rec-total-c300"><strong>${totalC300}</strong></td>
+              <td id="rec-total-c500"><strong>${totalC500}</strong></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <button class="btn btn-outline" style="margin-top:12px;" onclick="agregarIngrediente()">+ Agregar ingrediente</button>
+    </div>
+
+    <div class="card" style="margin-bottom:20px;">
+      <div class="card-header"><h3>Resumen de tanda</h3></div>
+      <div id="receta-summary" style="display:flex;gap:16px;flex-wrap:wrap;">
+        <div class="receta-stat"><div class="val">${fmt(pesoTanda)}</div><div class="lbl">Gramos/tanda</div></div>
+        <div class="receta-stat"><div class="val">${bolsas250}</div><div class="lbl">Bolsas 250g</div></div>
+        <div class="receta-stat"><div class="val">${bolsas300}</div><div class="lbl">Bolsas 300g</div></div>
+        <div class="receta-stat"><div class="val">${bolsas500}</div><div class="lbl">Bolsas 500g</div></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:20px;">
+      <div class="card-header"><h3>Empaque</h3></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;">
+        <div class="form-group"><label>Precio etiquetas ($)</label><input type="number" id="emp-prec-et" value="${r.empaque.precioEtiquetas}" oninput="recalcularReceta()"></div>
+        <div class="form-group"><label>Unidades etiquetas</label><input type="number" id="emp-uni-et" value="${r.empaque.unidadesEtiquetas}" oninput="recalcularReceta()"></div>
+        <div class="form-group"><label>Precio bolsas ($)</label><input type="number" id="emp-prec-bol" value="${r.empaque.precioBolsas}" oninput="recalcularReceta()"></div>
+        <div class="form-group"><label>Unidades bolsas</label><input type="number" id="emp-uni-bol" value="${r.empaque.unidadesBolsas}" oninput="recalcularReceta()"></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:20px;">
+      <div class="card-header"><h3>Precios de venta</h3></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;">
+        <div class="form-group"><label>Precio bolsa 250g ($)</label><input type="number" id="precio-250" value="${r.precioVenta250}" oninput="guardarPreciosVenta()"></div>
+        <div class="form-group"><label>Precio bolsa 300g ($)</label><input type="number" id="precio-300" value="${r.precioVenta300}" oninput="guardarPreciosVenta()"></div>
+        <div class="form-group"><label>Precio bolsa 500g ($)</label><input type="number" id="precio-500" value="${r.precioVenta500}" oninput="guardarPreciosVenta()"></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:20px;">
+      <div class="card-header"><h3>Costos y márgenes</h3></div>
+      <div id="receta-costos">
+        <table>
+          <thead><tr><th>Concepto</th><th>Bolsa 250g</th><th>Bolsa 300g</th><th>Bolsa 500g</th></tr></thead>
+          <tbody>
+            <tr><td>Costo ingredientes</td>
+              <td>${bolsas250>0?fmtPeso((costoIngredientes/bolsas250).toFixed(0)):'-'}</td>
+              <td>${bolsas300>0?fmtPeso((costoIngredientes/bolsas300).toFixed(0)):'-'}</td>
+              <td>${bolsas500>0?fmtPeso((costoIngredientes/bolsas500).toFixed(0)):'-'}</td>
+            </tr>
+            <tr><td>Empaque</td><td>${fmtPeso(costoEmp)}</td><td>${fmtPeso(costoEmp)}</td><td>${fmtPeso(costoEmp)}</td></tr>
+            <tr class="total-row"><td><strong>Costo total</strong></td>
+              <td><strong>${ct250>0?fmtPeso(ct250.toFixed(0)):'-'}</strong></td>
+              <td><strong>${ct300>0?fmtPeso(ct300.toFixed(0)):'-'}</strong></td>
+              <td><strong>${ct500>0?fmtPeso(ct500.toFixed(0)):'-'}</strong></td>
+            </tr>
+            <tr><td>Precio venta</td>
+              <td>${fmtPeso(r.precioVenta250)}</td>
+              <td>${fmtPeso(r.precioVenta300)}</td>
+              <td>${fmtPeso(r.precioVenta500)}</td>
+            </tr>
+            <tr><td><strong>Ganancia/bolsa</strong></td>
+              <td style="color:var(--verde);font-weight:800;">${ct250>0?fmtPeso((r.precioVenta250-ct250).toFixed(0)):'-'}</td>
+              <td style="color:var(--verde);font-weight:800;">${ct300>0?fmtPeso((r.precioVenta300-ct300).toFixed(0)):'-'}</td>
+              <td style="color:var(--verde);font-weight:800;">${ct500>0?fmtPeso((r.precioVenta500-ct500).toFixed(0)):'-'}</td>
+            </tr>
+            <tr><td>Margen</td>
+              <td>${margenBadge(r.precioVenta250, ct250)}</td>
+              <td>${margenBadge(r.precioVenta300, ct300)}</td>
+              <td>${margenBadge(r.precioVenta500, ct500)}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+      <button class="btn btn-primary" onclick="guardarReceta()">Guardar receta</button>
+    </div>
   `;
 
-  // Summary
-  document.getElementById('receta-summary').innerHTML = `
+  const ls = localStorage.getItem('pinut_receta_guardada_' + r.id);
+  const lsEl = document.getElementById('receta-last-saved');
+  if (lsEl) lsEl.textContent = ls ? 'Último guardado: ' + ls : '';
+}
+
+function onRecetaNombreTabInput(el) {
+  const r = getRecetaActiva();
+  if (!r) return;
+  r.nombre = el.value;
+  // Update tab label without full re-render
+  const tabs = document.querySelectorAll('.receta-tab');
+  const idx = state.recetas.findIndex(x => x.id === state.recetaActivaId);
+  if (tabs[idx]) tabs[idx].textContent = el.value;
+}
+
+function onRecetaNombreInput(el) {
+  const r = getRecetaActiva();
+  if (!r) return;
+  const idx = Number(el.dataset.idx);
+  r.ingredientes[idx].nombre = el.value;
+  // Update the text cells that show nombre (none in new design, nombre is in input)
+}
+
+function onRecetaInput(el) {
+  const r = getRecetaActiva();
+  if (!r) return;
+  const idx = Number(el.dataset.idx);
+  const field = el.dataset.field;
+  r.ingredientes[idx][field] = Number(el.value);
+  recalcularReceta();
+}
+
+function recalcularReceta() {
+  const r = getRecetaActiva();
+  if (!r) return;
+  const precEt = document.getElementById('emp-prec-et');
+  const uniEt = document.getElementById('emp-uni-et');
+  const precBol = document.getElementById('emp-prec-bol');
+  const uniBol = document.getElementById('emp-uni-bol');
+  if (precEt) r.empaque.precioEtiquetas = Number(precEt.value) || 0;
+  if (uniEt) r.empaque.unidadesEtiquetas = Number(uniEt.value) || 0;
+  if (precBol) r.empaque.precioBolsas = Number(precBol.value) || 0;
+  if (uniBol) r.empaque.unidadesBolsas = Number(uniBol.value) || 0;
+  actualizarCalculosReceta();
+}
+
+function actualizarCalculosReceta() {
+  const r = getRecetaActiva();
+  if (!r) return;
+  const pesoTanda = getPesoTandaReceta(r);
+  const bolsas250 = getBolsas(pesoTanda, 250);
+  const bolsas300 = getBolsas(pesoTanda, 300);
+  const bolsas500 = getBolsas(pesoTanda, 500);
+  const costoIngredientes = r.ingredientes.reduce((s, ing) => s + ing.gramos * ing.precioPorKg / 1000, 0);
+  const costoEmp = getCostoEmpaquePorBolsa(r);
+  const ct250 = bolsas250 > 0 ? getCostoPorFormato(250, r) : 0;
+  const ct300 = bolsas300 > 0 ? getCostoPorFormato(300, r) : 0;
+  const ct500 = bolsas500 > 0 ? getCostoPorFormato(500, r) : 0;
+
+  // Update per-row calculated cells
+  r.ingredientes.forEach((ing, idx) => {
+    const pct = pesoTanda > 0 ? (ing.gramos / pesoTanda * 100).toFixed(1) : 0;
+    const costoTanda = ing.gramos * ing.precioPorKg / 1000;
+    const elPct = document.getElementById('rec-pct-' + idx);
+    const elCosto = document.getElementById('rec-costo-' + idx);
+    const elC250 = document.getElementById('rec-c250-' + idx);
+    const elC300 = document.getElementById('rec-c300-' + idx);
+    const elC500 = document.getElementById('rec-c500-' + idx);
+    if (elPct) elPct.textContent = pct + '%';
+    if (elCosto) elCosto.textContent = fmtPeso(costoTanda);
+    if (elC250) elC250.textContent = bolsas250 > 0 ? fmtPeso((costoTanda / bolsas250).toFixed(0)) : '-';
+    if (elC300) elC300.textContent = bolsas300 > 0 ? fmtPeso((costoTanda / bolsas300).toFixed(0)) : '-';
+    if (elC500) elC500.textContent = bolsas500 > 0 ? fmtPeso((costoTanda / bolsas500).toFixed(0)) : '-';
+  });
+
+  // Update total row
+  const elTotalPeso = document.getElementById('rec-total-peso');
+  const elTotalCosto = document.getElementById('rec-total-costo');
+  const elTotalC250 = document.getElementById('rec-total-c250');
+  const elTotalC300 = document.getElementById('rec-total-c300');
+  const elTotalC500 = document.getElementById('rec-total-c500');
+  if (elTotalPeso) elTotalPeso.innerHTML = `<strong>${fmt(pesoTanda)} gr</strong>`;
+  if (elTotalCosto) elTotalCosto.innerHTML = `<strong>${fmtPeso(costoIngredientes)}</strong>`;
+  if (elTotalC250) elTotalC250.innerHTML = `<strong>${bolsas250 > 0 ? fmtPeso((costoIngredientes/bolsas250).toFixed(0)) : '-'}</strong>`;
+  if (elTotalC300) elTotalC300.innerHTML = `<strong>${bolsas300 > 0 ? fmtPeso((costoIngredientes/bolsas300).toFixed(0)) : '-'}</strong>`;
+  if (elTotalC500) elTotalC500.innerHTML = `<strong>${bolsas500 > 0 ? fmtPeso((costoIngredientes/bolsas500).toFixed(0)) : '-'}</strong>`;
+
+  // Update summary
+  const sumEl = document.getElementById('receta-summary');
+  if (sumEl) sumEl.innerHTML = `
     <div class="receta-stat"><div class="val">${fmt(pesoTanda)}</div><div class="lbl">Gramos/tanda</div></div>
     <div class="receta-stat"><div class="val">${bolsas250}</div><div class="lbl">Bolsas 250g</div></div>
+    <div class="receta-stat"><div class="val">${bolsas300}</div><div class="lbl">Bolsas 300g</div></div>
     <div class="receta-stat"><div class="val">${bolsas500}</div><div class="lbl">Bolsas 500g</div></div>
   `;
 
-  // Costos
-  const margen250 = state.preciosVenta.precio250 > 0
-    ? ((state.preciosVenta.precio250 - totalCosto250) / state.preciosVenta.precio250 * 100).toFixed(1) : 0;
-  const margen500 = state.preciosVenta.precio500 > 0
-    ? ((state.preciosVenta.precio500 - totalCosto500) / state.preciosVenta.precio500 * 100).toFixed(1) : 0;
-
-  document.getElementById('receta-costos').innerHTML = `
+  // Update costos table
+  function margenBadge(precio, costo) {
+    if (!precio || !costo) return '-';
+    const m = ((precio - costo) / precio * 100).toFixed(1);
+    const cls = m > 30 ? 'badge-verde' : m > 15 ? 'badge-amarillo' : 'badge-rojo';
+    return `<span class="badge ${cls}">${m}%</span>`;
+  }
+  const costosEl = document.getElementById('receta-costos');
+  if (costosEl) costosEl.innerHTML = `
     <table>
-      <thead><tr><th>Concepto</th><th>Bolsa 250g</th><th>Bolsa 500g</th></tr></thead>
+      <thead><tr><th>Concepto</th><th>Bolsa 250g</th><th>Bolsa 300g</th><th>Bolsa 500g</th></tr></thead>
       <tbody>
-        <tr><td>Costo ingredientes</td><td>${bolsas250>0?fmtPeso((costoIngredientes/bolsas250).toFixed(0)):'-'}</td><td>${bolsas500>0?fmtPeso((costoIngredientes/bolsas500).toFixed(0)):'-'}</td></tr>
-        <tr><td>Empaque</td><td>${fmtPeso(costoEmpaque)}</td><td>${fmtPeso(costoEmpaque)}</td></tr>
-        <tr class="total-row"><td><strong>Costo total</strong></td><td><strong>${fmtPeso(totalCosto250.toFixed(0))}</strong></td><td><strong>${fmtPeso(totalCosto500.toFixed(0))}</strong></td></tr>
-        <tr><td>Precio venta</td><td>${fmtPeso(state.preciosVenta.precio250)}</td><td>${fmtPeso(state.preciosVenta.precio500)}</td></tr>
+        <tr><td>Costo ingredientes</td>
+          <td>${bolsas250>0?fmtPeso((costoIngredientes/bolsas250).toFixed(0)):'-'}</td>
+          <td>${bolsas300>0?fmtPeso((costoIngredientes/bolsas300).toFixed(0)):'-'}</td>
+          <td>${bolsas500>0?fmtPeso((costoIngredientes/bolsas500).toFixed(0)):'-'}</td>
+        </tr>
+        <tr><td>Empaque</td><td>${fmtPeso(costoEmp)}</td><td>${fmtPeso(costoEmp)}</td><td>${fmtPeso(costoEmp)}</td></tr>
+        <tr class="total-row"><td><strong>Costo total</strong></td>
+          <td><strong>${ct250>0?fmtPeso(ct250.toFixed(0)):'-'}</strong></td>
+          <td><strong>${ct300>0?fmtPeso(ct300.toFixed(0)):'-'}</strong></td>
+          <td><strong>${ct500>0?fmtPeso(ct500.toFixed(0)):'-'}</strong></td>
+        </tr>
+        <tr><td>Precio venta</td>
+          <td>${fmtPeso(r.precioVenta250)}</td>
+          <td>${fmtPeso(r.precioVenta300)}</td>
+          <td>${fmtPeso(r.precioVenta500)}</td>
+        </tr>
         <tr><td><strong>Ganancia/bolsa</strong></td>
-          <td style="color:var(--verde);font-weight:800;">${fmtPeso((state.preciosVenta.precio250-totalCosto250).toFixed(0))}</td>
-          <td style="color:var(--verde);font-weight:800;">${fmtPeso((state.preciosVenta.precio500-totalCosto500).toFixed(0))}</td>
+          <td style="color:var(--verde);font-weight:800;">${ct250>0?fmtPeso((r.precioVenta250-ct250).toFixed(0)):'-'}</td>
+          <td style="color:var(--verde);font-weight:800;">${ct300>0?fmtPeso((r.precioVenta300-ct300).toFixed(0)):'-'}</td>
+          <td style="color:var(--verde);font-weight:800;">${ct500>0?fmtPeso((r.precioVenta500-ct500).toFixed(0)):'-'}</td>
         </tr>
         <tr><td>Margen</td>
-          <td><span class="badge ${margen250>30?'badge-verde':margen250>15?'badge-amarillo':'badge-rojo'}">${margen250}%</span></td>
-          <td><span class="badge ${margen500>30?'badge-verde':margen500>15?'badge-amarillo':'badge-rojo'}">${margen500}%</span></td>
+          <td>${margenBadge(r.precioVenta250, ct250)}</td>
+          <td>${margenBadge(r.precioVenta300, ct300)}</td>
+          <td>${margenBadge(r.precioVenta500, ct500)}</td>
         </tr>
       </tbody>
     </table>
   `;
 }
 
-function onRecetaInput(el) {
-  const idx = Number(el.dataset.idx);
-  const field = el.dataset.field;
-  state.receta.ingredientes[idx][field] = Number(el.value);
-  recalcularReceta();
-}
-
-function recalcularReceta() {
-  state.receta.empaque.etiquetas = Number(document.getElementById('emp-etiqueta').value) || 0;
-  state.receta.empaque.bolsas = Number(document.getElementById('emp-bolsa').value) || 0;
-  renderReceta();
+function guardarPreciosVenta() {
+  const r = getRecetaActiva();
+  if (!r) return;
+  const el250 = document.getElementById('precio-250');
+  const el300 = document.getElementById('precio-300');
+  const el500 = document.getElementById('precio-500');
+  if (el250) r.precioVenta250 = Number(el250.value) || 0;
+  if (el300) r.precioVenta300 = Number(el300.value) || 0;
+  if (el500) r.precioVenta500 = Number(el500.value) || 0;
+  actualizarCalculosReceta();
 }
 
 function guardarReceta() {
-  guardarEnStorage(KEYS.receta, state.receta);
+  const r = getRecetaActiva();
+  if (!r) return;
+  // Also read the name input
+  const nameEl = document.getElementById('receta-nombre-input');
+  if (nameEl) r.nombre = nameEl.value;
+  guardarEnStorage(KEYS.recetas, state.recetas);
   const now = new Date().toLocaleString('es-AR');
-  localStorage.setItem(KEYS.ultimoGuardadoReceta, now);
-  document.getElementById('receta-last-saved').textContent = 'Último guardado: ' + now;
+  localStorage.setItem('pinut_receta_guardada_' + r.id, now);
+  const lsEl = document.getElementById('receta-last-saved');
+  if (lsEl) lsEl.textContent = 'Último guardado: ' + now;
+  renderRecetaTabs();
   showToast('Receta guardada correctamente');
 }
 
-function guardarPreciosVenta() {
-  state.preciosVenta.precio250 = Number(document.getElementById('precio-250').value) || 0;
-  state.preciosVenta.precio500 = Number(document.getElementById('precio-500').value) || 0;
-  guardarEnStorage(KEYS.preciosVenta, state.preciosVenta);
-  recalcularReceta();
+function agregarIngrediente() {
+  const r = getRecetaActiva();
+  if (!r) return;
+  r.ingredientes.push({ nombre: 'Nuevo ingrediente', gramos: 0, precioPorKg: 0 });
+  renderRecetaContenido();
+}
+
+function eliminarIngrediente(idx) {
+  const r = getRecetaActiva();
+  if (!r) return;
+  r.ingredientes.splice(idx, 1);
+  renderRecetaContenido();
+}
+
+function abrirModalNuevaReceta() {
+  document.getElementById('nueva-receta-nombre').value = '';
+  document.getElementById('modal-nueva-receta').style.display = 'flex';
+  setTimeout(() => document.getElementById('nueva-receta-nombre').focus(), 50);
+}
+
+function confirmarNuevaReceta() {
+  const nombre = document.getElementById('nueva-receta-nombre').value.trim();
+  if (!nombre) return;
+  const nueva = crearRecetaDefault(nombre);
+  state.recetas.push(nueva);
+  state.recetaActivaId = nueva.id;
+  guardarEnStorage(KEYS.recetas, state.recetas);
+  guardarEnStorage(KEYS.recetaActivaId, state.recetaActivaId);
+  document.getElementById('modal-nueva-receta').style.display = 'none';
+  renderReceta();
+}
+
+function eliminarRecetaActiva() {
+  if (state.recetas.length <= 1) { showToast('No podés eliminar la única receta'); return; }
+  const r = getRecetaActiva();
+  if (!confirm(`¿Eliminar la receta "${r.nombre}"? Esta acción no se puede deshacer.`)) return;
+  state.recetas = state.recetas.filter(x => x.id !== state.recetaActivaId);
+  state.recetaActivaId = state.recetas[0].id;
+  guardarEnStorage(KEYS.recetas, state.recetas);
+  guardarEnStorage(KEYS.recetaActivaId, state.recetaActivaId);
+  renderReceta();
 }
 
 /* =====================================================
@@ -1607,6 +2344,13 @@ function guardarPreciosVenta() {
    ===================================================== */
 
 function renderProduccion() {
+  // Populate recipe selector
+  const sel = document.getElementById('prod-receta-id');
+  if (sel) {
+    sel.innerHTML = state.recetas.map(r =>
+      `<option value="${r.id}"${r.id === state.recetaActivaId ? ' selected' : ''}>${r.nombre}</option>`
+    ).join('');
+  }
   // Set default date
   const fechaInput = document.getElementById('prod-fecha');
   if (!fechaInput.value) fechaInput.value = hoy();
@@ -1614,18 +2358,27 @@ function renderProduccion() {
   renderHistorialProd();
 }
 
+function getRecetaProdActual() {
+  const sel = document.getElementById('prod-receta-id');
+  const id = sel ? sel.value : state.recetaActivaId;
+  return getRecetaPorId(id) || getRecetaActiva();
+}
+
 function actualizarPreviewProd() {
   const tandas = Number(document.getElementById('prod-tandas').value) || 1;
-  const pesoTanda = getPesoTanda();
+  const r = getRecetaProdActual();
+  if (!r) return;
+  const pesoTanda = getPesoTandaReceta(r);
   const b250 = getBolsas(pesoTanda, 250);
+  const b300 = getBolsas(pesoTanda, 300);
   const b500 = getBolsas(pesoTanda, 500);
   document.getElementById('prod-preview').innerHTML =
-    `<strong>${tandas} tanda${tandas > 1 ? 's' : ''}</strong> → <strong>${tandas * b250}</strong> bolsas 250g + <strong>${tandas * b500}</strong> bolsas 500g`;
+    `<strong>${tandas} tanda${tandas > 1 ? 's' : ''}</strong> → <strong>${tandas * b250}</strong> bolsas 250g + <strong>${tandas * b300}</strong> bolsas 300g + <strong>${tandas * b500}</strong> bolsas 500g`;
 
   // Check MP disponible
   const stock = getStockCalculado();
   let warnings = '';
-  state.receta.ingredientes.forEach(ing => {
+  r.ingredientes.forEach(ing => {
     const necesario = tandas * Number(ing.gramos);
     const disponible = stock[ing.nombre] || 0;
     if (disponible < necesario) {
@@ -1641,22 +2394,28 @@ function guardarProduccion() {
   const fecha = document.getElementById('prod-fecha').value;
   const tandas = Number(document.getElementById('prod-tandas').value);
   const obs = document.getElementById('prod-obs').value.trim();
+  const r = getRecetaProdActual();
 
   if (!fecha) { showToast('Ingresá una fecha', 'error'); return; }
   if (!tandas || tandas < 1) { showToast('Ingresá una cantidad válida de tandas', 'error'); return; }
+  if (!r) { showToast('Seleccioná una receta', 'error'); return; }
 
-  const pesoTanda = getPesoTanda();
+  const pesoTanda = getPesoTandaReceta(r);
   const b250 = getBolsas(pesoTanda, 250) * tandas;
+  const b300 = getBolsas(pesoTanda, 300) * tandas;
   const b500 = getBolsas(pesoTanda, 500) * tandas;
 
   const prod = {
     id: Date.now(),
     fecha,
     tandas,
+    recetaId: r.id,
+    recetaNombre: r.nombre,
     bolsas250: b250,
+    bolsas300: b300,
     bolsas500: b500,
     obs,
-    ingredientesUsados: state.receta.ingredientes.map(i => ({
+    ingredientesUsados: r.ingredientes.map(i => ({
       nombre: i.nombre,
       gramos: Number(i.gramos) * tandas
     }))
@@ -1664,7 +2423,7 @@ function guardarProduccion() {
 
   state.producciones.push(prod);
   guardarEnStorage(KEYS.producciones, state.producciones);
-  showToast(`Producción registrada: ${b250} bolsas 250g + ${b500} bolsas 500g`);
+  showToast(`Producción registrada: ${b250} bolsas 250g + ${b300} bolsas 300g + ${b500} bolsas 500g`);
 
   document.getElementById('prod-tandas').value = 1;
   document.getElementById('prod-obs').value = '';
@@ -1693,14 +2452,16 @@ function renderHistorialProd() {
   }
   document.getElementById('prod-historial').innerHTML = `
     <table>
-      <thead><tr><th>Fecha</th><th>Tandas</th><th>Bolsas 250g</th><th>Bolsas 500g</th><th>Observaciones</th><th></th></tr></thead>
+      <thead><tr><th>Fecha</th><th>Receta</th><th>Tandas</th><th>Bolsas 250g</th><th>Bolsas 300g</th><th>Bolsas 500g</th><th>Observaciones</th><th></th></tr></thead>
       <tbody>
         ${prods.map(p => `
           <tr>
             <td>${formatFecha(p.fecha)}</td>
+            <td>${p.recetaNombre || '—'}</td>
             <td>${p.tandas}</td>
-            <td>${p.bolsas250}</td>
-            <td>${p.bolsas500}</td>
+            <td>${p.bolsas250 || 0}</td>
+            <td>${p.bolsas300 || 0}</td>
+            <td>${p.bolsas500 || 0}</td>
             <td class="text-muted">${p.obs || '—'}</td>
             <td><button class="btn btn-danger" onclick="eliminarProduccion(${p.id})">Eliminar</button></td>
           </tr>
@@ -1718,16 +2479,36 @@ function renderVentas() {
   const fechaInput = document.getElementById('venta-fecha');
   if (!fechaInput.value) fechaInput.value = hoy();
   actualizarPrecioVenta();
+  actualizarBadgeCobros();
   renderHistorialVentas();
+  renderCobrosVentas();
+  renderClientesVentas();
+}
+
+function actualizarBadgeCobros() {
+  const pendientes = state.ventas.filter(v => !v.pagado).length;
+  const tabBtn = document.getElementById('tab-cobros');
+  if (tabBtn) tabBtn.textContent = pendientes > 0 ? `🔴 Cobros pendientes (${pendientes})` : 'Cobros pendientes';
+}
+
+function toggleFechaPago() {
+  const pagado = document.getElementById('venta-pagado').checked;
+  const grupo = document.getElementById('venta-fecha-pago-grupo');
+  if (grupo) grupo.style.display = pagado ? 'none' : 'block';
 }
 
 function actualizarPrecioVenta() {
   const formato = Number(document.getElementById('venta-formato').value);
-  const precio = formato === 250 ? state.preciosVenta.precio250 : state.preciosVenta.precio500;
+  const r = getRecetaActiva();
+  let precio = 0;
+  if (r) {
+    if (formato === 250) precio = r.precioVenta250;
+    else if (formato === 300) precio = r.precioVenta300;
+    else precio = r.precioVenta500;
+  }
   document.getElementById('venta-precio').value = precio;
-
   const inv = getInventarioProducto();
-  const disponible = formato === 250 ? inv.b250 : inv.b500;
+  const disponible = formato === 250 ? inv.b250 : formato === 300 ? inv.b300 : inv.b500;
   document.getElementById('venta-stock-info').textContent =
     `Stock disponible: ${disponible} bolsas de ${formato}g`;
 }
@@ -1737,27 +2518,39 @@ function guardarVenta() {
   const formato = Number(document.getElementById('venta-formato').value);
   const cantidad = Number(document.getElementById('venta-cantidad').value);
   const precio = Number(document.getElementById('venta-precio').value);
+  const comprador = document.getElementById('venta-comprador').value.trim();
+  const medioPago = document.getElementById('venta-medio-pago').value;
+  const pagado = document.getElementById('venta-pagado').checked;
+  const entregado = document.getElementById('venta-entregado').checked;
+  const fechaEstPago = pagado ? '' : (document.getElementById('venta-fecha-pago').value || '');
 
   if (!fecha) { showToast('Ingresá una fecha', 'error'); return; }
   if (!cantidad || cantidad < 1) { showToast('Ingresá una cantidad válida', 'error'); return; }
   if (!precio || precio < 0) { showToast('Ingresá un precio válido', 'error'); return; }
 
   const inv = getInventarioProducto();
-  const disponible = formato === 250 ? inv.b250 : inv.b500;
+  const disponible = formato === 250 ? inv.b250 : formato === 300 ? inv.b300 : inv.b500;
   if (cantidad > disponible) {
     showToast(`Stock insuficiente: solo hay ${disponible} bolsas de ${formato}g`, 'error');
     return;
   }
 
-  const venta = { id: Date.now(), fecha, formato, cantidad, precio };
+  const venta = { id: Date.now(), fecha, formato, cantidad, precio, comprador, medioPago, pagado, entregado, fechaEstPago };
   state.ventas.push(venta);
   guardarEnStorage(KEYS.ventas, state.ventas);
-  showToast(`Venta registrada: ${cantidad} bolsa${cantidad > 1 ? 's' : ''} de ${formato}g`);
+  showToast(`Venta registrada: ${cantidad} bolsa${cantidad > 1 ? 's' : ''} de ${formato}g${comprador ? ' — ' + comprador : ''}`);
 
+  document.getElementById('venta-comprador').value = '';
   document.getElementById('venta-cantidad').value = 1;
   document.getElementById('venta-fecha').value = hoy();
+  document.getElementById('venta-pagado').checked = true;
+  document.getElementById('venta-entregado').checked = true;
+  document.getElementById('venta-fecha-pago-grupo').style.display = 'none';
   actualizarPrecioVenta();
+  actualizarBadgeCobros();
   renderHistorialVentas();
+  renderCobrosVentas();
+  renderClientesVentas();
 }
 
 function eliminarVenta(id) {
@@ -1768,50 +2561,134 @@ function eliminarVenta(id) {
       state.ventas = state.ventas.filter(v => v.id !== id);
       guardarEnStorage(KEYS.ventas, state.ventas);
       showToast('Venta eliminada');
+      actualizarBadgeCobros();
       renderHistorialVentas();
+      renderCobrosVentas();
+      renderClientesVentas();
     }
   );
 }
 
-function setVentaFilter(filter, btn) {
-  ventaFilter = filter;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+function marcarPagado(id) {
+  const v = state.ventas.find(x => x.id === id);
+  if (!v) return;
+  v.pagado = true;
+  v.fechaEstPago = '';
+  guardarEnStorage(KEYS.ventas, state.ventas);
+  showToast('Marcado como pagado');
+  actualizarBadgeCobros();
+  renderCobrosVentas();
+  renderHistorialVentas();
+  renderClientesVentas();
+}
+
+function marcarEntregado(id) {
+  const v = state.ventas.find(x => x.id === id);
+  if (!v) return;
+  v.entregado = true;
+  guardarEnStorage(KEYS.ventas, state.ventas);
+  showToast('Marcado como entregado');
+  renderCobrosVentas();
+  renderHistorialVentas();
+}
+
+/* --- Sub-tab navigation --- */
+function setVentaTab(tab, btn) {
+  ventaTab = tab;
+  document.querySelectorAll('.ventas-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.ventas-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('ventas-panel-' + tab).classList.add('active');
+  if (tab === 'cobros') renderCobrosVentas();
+  if (tab === 'clientes') renderClientesVentas();
+}
+
+/* --- Filtros período --- */
+function setVentaPeriodo(periodo, btn) {
+  ventaFilterPeriodo = periodo;
+  ventaFilter = periodo; // alias
+  document.querySelectorAll('[data-period]').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const rangeDiv = document.getElementById('venta-custom-range');
+  if (rangeDiv) rangeDiv.style.display = periodo === 'custom' ? 'flex' : 'none';
+  renderHistorialVentas();
+}
+
+function setVentaFiltroPago(val, btn) {
+  ventaFilterPago = val;
+  document.querySelectorAll('[data-pago]').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   renderHistorialVentas();
 }
 
-function filtrarVentas(ventas, filter) {
+function setVentaFiltroEntrega(val, btn) {
+  ventaFilterEntrega = val;
+  document.querySelectorAll('[data-entrega]').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderHistorialVentas();
+}
+
+/* legacy alias */
+function setVentaFilter(filter, btn) { setVentaPeriodo(filter, btn); }
+
+/* --- Filtrado --- */
+function filtrarVentas(ventas) {
   const ahora = new Date();
   return ventas.filter(v => {
     const d = new Date(v.fecha + 'T12:00:00');
-    if (filter === 'hoy') {
-      return v.fecha === hoy();
-    } else if (filter === 'semana') {
-      const diff = (ahora - d) / (1000 * 60 * 60 * 24);
-      return diff < 7;
-    } else if (filter === 'mes') {
-      return d.getMonth() === ahora.getMonth() && d.getFullYear() === ahora.getFullYear();
+    // Period
+    let passP = true;
+    if (ventaFilterPeriodo === 'hoy') {
+      passP = v.fecha === hoy();
+    } else if (ventaFilterPeriodo === 'semana') {
+      passP = (ahora - d) / (1000 * 60 * 60 * 24) < 7;
+    } else if (ventaFilterPeriodo === 'mes') {
+      passP = d.getMonth() === ahora.getMonth() && d.getFullYear() === ahora.getFullYear();
+    } else if (ventaFilterPeriodo === 'anio') {
+      passP = d.getFullYear() === ahora.getFullYear();
+    } else if (ventaFilterPeriodo === 'custom') {
+      const desde = document.getElementById('venta-rango-desde') ? document.getElementById('venta-rango-desde').value : '';
+      const hasta = document.getElementById('venta-rango-hasta') ? document.getElementById('venta-rango-hasta').value : '';
+      if (desde) passP = passP && v.fecha >= desde;
+      if (hasta) passP = passP && v.fecha <= hasta;
     }
-    return true;
+    // Pago
+    let passG = true;
+    if (ventaFilterPago === 'pagados') passG = v.pagado === true;
+    else if (ventaFilterPago === 'pendientes') passG = !v.pagado;
+    // Entrega
+    let passE = true;
+    if (ventaFilterEntrega === 'entregados') passE = v.entregado === true;
+    else if (ventaFilterEntrega === 'pendientes') passE = !v.entregado;
+    return passP && passG && passE;
   });
 }
 
 function renderHistorialVentas() {
-  const ventasFiltradas = filtrarVentas(state.ventas, ventaFilter)
+  const ventasFiltradas = filtrarVentas(state.ventas)
     .sort((a, b) => b.fecha.localeCompare(a.fecha));
 
-  const pesoTanda = getPesoTanda();
-  const costo250 = getCostoPor250(pesoTanda);
-  const costo500 = getCostoPor500(pesoTanda);
+  const r = getRecetaActiva();
+  const pesoTanda = r ? getPesoTandaReceta(r) : 0;
+  const costo250 = r && getBolsas(pesoTanda, 250) > 0 ? getCostoPorFormato(250, r) : 0;
+  const costo300 = r && getBolsas(pesoTanda, 300) > 0 ? getCostoPorFormato(300, r) : 0;
+  const costo500 = r && getBolsas(pesoTanda, 500) > 0 ? getCostoPorFormato(500, r) : 0;
 
   const ingresos = ventasFiltradas.reduce((s, v) => s + Number(v.cantidad) * Number(v.precio), 0);
-  const costo = ventasFiltradas.reduce((s, v) =>
-    s + (Number(v.cantidad) * (Number(v.formato) === 250 ? costo250 : costo500)), 0);
-  const ganancia = ingresos - costo;
-  const margen = ingresos > 0 ? (ganancia / ingresos * 100) : 0;
+  const cobrado = ventasFiltradas.filter(v => v.pagado).reduce((s, v) => s + Number(v.cantidad) * Number(v.precio), 0);
+  const pendienteCobro = ingresos - cobrado;
+  const costo = ventasFiltradas.reduce((s, v) => {
+    const f = Number(v.formato);
+    const cu = f === 250 ? costo250 : f === 300 ? costo300 : costo500;
+    return s + Number(v.cantidad) * cu;
+  }, 0);
+  const ganancia = cobrado - costo;
+  const margen = cobrado > 0 ? (ganancia / cobrado * 100) : 0;
 
   document.getElementById('ventas-resumen').innerHTML = `
-    <div class="kpi-card"><div class="kpi-value">${fmtPeso(ingresos)}</div><div class="kpi-label">Ingresos</div></div>
+    <div class="kpi-card"><div class="kpi-value">${fmtPeso(ingresos)}</div><div class="kpi-label">Total facturado</div></div>
+    <div class="kpi-card"><div class="kpi-value">${fmtPeso(cobrado)}</div><div class="kpi-label">Cobrado</div></div>
+    <div class="kpi-card" style="${pendienteCobro > 0 ? 'background:var(--rojo);' : ''}"><div class="kpi-value" style="${pendienteCobro > 0 ? 'color:#fff;' : ''}">${fmtPeso(pendienteCobro)}</div><div class="kpi-label" style="${pendienteCobro > 0 ? 'color:#fff;' : ''}">Pendiente cobro</div></div>
     <div class="kpi-card"><div class="kpi-value">${fmtPeso(ganancia)}</div><div class="kpi-label">Ganancia estimada</div></div>
     <div class="kpi-card"><div class="kpi-value">${fmt(margen, 1)}%</div><div class="kpi-label">Margen</div></div>
     <div class="kpi-card"><div class="kpi-value">${ventasFiltradas.length}</div><div class="kpi-label">Transacciones</div></div>
@@ -1824,19 +2701,186 @@ function renderHistorialVentas() {
 
   document.getElementById('ventas-historial').innerHTML = `
     <table>
-      <thead><tr><th>Fecha</th><th>Formato</th><th>Cantidad</th><th>Precio u.</th><th>Total</th><th></th></tr></thead>
+      <thead><tr>
+        <th>Fecha</th><th>Comprador</th><th>Formato</th><th>Cant.</th><th>Precio u.</th><th>Total</th>
+        <th>Medio pago</th><th>Pago</th><th>Entrega</th><th></th>
+      </tr></thead>
       <tbody>
         ${ventasFiltradas.map(v => `
           <tr>
             <td>${formatFecha(v.fecha)}</td>
+            <td>${v.comprador || '—'}</td>
             <td><span class="badge badge-rosa">Bolsa ${v.formato}g</span></td>
             <td>${v.cantidad}</td>
             <td>${fmtPeso(v.precio)}</td>
             <td><strong>${fmtPeso(Number(v.cantidad) * Number(v.precio))}</strong></td>
-            <td><button class="btn btn-danger" onclick="eliminarVenta(${v.id})">Eliminar</button></td>
+            <td>${v.medioPago || 'Efectivo'}</td>
+            <td>${v.pagado ? '<span class="badge-pagado">Pagado</span>' : '<span class="badge-pendiente-pago">Pendiente</span>'}</td>
+            <td>${v.entregado ? '<span class="badge-entregado">Entregado</span>' : '<span class="badge-pendiente-entrega">Pendiente</span>'}</td>
+            <td style="white-space:nowrap;">
+              ${!v.pagado ? `<button class="btn btn-secondary btn-sm" onclick="marcarPagado(${v.id})" style="margin-bottom:4px;">✓ Pagado</button>` : ''}
+              <button class="btn btn-danger btn-sm" onclick="eliminarVenta(${v.id})">Eliminar</button>
+            </td>
           </tr>
         `).join('')}
       </tbody>
+    </table>
+  `;
+}
+
+/* --- Panel: Cobros pendientes --- */
+function renderCobrosVentas() {
+  const contenedor = document.getElementById('cobros-contenido');
+  if (!contenedor) return;
+  const pendientes = state.ventas.filter(v => !v.pagado).sort((a, b) => a.fecha.localeCompare(b.fecha));
+  const totalPendiente = pendientes.reduce((s, v) => s + Number(v.cantidad) * Number(v.precio), 0);
+
+  if (!pendientes.length) {
+    contenedor.innerHTML = `
+      <div class="card" style="margin-top:0;border-top-left-radius:0;border-top-right-radius:0;">
+        <div class="alert alert-verde" style="margin:0;">✅ No hay cobros pendientes</div>
+      </div>`;
+    return;
+  }
+
+  contenedor.innerHTML = `
+    <div class="kpi-grid" style="margin-bottom:16px;margin-top:0;">
+      <div class="kpi-card kpi-pendiente">
+        <div class="kpi-value">${fmtPeso(totalPendiente)}</div>
+        <div class="kpi-label">Total pendiente de cobro</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value">${pendientes.length}</div>
+        <div class="kpi-label">Ventas sin cobrar</div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:0;border-top-left-radius:0;border-top-right-radius:0;">
+      <div class="card-title">Ventas pendientes de cobro</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th>Fecha</th><th>Comprador</th><th>Formato</th><th>Cant.</th><th>Total ($)</th>
+            <th>Medio pago</th><th>Fecha est. pago</th><th>Entrega</th><th>Acciones</th>
+          </tr></thead>
+          <tbody>
+            ${pendientes.map(v => `
+              <tr>
+                <td>${formatFecha(v.fecha)}</td>
+                <td><strong>${v.comprador || '—'}</strong></td>
+                <td><span class="badge badge-rosa">Bolsa ${v.formato}g</span></td>
+                <td>${v.cantidad}</td>
+                <td><strong style="color:var(--rojo);">${fmtPeso(Number(v.cantidad) * Number(v.precio))}</strong></td>
+                <td>${v.medioPago || 'Efectivo'}</td>
+                <td>${v.fechaEstPago ? formatFecha(v.fechaEstPago) : '—'}</td>
+                <td>${v.entregado ? '<span class="badge-entregado">Entregado</span>' : '<span class="badge-pendiente-entrega">Pendiente</span>'}</td>
+                <td style="white-space:nowrap;">
+                  <button class="btn btn-primary btn-sm" onclick="marcarPagado(${v.id})" style="margin-bottom:4px;">✓ Marcar pagado</button>
+                  ${!v.entregado ? `<br><button class="btn btn-secondary btn-sm" onclick="marcarEntregado(${v.id})">✓ Marcar entregado</button>` : ''}
+                </td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+
+/* --- Panel: Clientes --- */
+function filtrarClientes(q) {
+  clienteBusqueda = q;
+  renderTablaClientes();
+}
+
+function toggleClienteExpandido(nombre) {
+  clienteExpandido = clienteExpandido === nombre ? null : nombre;
+  renderTablaClientes();
+}
+
+function renderClientesVentas() {
+  renderTablaClientes();
+}
+
+function renderTablaClientes() {
+  const tablaEl = document.getElementById('clientes-tabla');
+  if (!tablaEl) return;
+
+  // Agrupar por comprador
+  const grupos = {};
+  state.ventas.forEach(v => {
+    const nombre = v.comprador && v.comprador.trim() ? v.comprador.trim() : 'Sin nombre';
+    if (!grupos[nombre]) grupos[nombre] = [];
+    grupos[nombre].push(v);
+  });
+
+  const q = (clienteBusqueda || '').toLowerCase().trim();
+  let nombres = Object.keys(grupos).sort((a, b) => a.localeCompare(b, 'es'));
+  if (q) nombres = nombres.filter(n => n.toLowerCase().includes(q));
+
+  if (!nombres.length) {
+    tablaEl.innerHTML = '<p class="text-muted" style="padding:16px;">Sin clientes encontrados.</p>';
+    return;
+  }
+
+  let rows = '';
+  nombres.forEach(nombre => {
+    const ventas = grupos[nombre].sort((a, b) => b.fecha.localeCompare(a.fecha));
+    const totalUnidades = ventas.reduce((s, v) => s + Number(v.cantidad), 0);
+    const totalFacturado = ventas.reduce((s, v) => s + Number(v.cantidad) * Number(v.precio), 0);
+    const totalCobrado = ventas.filter(v => v.pagado).reduce((s, v) => s + Number(v.cantidad) * Number(v.precio), 0);
+    const totalPendiente = totalFacturado - totalCobrado;
+    const ultimaCompra = ventas[0].fecha;
+    const tieneDeuda = totalPendiente > 0;
+    const expandido = clienteExpandido === nombre;
+    const safeNombre = nombre.replace(/'/g, "\\'");
+
+    rows += `<tr class="cliente-row-expandible" onclick="toggleClienteExpandido('${safeNombre}')">
+      <td><strong>${nombre}</strong> <span style="color:#aaa;font-size:12px;">${expandido ? '▲' : '▼'}</span></td>
+      <td>${totalUnidades}</td>
+      <td>${fmtPeso(totalFacturado)}</td>
+      <td>${fmtPeso(totalCobrado)}</td>
+      <td style="color:${tieneDeuda ? 'var(--rojo)' : 'inherit'};font-weight:${tieneDeuda ? '800' : '400'};">${tieneDeuda ? fmtPeso(totalPendiente) : '—'}</td>
+      <td>${formatFecha(ultimaCompra)}</td>
+      <td>${tieneDeuda ? '<span class="badge-pendiente-pago">Con deuda</span>' : '<span class="badge-pagado">Al día</span>'}</td>
+    </tr>`;
+
+    if (expandido) {
+      rows += `<tr class="cliente-detalle"><td colspan="7" style="padding:0;">
+        <table style="margin:0;border-radius:0;">
+          <thead style="background:rgba(30,61,44,0.08);"><tr>
+            <th style="color:var(--verde);">Fecha</th>
+            <th style="color:var(--verde);">Formato</th>
+            <th style="color:var(--verde);">Cant.</th>
+            <th style="color:var(--verde);">Total</th>
+            <th style="color:var(--verde);">Medio pago</th>
+            <th style="color:var(--verde);">Pago</th>
+            <th style="color:var(--verde);">Entrega</th>
+            <th></th>
+          </tr></thead>
+          <tbody>
+            ${ventas.map(v => `<tr>
+              <td>${formatFecha(v.fecha)}</td>
+              <td><span class="badge badge-rosa">Bolsa ${v.formato}g</span></td>
+              <td>${v.cantidad}</td>
+              <td>${fmtPeso(Number(v.cantidad) * Number(v.precio))}</td>
+              <td>${v.medioPago || 'Efectivo'}</td>
+              <td>${v.pagado ? '<span class="badge-pagado">Pagado</span>' : '<span class="badge-pendiente-pago">Pendiente</span>'}</td>
+              <td>${v.entregado ? '<span class="badge-entregado">Entregado</span>' : '<span class="badge-pendiente-entrega">Pendiente</span>'}</td>
+              <td>${!v.pagado ? `<button class="btn btn-primary btn-sm" onclick="event.stopPropagation();marcarPagado(${v.id})">✓ Pagado</button>` : ''}</td>
+            </tr>`).join('')}
+          </tbody>
+        </table>
+      </td></tr>`;
+    }
+  });
+
+  tablaEl.innerHTML = `
+    <table>
+      <thead><tr>
+        <th>Cliente</th><th>Unidades</th><th>Total facturado</th>
+        <th>Cobrado</th><th>Pendiente</th><th>Última compra</th><th>Estado</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
     </table>
   `;
 }
@@ -1845,15 +2889,27 @@ function renderHistorialVentas() {
    RENDER MATERIA PRIMA
    ===================================================== */
 
+function getAllIngredientesUnicos() {
+  const nombres = new Set();
+  state.recetas.forEach(r => r.ingredientes.forEach(i => nombres.add(i.nombre)));
+  return [...nombres].sort();
+}
+
 function renderMateriaprima() {
+  // Populate recipe selector for needs calculator
+  const necSel = document.getElementById('nec-receta-id');
+  if (necSel) {
+    necSel.innerHTML = state.recetas.map(r =>
+      `<option value="${r.id}"${r.id === state.recetaActivaId ? ' selected' : ''}>${r.nombre}</option>`
+    ).join('');
+  }
   renderTablaMP();
   calcularNecesidades();
   renderHistorialCompras();
-  // Populate modal select
+  // Populate modal select with all unique ingredients
   const sel = document.getElementById('compra-ingrediente');
-  sel.innerHTML = state.receta.ingredientes.map(i =>
-    `<option value="${i.nombre}">${i.nombre}</option>`
-  ).join('');
+  const todos = getAllIngredientesUnicos();
+  sel.innerHTML = todos.map(n => `<option value="${n}">${n}</option>`).join('');
   // Set default date
   const fd = document.getElementById('compra-fecha');
   if (!fd.value) fd.value = hoy();
@@ -1861,25 +2917,35 @@ function renderMateriaprima() {
 
 function renderTablaMP() {
   const stock = getStockCalculado();
-  const rows = state.receta.ingredientes.map(ing => {
-    const sc = stock[ing.nombre] || 0;
-    const sf = state.stockFisico[ing.nombre] || 0;
+  // Show all unique ingredient names across all recipes
+  const ingredientesUnicos = getAllIngredientesUnicos();
+
+  const rows = ingredientesUnicos.map(nombre => {
+    const sc = stock[nombre] || 0;
+    const sf = state.stockFisico[nombre] || 0;
     const comprado = state.comprasMp
-      .filter(c => c.ingrediente === ing.nombre)
+      .filter(c => c.ingrediente === nombre)
       .reduce((s, c) => s + Number(c.cantidad), 0);
     const consumido = state.producciones
-      .reduce((s, p) => s + (Number(p.tandas) * Number(ing.gramos)), 0);
-    const diff = sc - (state.stockFisico[ing.nombre] !== undefined ? 0 : 0);
+      .reduce((s, p) => {
+        const iu = (p.ingredientesUsados || []).find(x => x.nombre === nombre);
+        return s + (iu ? Number(iu.gramos) : 0);
+      }, 0);
+
+    // Determine threshold from active recipe ingredient (if present)
+    const r = getRecetaActiva();
+    const ingRef = r ? r.ingredientes.find(i => i.nombre === nombre) : null;
+    const umbral = ingRef ? ingRef.gramos : 1;
 
     let semaforo = 'dot-verde', estado = 'OK';
     if (sc <= 0) { semaforo = 'dot-rojo'; estado = 'Sin stock'; }
-    else if (sc < ing.gramos) { semaforo = 'dot-amarillo'; estado = 'Bajo'; }
+    else if (sc < umbral) { semaforo = 'dot-amarillo'; estado = 'Bajo'; }
 
-    const pct = Math.min(100, sc > 0 ? (sc / (ing.gramos * 5)) * 100 : 0);
-    const barColor = sc <= 0 ? 'var(--rojo)' : sc < ing.gramos ? 'var(--amarillo)' : 'var(--verde)';
+    const pct = Math.min(100, sc > 0 ? (sc / (umbral * 5)) * 100 : 0);
+    const barColor = sc <= 0 ? 'var(--rojo)' : sc < umbral ? 'var(--amarillo)' : 'var(--verde)';
 
     return `<tr>
-      <td><strong>${ing.nombre}</strong></td>
+      <td><strong>${nombre}</strong></td>
       <td>
         <div>${fmt(sc)} gr</div>
         <div class="stock-bar"><div class="stock-bar-fill" style="width:${pct}%;background:${barColor};"></div></div>
@@ -1901,11 +2967,19 @@ function renderTablaMP() {
 
 function calcularNecesidades() {
   const tandas = Number(document.getElementById('tandas-planificadas').value) || 1;
+  const necSel = document.getElementById('nec-receta-id');
+  const rid = necSel ? necSel.value : state.recetaActivaId;
+  const r = getRecetaPorId(rid) || getRecetaActiva();
   const stock = getStockCalculado();
   let rows = '';
   let hayFaltante = false;
 
-  state.receta.ingredientes.forEach(ing => {
+  if (!r) {
+    document.getElementById('necesidades-tabla').innerHTML = '<p>No hay receta seleccionada.</p>';
+    return;
+  }
+
+  r.ingredientes.forEach(ing => {
     const necesario = Number(ing.gramos) * tandas;
     const disponible = stock[ing.nombre] || 0;
     const faltante = Math.max(0, necesario - disponible);
@@ -1921,7 +2995,7 @@ function calcularNecesidades() {
   });
 
   document.getElementById('necesidades-tabla').innerHTML = `
-    ${!hayFaltante ? '<div class="alert alert-verde">✅ Tenés suficiente MP para producir ' + tandas + ' tanda' + (tandas > 1 ? 's' : '') + '</div>' : ''}
+    ${!hayFaltante ? '<div class="alert alert-verde">✅ Tenés suficiente MP para producir ' + tandas + ' tanda' + (tandas > 1 ? 's' : '') + ' de ' + r.nombre + '</div>' : ''}
     <table>
       <thead><tr><th>Ingrediente</th><th>Stock actual</th><th>Necesario</th><th>Faltante</th></tr></thead>
       <tbody>${rows}</tbody>
@@ -1931,9 +3005,8 @@ function calcularNecesidades() {
 
 function abrirModalCompra() {
   const sel = document.getElementById('compra-ingrediente');
-  sel.innerHTML = state.receta.ingredientes.map(i =>
-    `<option value="${i.nombre}">${i.nombre}</option>`
-  ).join('');
+  const todos = getAllIngredientesUnicos();
+  sel.innerHTML = todos.map(n => `<option value="${n}">${n}</option>`).join('');
   document.getElementById('compra-fecha').value = hoy();
   document.getElementById('compra-cantidad').value = '';
   document.getElementById('compra-precio').value = '';
@@ -2000,15 +3073,21 @@ function eliminarCompra(id) {
    SECCIÓN COMPRAS
    ===================================================== */
 
-let ultimoCalculoCompras = null; // para exportar CSV
+// ultimoCalculoCompras declarado en el bloque de estado global
 
 function renderCompras() {
+  // Populate recipe selector
+  const recSel = document.getElementById('compras-receta-id');
+  if (recSel) {
+    recSel.innerHTML = state.recetas.map(r =>
+      `<option value="${r.id}"${r.id === state.recetaActivaId ? ' selected' : ''}>${r.nombre}</option>`
+    ).join('');
+  }
   // Rellenar select de ingrediente del modal con los datos actuales
   const sel = document.getElementById('compra-ingrediente');
   if (sel) {
-    sel.innerHTML = state.receta.ingredientes.map(i =>
-      `<option value="${i.nombre}">${i.nombre}</option>`
-    ).join('');
+    const todos = getAllIngredientesUnicos();
+    sel.innerHTML = todos.map(n => `<option value="${n}">${n}</option>`).join('');
   }
   actualizarInfoTandas();
 }
@@ -2021,40 +3100,56 @@ function onComprasObjetivoChange() {
   actualizarInfoTandas();
 }
 
+function getRecetaComprasActual() {
+  const sel = document.getElementById('compras-receta-id');
+  const id = sel ? sel.value : state.recetaActivaId;
+  return getRecetaPorId(id) || getRecetaActiva();
+}
+
 function actualizarInfoTandas() {
   const infoEl = document.getElementById('compras-tandas-info');
   if (!infoEl) return;
-  const pesoTanda = getPesoTanda();
+  const r = getRecetaComprasActual();
+  if (!r) return;
+  const pesoTanda = getPesoTandaReceta(r);
   const b250 = Number(document.getElementById('compras-bolsas-250').value) || 0;
+  const b300 = Number(document.getElementById('compras-bolsas-300') ? document.getElementById('compras-bolsas-300').value : 0) || 0;
   const b500 = Number(document.getElementById('compras-bolsas-500').value) || 0;
   const b250porTanda = getBolsas(pesoTanda, 250);
+  const b300porTanda = getBolsas(pesoTanda, 300);
   const b500porTanda = getBolsas(pesoTanda, 500);
-  const tandasPor250 = b250porTanda > 0 ? b250 / b250porTanda : 0;
-  const tandasPor500 = b500porTanda > 0 ? b500 / b500porTanda : 0;
-  const total = tandasPor250 + tandasPor500;
-  infoEl.textContent = `Equivale a ${fmt(total, 2)} tanda${total !== 1 ? 's' : ''} (receta actual: ${fmt(pesoTanda)}g/tanda → ${b250porTanda} bolsas 250g + ${b500porTanda} bolsas 500g por tanda)`;
+  const t250 = b250porTanda > 0 ? b250 / b250porTanda : 0;
+  const t300 = b300porTanda > 0 ? b300 / b300porTanda : 0;
+  const t500 = b500porTanda > 0 ? b500 / b500porTanda : 0;
+  const total = t250 + t300 + t500;
+  infoEl.textContent = `Equivale a ${fmt(total, 2)} tanda${total !== 1 ? 's' : ''} (${r.nombre}: ${fmt(pesoTanda)}g/tanda → ${b250porTanda} bolsas 250g + ${b300porTanda} bolsas 300g + ${b500porTanda} bolsas 500g por tanda)`;
 }
 
 function calcularCompras() {
   const objetivo = document.getElementById('compras-objetivo').value;
   const descontarStock = document.getElementById('compras-descontar-stock').checked;
-  const pesoTanda = getPesoTanda();
+  const r = getRecetaComprasActual();
+  if (!r) { showToast('Seleccioná una receta', 'error'); return; }
+  const pesoTanda = getPesoTandaReceta(r);
 
   let tandasEquiv = 0;
   let descripcion = '';
 
   if (objetivo === 'tandas') {
     tandasEquiv = Number(document.getElementById('compras-num-tandas').value) || 0;
-    descripcion = `${tandasEquiv} tanda${tandasEquiv !== 1 ? 's' : ''}`;
+    descripcion = `${tandasEquiv} tanda${tandasEquiv !== 1 ? 's' : ''} de ${r.nombre}`;
   } else {
     const b250 = Number(document.getElementById('compras-bolsas-250').value) || 0;
+    const b300 = Number(document.getElementById('compras-bolsas-300') ? document.getElementById('compras-bolsas-300').value : 0) || 0;
     const b500 = Number(document.getElementById('compras-bolsas-500').value) || 0;
     const b250porTanda = getBolsas(pesoTanda, 250);
+    const b300porTanda = getBolsas(pesoTanda, 300);
     const b500porTanda = getBolsas(pesoTanda, 500);
     const t250 = b250porTanda > 0 ? b250 / b250porTanda : 0;
+    const t300 = b300porTanda > 0 ? b300 / b300porTanda : 0;
     const t500 = b500porTanda > 0 ? b500 / b500porTanda : 0;
-    tandasEquiv = t250 + t500;
-    descripcion = `${b250} bolsas 250g + ${b500} bolsas 500g (≈ ${fmt(tandasEquiv, 2)} tandas)`;
+    tandasEquiv = t250 + t300 + t500;
+    descripcion = `${b250} bolsas 250g + ${b300} bolsas 300g + ${b500} bolsas 500g (≈ ${fmt(tandasEquiv, 2)} tandas de ${r.nombre})`;
   }
 
   if (tandasEquiv <= 0) {
@@ -2066,7 +3161,7 @@ function calcularCompras() {
   let totalCosto = 0;
   const filas = [];
 
-  const rows = state.receta.ingredientes.map(ing => {
+  const rows = r.ingredientes.map(ing => {
     const necesarioTotal = Number(ing.gramos) * tandasEquiv;
     const stockDisponible = Math.max(0, stock[ing.nombre] || 0);
     const aComprar = descontarStock ? Math.max(0, necesarioTotal - stockDisponible) : necesarioTotal;
@@ -2134,19 +3229,478 @@ function exportarCSVComprasCalc() {
 }
 
 /* =====================================================
+   FINANZAS
+   ===================================================== */
+
+function renderFinanzas() {
+  if (finanzasTab === 'resumen') renderFinanzasResumen();
+  else if (finanzasTab === 'gastos') renderFinanzasGastos();
+  else if (finanzasTab === 'proyecciones') renderFinanzasProyecciones();
+}
+
+function setFinanzasTab(tab, btn) {
+  finanzasTab = tab;
+  document.querySelectorAll('.finanzas-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.finanzas-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('finanzas-panel-' + tab).classList.add('active');
+  renderFinanzas();
+}
+
+/* — Helpers de filtrado por período — */
+function finFiltrarPorPeriodo(items, campo, periodo, desdeId, hastaId) {
+  const ahora = new Date();
+  return items.filter(item => {
+    const fecha = item[campo];
+    if (!fecha) return periodo === 'todo';
+    const d = new Date(fecha + 'T12:00:00');
+    if (periodo === 'hoy') return fecha === hoy();
+    if (periodo === 'semana') return (ahora - d) / (1000 * 60 * 60 * 24) < 7;
+    if (periodo === 'mes') return d.getMonth() === ahora.getMonth() && d.getFullYear() === ahora.getFullYear();
+    if (periodo === 'anio') return d.getFullYear() === ahora.getFullYear();
+    if (periodo === 'custom') {
+      const desde = (desdeId && document.getElementById(desdeId)) ? document.getElementById(desdeId).value : '';
+      const hasta = (hastaId && document.getElementById(hastaId)) ? document.getElementById(hastaId).value : '';
+      let pass = true;
+      if (desde) pass = pass && fecha >= desde;
+      if (hasta) pass = pass && fecha <= hasta;
+      return pass;
+    }
+    return true;
+  });
+}
+
+/* — Cálculos centrales — */
+function calcularTotalesFinanzas(periodo, desdeId, hastaId) {
+  // Gasto inicial: siempre incluido (es histórico pre-app, sin fecha)
+  const gastoInicial = state.gastoInicial || 0;
+
+  // Gastos manuales filtrados por período
+  const gastosManualesFilt = finFiltrarPorPeriodo(state.gastosManual, 'fecha', periodo, desdeId, hastaId);
+  const totalGastosManuales = gastosManualesFilt.reduce((s, g) => s + Number(g.monto || 0), 0);
+
+  // Compras MP filtradas
+  const comprasMpFilt = finFiltrarPorPeriodo(state.comprasMp, 'fecha', periodo, desdeId, hastaId);
+  const totalComprasMp = comprasMpFilt.reduce((s, c) => s + Number(c.precio || 0), 0);
+
+  // Costo empaque por producción (bolsas producidas × costo empaque de la receta)
+  const prodFilt = finFiltrarPorPeriodo(state.producciones, 'fecha', periodo, desdeId, hastaId);
+  const totalEmpaqueProds = prodFilt.reduce((s, p) => {
+    const r = getRecetaPorId(p.recetaId) || getRecetaActiva();
+    if (!r) return s;
+    const totalBolsas = (p.bolsas250 || 0) + (p.bolsas300 || 0) + (p.bolsas500 || 0);
+    return s + totalBolsas * getCostoEmpaquePorBolsa(r);
+  }, 0);
+
+  const totalInvertido = gastoInicial + totalGastosManuales + totalComprasMp + totalEmpaqueProds;
+
+  // Ventas filtradas
+  const ventasFilt = finFiltrarPorPeriodo(state.ventas, 'fecha', periodo, desdeId, hastaId);
+  const totalCobrado = ventasFilt.filter(v => v.pagado).reduce((s, v) => s + Number(v.cantidad) * Number(v.precio), 0);
+  const totalPendienteCobro = ventasFilt.filter(v => !v.pagado).reduce((s, v) => s + Number(v.cantidad) * Number(v.precio), 0);
+
+  const gananciaNeta = totalCobrado - totalInvertido;
+  const pctRecuperado = totalInvertido > 0 ? Math.min(999, totalCobrado / totalInvertido * 100) : 0;
+
+  const nTandas = prodFilt.reduce((s, p) => s + Number(p.tandas || 1), 0);
+  const costoPorTanda = nTandas > 0 ? totalInvertido / nTandas : 0;
+  const ingresoPorTanda = nTandas > 0 ? totalCobrado / nTandas : 0;
+
+  return {
+    gastoInicial, totalGastosManuales, totalComprasMp, totalEmpaqueProds,
+    totalInvertido, totalCobrado, totalPendienteCobro, gananciaNeta,
+    pctRecuperado, nTandas, costoPorTanda, ingresoPorTanda, ventasFilt, prodFilt
+  };
+}
+
+/* — TAB RESUMEN — */
+function setFinResumenPeriodo(periodo, btn) {
+  finResumenPeriodo = periodo;
+  document.querySelectorAll('[data-fin-period]').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const rangeDiv = document.getElementById('finanzas-resumen-custom-range');
+  if (rangeDiv) rangeDiv.style.display = periodo === 'custom' ? 'flex' : 'none';
+  renderFinanzasResumen();
+}
+
+function renderFinanzasResumen() {
+  const t = calcularTotalesFinanzas(finResumenPeriodo, 'fin-res-desde', 'fin-res-hasta');
+  const pct = Math.min(100, t.pctRecuperado);
+
+  // Desglose por formato
+  const v250 = t.ventasFilt.filter(v => Number(v.formato) === 250);
+  const v300 = t.ventasFilt.filter(v => Number(v.formato) === 300);
+  const v500 = t.ventasFilt.filter(v => Number(v.formato) === 500);
+  const desgloseFmt = [
+    { fmt: 250, ventas: v250 },
+    { fmt: 300, ventas: v300 },
+    { fmt: 500, ventas: v500 },
+  ].map(({ fmt, ventas }) => {
+    const unidades = ventas.reduce((s, v) => s + Number(v.cantidad), 0);
+    const cobrado = ventas.filter(v => v.pagado).reduce((s, v) => s + Number(v.cantidad) * Number(v.precio), 0);
+    const pendiente = ventas.filter(v => !v.pagado).reduce((s, v) => s + Number(v.cantidad) * Number(v.precio), 0);
+    return { fmt, unidades, cobrado, pendiente, total: cobrado + pendiente };
+  });
+
+  document.getElementById('finanzas-resumen-content').innerHTML = `
+    <!-- KPIs grandes -->
+    <div class="fin-kpi-grande-grid" style="margin-top:16px;">
+      <div class="kpi-grande">
+        <div class="kpi-lbl">💰 Total invertido</div>
+        <div class="kpi-val">${fmtPeso(Math.round(t.totalInvertido))}</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.6);margin-top:4px;">
+          Inicial: ${fmtPeso(t.gastoInicial)} · MP: ${fmtPeso(Math.round(t.totalComprasMp))} · Empaque: ${fmtPeso(Math.round(t.totalEmpaqueProds))} · Otros: ${fmtPeso(Math.round(t.totalGastosManuales))}
+        </div>
+      </div>
+      <div class="kpi-grande">
+        <div class="kpi-lbl">💵 Total cobrado</div>
+        <div class="kpi-val">${fmtPeso(Math.round(t.totalCobrado))}</div>
+      </div>
+      <div class="kpi-grande ${t.gananciaNeta >= 0 ? 'positivo' : 'negativo'}">
+        <div class="kpi-lbl">📈 Ganancia neta</div>
+        <div class="kpi-val">${fmtPeso(Math.round(t.gananciaNeta))}</div>
+      </div>
+      <div class="kpi-grande" style="background:var(--verde);">
+        <div class="kpi-lbl">🔄 % Recuperado</div>
+        <div class="kpi-val">${fmt(t.pctRecuperado, 1)}%</div>
+        <div class="fin-progress-wrap">
+          <div class="fin-pct-label">${fmtPeso(Math.round(t.totalCobrado))} de ${fmtPeso(Math.round(t.totalInvertido))}</div>
+          <div class="fin-progress-bar"><div class="fin-progress-fill" style="width:${pct}%;"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KPIs secundarios -->
+    <div class="fin-kpi-grid" style="margin-bottom:20px;">
+      <div class="kpi-card" style="${t.totalPendienteCobro > 0 ? 'border:2px solid var(--rojo);' : ''}">
+        <div class="kpi-value" style="${t.totalPendienteCobro > 0 ? 'color:var(--rojo);' : ''}">${fmtPeso(Math.round(t.totalPendienteCobro))}</div>
+        <div class="kpi-label">Pendiente de cobro</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value">${t.nTandas}</div>
+        <div class="kpi-label">Tandas producidas</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value">${t.costoPorTanda > 0 ? fmtPeso(Math.round(t.costoPorTanda)) : '—'}</div>
+        <div class="kpi-label">Costo prom. por tanda</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value">${t.ingresoPorTanda > 0 ? fmtPeso(Math.round(t.ingresoPorTanda)) : '—'}</div>
+        <div class="kpi-label">Ingreso prom. por tanda</div>
+      </div>
+    </div>
+
+    <!-- Desglose de ingresos por formato -->
+    <h3 style="color:var(--verde);margin-bottom:12px;font-size:15px;">Desglose de ingresos por formato</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Formato</th><th>Unidades vendidas</th><th>Cobrado</th><th>Pendiente</th><th>Total facturado</th></tr></thead>
+        <tbody>
+          ${desgloseFmt.map(d => `<tr>
+            <td><span class="badge badge-rosa">Bolsa ${d.fmt}g</span></td>
+            <td>${d.unidades}</td>
+            <td>${fmtPeso(Math.round(d.cobrado))}</td>
+            <td style="color:${d.pendiente > 0 ? 'var(--rojo)' : 'inherit'};">${d.pendiente > 0 ? fmtPeso(Math.round(d.pendiente)) : '—'}</td>
+            <td><strong>${fmtPeso(Math.round(d.total))}</strong></td>
+          </tr>`).join('')}
+          <tr class="total-row">
+            <td><strong>TOTAL</strong></td>
+            <td><strong>${desgloseFmt.reduce((s, d) => s + d.unidades, 0)}</strong></td>
+            <td><strong>${fmtPeso(Math.round(desgloseFmt.reduce((s, d) => s + d.cobrado, 0)))}</strong></td>
+            <td><strong style="color:var(--rojo);">${fmtPeso(Math.round(desgloseFmt.reduce((s, d) => s + d.pendiente, 0)))}</strong></td>
+            <td><strong>${fmtPeso(Math.round(desgloseFmt.reduce((s, d) => s + d.total, 0)))}</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+/* — TAB GASTOS — */
+function setFinGasPeriodo(periodo, btn) {
+  finGasPeriodo = periodo;
+  document.querySelectorAll('[data-fin-gas-period]').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const rangeDiv = document.getElementById('finanzas-gastos-custom-range');
+  if (rangeDiv) rangeDiv.style.display = periodo === 'custom' ? 'flex' : 'none';
+  renderGastosTabla();
+}
+
+function setFinGasCat(val) {
+  finGasCat = val;
+  renderGastosTabla();
+}
+
+function renderFinanzasGastos() {
+  // Actualizar display del gasto inicial
+  const el = document.getElementById('gasto-inicial-valor-display');
+  if (el) el.textContent = fmtPeso(state.gastoInicial);
+  // Inicializar fecha del form
+  const gf = document.getElementById('gasto-fecha');
+  if (gf && !gf.value) gf.value = hoy();
+  renderGastosTabla();
+}
+
+function renderGastosTabla() {
+  const tablaEl = document.getElementById('finanzas-gastos-tabla');
+  if (!tablaEl) return;
+
+  // Construir lista unificada de gastos
+  const gastos = [];
+
+  // 1. Gastos manuales
+  state.gastosManual.forEach(g => {
+    gastos.push({ fecha: g.fecha, descripcion: g.descripcion, categoria: g.categoria, monto: Number(g.monto || 0), id: g.id, tipo: 'manual' });
+  });
+
+  // 2. Compras MP
+  state.comprasMp.forEach(c => {
+    if (c.precio) {
+      gastos.push({ fecha: c.fecha, descripcion: `Compra MP: ${c.ingrediente} (${fmt(c.cantidad)}g)`, categoria: 'Materia Prima', monto: Number(c.precio || 0), tipo: 'compra-mp' });
+    }
+  });
+
+  // 3. Costo empaque por producción
+  state.producciones.forEach(p => {
+    const r = getRecetaPorId(p.recetaId) || getRecetaActiva();
+    if (!r) return;
+    const totalBolsas = (p.bolsas250 || 0) + (p.bolsas300 || 0) + (p.bolsas500 || 0);
+    const costoEmp = totalBolsas * getCostoEmpaquePorBolsa(r);
+    if (costoEmp > 0) {
+      gastos.push({ fecha: p.fecha, descripcion: `Empaque prod. (${p.recetaNombre || r.nombre}, ${totalBolsas} bolsas)`, categoria: 'Empaque', monto: costoEmp, tipo: 'empaque' });
+    }
+  });
+
+  // Filtrar por período
+  let filtrados = finFiltrarPorPeriodo(gastos, 'fecha', finGasPeriodo, 'fin-gas-desde', 'fin-gas-hasta');
+
+  // Filtrar por categoría
+  if (finGasCat !== 'todos') filtrados = filtrados.filter(g => g.categoria === finGasCat);
+
+  // Ordenar por fecha desc
+  filtrados.sort((a, b) => (b.fecha || '').localeCompare(a.fecha || ''));
+
+  const total = filtrados.reduce((s, g) => s + g.monto, 0);
+
+  if (!filtrados.length) {
+    tablaEl.innerHTML = '<p class="text-muted" style="padding:16px;">Sin gastos en el período seleccionado.</p>';
+    return;
+  }
+
+  tablaEl.innerHTML = `
+    <table>
+      <thead><tr><th>Fecha</th><th>Descripción</th><th>Categoría</th><th>Monto</th><th></th></tr></thead>
+      <tbody>
+        ${filtrados.map(g => `<tr>
+          <td>${g.fecha ? formatFecha(g.fecha) : '—'}</td>
+          <td>${g.descripcion}</td>
+          <td><span class="badge badge-rosa" style="background:rgba(30,61,44,0.1);color:var(--verde);">${g.categoria}</span></td>
+          <td><strong>${fmtPeso(Math.round(g.monto))}</strong></td>
+          <td>${g.tipo === 'manual' ? `<button class="btn btn-danger btn-sm" onclick="eliminarGastoManual(${g.id})">Eliminar</button>` : ''}</td>
+        </tr>`).join('')}
+        <tr class="total-row">
+          <td colspan="3"><strong>Total</strong></td>
+          <td><strong>${fmtPeso(Math.round(total))}</strong></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  `;
+}
+
+function guardarGastoManual() {
+  const descripcion = document.getElementById('gasto-descripcion').value.trim();
+  const monto = Number(document.getElementById('gasto-monto').value);
+  const fecha = document.getElementById('gasto-fecha').value;
+  const categoria = document.getElementById('gasto-categoria').value;
+
+  if (!descripcion) { showToast('Ingresá una descripción', 'error'); return; }
+  if (!monto || monto <= 0) { showToast('Ingresá un monto válido', 'error'); return; }
+  if (!fecha) { showToast('Ingresá una fecha', 'error'); return; }
+
+  const gasto = { id: Date.now(), descripcion, monto, fecha, categoria };
+  state.gastosManual.push(gasto);
+  guardarEnStorage(KEYS.gastosManual, state.gastosManual);
+  showToast('Gasto registrado');
+
+  document.getElementById('gasto-descripcion').value = '';
+  document.getElementById('gasto-monto').value = '';
+  document.getElementById('gasto-fecha').value = hoy();
+  renderGastosTabla();
+}
+
+function eliminarGastoManual(id) {
+  confirmar('Eliminar gasto', '¿Confirmás que querés eliminar este gasto?', () => {
+    state.gastosManual = state.gastosManual.filter(g => g.id !== id);
+    guardarEnStorage(KEYS.gastosManual, state.gastosManual);
+    showToast('Gasto eliminado');
+    renderGastosTabla();
+  });
+}
+
+function editarGastoInicial() {
+  document.getElementById('gasto-inicial-display').style.display = 'none';
+  document.getElementById('gasto-inicial-edit').style.display = 'block';
+  document.getElementById('gasto-inicial-input').value = state.gastoInicial;
+}
+
+function cancelarEditGastoInicial() {
+  document.getElementById('gasto-inicial-display').style.display = 'block';
+  document.getElementById('gasto-inicial-edit').style.display = 'none';
+}
+
+function guardarGastoInicial() {
+  const val = Number(document.getElementById('gasto-inicial-input').value);
+  if (isNaN(val) || val < 0) { showToast('Ingresá un monto válido', 'error'); return; }
+  state.gastoInicial = val;
+  localStorage.setItem(KEYS.gastoInicial, String(val));
+  document.getElementById('gasto-inicial-valor-display').textContent = fmtPeso(val);
+  cancelarEditGastoInicial();
+  showToast('Gasto histórico actualizado');
+  renderGastosTabla();
+}
+
+/* — TAB PROYECCIONES — */
+function renderFinanzasProyecciones() {
+  const contenido = document.getElementById('finanzas-proy-content');
+  if (!contenido) return;
+
+  const inv = getInventarioProducto();
+  const r = getRecetaActiva();
+
+  // Totales históricos (sin filtro de período)
+  const tHist = calcularTotalesFinanzas('todo', null, null);
+  const pendienteRecuperar = Math.max(0, tHist.totalInvertido - tHist.totalCobrado);
+  const yaRecuperado = pendienteRecuperar === 0;
+
+  // --- Card 1: Si vendés todo el stock ---
+  const calcStock = (bolsas, formato) => {
+    if (!r || bolsas <= 0) return { ingreso: 0, costo: 0 };
+    const precio = formato === 250 ? r.precioVenta250 : formato === 300 ? r.precioVenta300 : r.precioVenta500;
+    const costo = getCostoPorFormato(formato, r);
+    return { ingreso: bolsas * precio, costo: bolsas * costo };
+  };
+  const s250 = calcStock(inv.b250, 250);
+  const s300 = calcStock(inv.b300, 300);
+  const s500 = calcStock(inv.b500, 500);
+  const ingPot = s250.ingreso + s300.ingreso + s500.ingreso;
+  const costPot = s250.costo + s300.costo + s500.costo;
+  const ganPot = ingPot - costPot;
+  const margenPot = ingPot > 0 ? (ganPot / ingPot * 100) : 0;
+
+  // --- Card 2: Punto de equilibrio ---
+  const calcBolsasNeeded = (formato) => {
+    if (!r || pendienteRecuperar <= 0) return 0;
+    const precio = formato === 250 ? r.precioVenta250 : formato === 300 ? r.precioVenta300 : r.precioVenta500;
+    return precio > 0 ? Math.ceil(pendienteRecuperar / precio) : '∞';
+  };
+  const needed250 = calcBolsasNeeded(250);
+  const needed300 = calcBolsasNeeded(300);
+  const needed500 = calcBolsasNeeded(500);
+
+  // --- Card 3: Ritmo de recuperación ---
+  const hace30 = new Date(); hace30.setDate(hace30.getDate() - 30);
+  const hace30str = hace30.toISOString().split('T')[0];
+  const ventas30 = state.ventas.filter(v => v.pagado && v.fecha >= hace30str);
+  const diasConVentas = new Set(ventas30.map(v => v.fecha)).size;
+  const cobrado30 = ventas30.reduce((s, v) => s + Number(v.cantidad) * Number(v.precio), 0);
+  const promDiario30 = cobrado30 / 30;
+
+  let ritmoHtml = '';
+  if (yaRecuperado) {
+    ritmoHtml = `<div class="alert alert-verde" style="margin:0;">✅ Inversión recuperada</div>`;
+  } else if (diasConVentas < 7) {
+    ritmoHtml = `<div class="alert alert-amarillo" style="margin:0;">⏳ Necesitás al menos 7 días de ventas registradas para calcular el ritmo de recuperación (tenés ${diasConVentas} ${diasConVentas === 1 ? 'día' : 'días'} con ventas en los últimos 30 días).</div>`;
+  } else if (promDiario30 <= 0) {
+    ritmoHtml = `<div class="alert alert-rojo" style="margin:0;">Sin ventas cobradas en los últimos 30 días.</div>`;
+  } else {
+    const diasRestantes = Math.ceil(pendienteRecuperar / promDiario30);
+    const semanasRestantes = (diasRestantes / 7).toFixed(1);
+    const fechaRec = new Date(); fechaRec.setDate(fechaRec.getDate() + diasRestantes);
+    const fechaRecStr = fechaRec.toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' });
+    ritmoHtml = `
+      <div class="fin-kpi-grid">
+        <div class="kpi-card"><div class="kpi-value">${fmtPeso(Math.round(promDiario30))}</div><div class="kpi-label">Ingreso diario prom. (30 días)</div></div>
+        <div class="kpi-card"><div class="kpi-value">${diasRestantes}</div><div class="kpi-label">Días estimados restantes</div></div>
+        <div class="kpi-card"><div class="kpi-value">${semanasRestantes}</div><div class="kpi-label">Semanas estimadas</div></div>
+      </div>
+      <div class="alert alert-amarillo" style="margin-top:8px;">📅 Fecha estimada de recuperación: <strong>${fechaRecStr}</strong></div>
+    `;
+  }
+
+  contenido.innerHTML = `
+    <div class="proyeccion-card" style="margin-top:0;border-top-left-radius:0;border-top-right-radius:0;">
+      <h3>📦 Si vendés todo el stock actual</h3>
+      ${inv.b250 + inv.b300 + inv.b500 === 0 ? '<p class="text-muted">No hay stock de producto terminado.</p>' : `
+        <div class="fin-kpi-grid">
+          <div class="kpi-card"><div class="kpi-value">${fmtPeso(Math.round(ingPot))}</div><div class="kpi-label">Ingreso potencial total</div></div>
+          <div class="kpi-card"><div class="kpi-value">${fmtPeso(Math.round(costPot))}</div><div class="kpi-label">Costo estimado del stock</div></div>
+          <div class="kpi-card ${ganPot >= 0 ? '' : 'kpi-pendiente'}"><div class="kpi-value" style="${ganPot < 0 ? 'color:#fff' : ''}">${fmtPeso(Math.round(ganPot))}</div><div class="kpi-label" style="${ganPot < 0 ? 'color:#fff' : ''}">Ganancia potencial</div></div>
+          <div class="kpi-card"><div class="kpi-value">${fmt(margenPot, 1)}%</div><div class="kpi-label">Margen potencial</div></div>
+        </div>
+        <table style="margin-top:12px;">
+          <thead><tr><th>Formato</th><th>Stock disponible</th><th>Precio venta</th><th>Ingreso potencial</th><th>Costo estimado</th><th>Ganancia potencial</th></tr></thead>
+          <tbody>
+            ${r ? [
+              { fmt_: 250, bolsas: inv.b250, precio: r.precioVenta250, datos: s250 },
+              { fmt_: 300, bolsas: inv.b300, precio: r.precioVenta300, datos: s300 },
+              { fmt_: 500, bolsas: inv.b500, precio: r.precioVenta500, datos: s500 },
+            ].map(row => `<tr>
+              <td><span class="badge badge-rosa">Bolsa ${row.fmt_}g</span></td>
+              <td>${row.bolsas} bolsas</td>
+              <td>${fmtPeso(row.precio)}</td>
+              <td>${fmtPeso(Math.round(row.datos.ingreso))}</td>
+              <td>${fmtPeso(Math.round(row.datos.costo))}</td>
+              <td style="color:${row.datos.ingreso - row.datos.costo >= 0 ? 'var(--verde)' : 'var(--rojo)'};font-weight:800;">${fmtPeso(Math.round(row.datos.ingreso - row.datos.costo))}</td>
+            </tr>`).join('') : ''}
+          </tbody>
+        </table>
+      `}
+    </div>
+
+    <div class="proyeccion-card">
+      <h3>⚖️ Punto de equilibrio</h3>
+      <p class="text-muted" style="margin-bottom:12px;">¿Cuántas bolsas más necesitás vender para cubrir toda la inversión histórica (${fmtPeso(Math.round(tHist.totalInvertido))})? Ya recuperaste: ${fmtPeso(Math.round(tHist.totalCobrado))}.</p>
+      ${yaRecuperado
+        ? `<div class="alert alert-verde" style="margin:0;">✅ ¡Inversión recuperada! Ganancia neta histórica: ${fmtPeso(Math.round(Math.abs(tHist.gananciaNeta)))}</div>`
+        : `
+        <div class="alert alert-rojo" style="margin-bottom:12px;">Falta recuperar: <strong>${fmtPeso(Math.round(pendienteRecuperar))}</strong></div>
+        ${r ? `<table>
+          <thead><tr><th>Formato</th><th>Precio venta</th><th>Bolsas necesarias</th></tr></thead>
+          <tbody>
+            <tr><td>Bolsa 250g</td><td>${fmtPeso(r.precioVenta250)}</td><td><strong>${needed250}</strong></td></tr>
+            <tr><td>Bolsa 300g</td><td>${fmtPeso(r.precioVenta300)}</td><td><strong>${needed300}</strong></td></tr>
+            <tr><td>Bolsa 500g</td><td>${fmtPeso(r.precioVenta500)}</td><td><strong>${needed500}</strong></td></tr>
+          </tbody>
+        </table>` : '<p class="text-muted">No hay receta activa.</p>'}
+        `
+      }
+    </div>
+
+    <div class="proyeccion-card">
+      <h3>📊 Ritmo de recuperación</h3>
+      <p class="text-muted" style="margin-bottom:12px;">Basado en el promedio de ventas cobradas de los últimos 30 días (${diasConVentas} días con ventas, ${fmtPeso(Math.round(cobrado30))} cobrados).</p>
+      ${ritmoHtml}
+    </div>
+  `;
+}
+
+/* =====================================================
    BACKUP / EXPORTACIÓN
    ===================================================== */
 
 function exportarBackup() {
   const backup = {
-    version: 1,
+    version: 2,
     exportadoEl: new Date().toISOString(),
-    pinut_receta: state.receta,
+    pinut_recetas: state.recetas,
+    pinut_receta_activa_id: state.recetaActivaId,
     pinut_producciones: state.producciones,
     pinut_ventas: state.ventas,
     pinut_compras_mp: state.comprasMp,
     pinut_stock_fisico: state.stockFisico,
-    pinut_precios_venta: state.preciosVenta,
+    pinut_gastos_manuales: state.gastosManual,
+    pinut_gasto_inicial: state.gastoInicial,
   };
   const json = JSON.stringify(backup, null, 2);
   const blob = new Blob([json], { type: 'application/json' });
@@ -2170,12 +3724,40 @@ function importarBackup(input) {
         'Importar backup',
         '¿Seguro que querés importar? Esto REEMPLAZARÁ todos los datos actuales.',
         () => {
-          if (data.pinut_receta) { state.receta = data.pinut_receta; guardarEnStorage(KEYS.receta, state.receta); }
+          // v2 format
+          if (data.pinut_recetas) {
+            state.recetas = data.pinut_recetas;
+            state.recetaActivaId = data.pinut_receta_activa_id || state.recetas[0]?.id || null;
+            guardarEnStorage(KEYS.recetas, state.recetas);
+            guardarEnStorage(KEYS.recetaActivaId, state.recetaActivaId);
+          }
+          // v1 format migration
+          if (!data.pinut_recetas && data.pinut_receta) {
+            const migratedReceta = crearRecetaDefault('Granola clásica');
+            migratedReceta.ingredientes = data.pinut_receta.ingredientes || migratedReceta.ingredientes;
+            if (data.pinut_receta.empaque) {
+              migratedReceta.empaque = {
+                precioEtiquetas: data.pinut_receta.empaque.etiquetas || 0,
+                unidadesEtiquetas: 100,
+                precioBolsas: data.pinut_receta.empaque.bolsas || 0,
+                unidadesBolsas: 100,
+              };
+            }
+            if (data.pinut_precios_venta) {
+              migratedReceta.precioVenta250 = data.pinut_precios_venta.precio250 || 0;
+              migratedReceta.precioVenta500 = data.pinut_precios_venta.precio500 || 0;
+            }
+            state.recetas = [migratedReceta];
+            state.recetaActivaId = migratedReceta.id;
+            guardarEnStorage(KEYS.recetas, state.recetas);
+            guardarEnStorage(KEYS.recetaActivaId, state.recetaActivaId);
+          }
           if (data.pinut_producciones) { state.producciones = data.pinut_producciones; guardarEnStorage(KEYS.producciones, state.producciones); }
           if (data.pinut_ventas) { state.ventas = data.pinut_ventas; guardarEnStorage(KEYS.ventas, state.ventas); }
           if (data.pinut_compras_mp) { state.comprasMp = data.pinut_compras_mp; guardarEnStorage(KEYS.comprasMp, state.comprasMp); }
           if (data.pinut_stock_fisico) { state.stockFisico = data.pinut_stock_fisico; guardarEnStorage(KEYS.stockFisico, state.stockFisico); }
-          if (data.pinut_precios_venta) { state.preciosVenta = data.pinut_precios_venta; guardarEnStorage(KEYS.preciosVenta, state.preciosVenta); }
+          if (data.pinut_gastos_manuales) { state.gastosManual = data.pinut_gastos_manuales; guardarEnStorage(KEYS.gastosManual, state.gastosManual); }
+          if (typeof data.pinut_gasto_inicial === 'number') { state.gastoInicial = data.pinut_gasto_inicial; guardarEnStorage(KEYS.gastoInicial, state.gastoInicial); }
           showToast('Backup importado correctamente');
           navTo('dashboard');
         }
@@ -2191,15 +3773,17 @@ function importarBackup(input) {
 function exportarCSV(tipo) {
   let csv = '', filename = '';
   if (tipo === 'receta') {
+    const r = getRecetaActiva();
     csv = 'Ingrediente,Gramos/tanda,Precio/kg,Costo/tanda\n';
-    state.receta.ingredientes.forEach(i => {
-      csv += `"${i.nombre}",${i.gramos},${i.precioPorKg},${getCostoIngrediente(i).toFixed(2)}\n`;
+    if (r) r.ingredientes.forEach(i => {
+      const costo = i.gramos * i.precioPorKg / 1000;
+      csv += `"${i.nombre}",${i.gramos},${i.precioPorKg},${costo.toFixed(2)}\n`;
     });
     filename = `pinut-receta-${hoy()}.csv`;
   } else if (tipo === 'produccion') {
-    csv = 'Fecha,Tandas,Bolsas 250g,Bolsas 500g,Observaciones\n';
+    csv = 'Fecha,Receta,Tandas,Bolsas 250g,Bolsas 300g,Bolsas 500g,Observaciones\n';
     state.producciones.forEach(p => {
-      csv += `${p.fecha},${p.tandas},${p.bolsas250},${p.bolsas500},"${p.obs || ''}"\n`;
+      csv += `${p.fecha},"${p.recetaNombre||''}",${p.tandas},${p.bolsas250||0},${p.bolsas300||0},${p.bolsas500||0},"${p.obs || ''}"\n`;
     });
     filename = `pinut-producciones-${hoy()}.csv`;
   } else if (tipo === 'ventas') {
@@ -2211,8 +3795,8 @@ function exportarCSV(tipo) {
   } else if (tipo === 'mp') {
     const stock = getStockCalculado();
     csv = 'Ingrediente,Stock calculado (gr)\n';
-    state.receta.ingredientes.forEach(i => {
-      csv += `"${i.nombre}",${stock[i.nombre] || 0}\n`;
+    getAllIngredientesUnicos().forEach(nombre => {
+      csv += `"${nombre}",${stock[nombre] || 0}\n`;
     });
     filename = `pinut-mp-${hoy()}.csv`;
   } else if (tipo === 'compras') {
