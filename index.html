@@ -1615,6 +1615,88 @@ input[type="checkbox"] {
   </div>
 </div>
 
+<!-- MODAL EDITAR VENTA -->
+<div class="modal-overlay" id="modal-editar-venta">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Editar venta</h3>
+      <button class="modal-close" onclick="cerrarModal('modal-editar-venta')">×</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="editar-venta-id">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Fecha</label>
+          <input type="date" id="editar-venta-fecha">
+        </div>
+        <div class="form-group">
+          <label>Tipo</label>
+          <select id="editar-venta-tipo" onchange="onEditarVentaTipoChange()">
+            <option value="venta">Venta normal</option>
+            <option value="regalo">Regalo / Obsequio</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Formato (g)</label>
+          <select id="editar-venta-formato">
+            <option value="250">250g</option>
+            <option value="300">300g</option>
+            <option value="500">500g</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Cantidad</label>
+          <input type="number" id="editar-venta-cantidad" min="1" step="1">
+        </div>
+      </div>
+      <div class="form-row" id="editar-venta-precio-row">
+        <div class="form-group">
+          <label>Precio unitario ($)</label>
+          <input type="number" id="editar-venta-precio" min="0">
+        </div>
+        <div class="form-group">
+          <label>Medio de pago</label>
+          <select id="editar-venta-medio-pago">
+            <option>Efectivo</option>
+            <option>Transferencia</option>
+            <option>Débito</option>
+            <option>Crédito</option>
+            <option>MercadoPago</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Comprador</label>
+        <input type="text" id="editar-venta-comprador" placeholder="Nombre del comprador" maxlength="60">
+      </div>
+      <div class="form-row">
+        <div class="form-group" id="editar-venta-pagado-row">
+          <label>
+            <input type="checkbox" id="editar-venta-pagado" onchange="onEditarVentaPagadoChange()" style="width:auto;margin-right:6px;">
+            Pagado
+          </label>
+        </div>
+        <div class="form-group">
+          <label>
+            <input type="checkbox" id="editar-venta-entregado" style="width:auto;margin-right:6px;">
+            Entregado
+          </label>
+        </div>
+      </div>
+      <div class="form-group" id="editar-venta-fecha-pago-grupo" style="display:none;">
+        <label>Fecha estimada de pago</label>
+        <input type="date" id="editar-venta-fecha-pago">
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary" onclick="guardarEditarVenta()">Guardar cambios</button>
+        <button class="btn btn-secondary" onclick="cerrarModal('modal-editar-venta')">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
@@ -2874,6 +2956,83 @@ function onVentaTipoChange() {
   }
 }
 
+function abrirEditarVenta(id) {
+  const v = state.ventas.find(x => x.id === id);
+  if (!v) return;
+  document.getElementById('editar-venta-id').value = id;
+  document.getElementById('editar-venta-fecha').value = v.fecha || '';
+  document.getElementById('editar-venta-tipo').value = v.tipo || 'venta';
+  document.getElementById('editar-venta-formato').value = v.formato || 250;
+  document.getElementById('editar-venta-cantidad').value = v.cantidad || 1;
+  document.getElementById('editar-venta-precio').value = v.precio || 0;
+  document.getElementById('editar-venta-comprador').value = v.comprador || '';
+  document.getElementById('editar-venta-medio-pago').value = v.medioPago || 'Efectivo';
+  document.getElementById('editar-venta-pagado').checked = !!v.pagado;
+  document.getElementById('editar-venta-entregado').checked = !!v.entregado;
+  document.getElementById('editar-venta-fecha-pago').value = v.fechaEstPago || '';
+  onEditarVentaTipoChange();
+  onEditarVentaPagadoChange();
+  document.getElementById('modal-editar-venta').classList.add('open');
+}
+
+function onEditarVentaTipoChange() {
+  const esRegalo = document.getElementById('editar-venta-tipo').value === 'regalo';
+  document.getElementById('editar-venta-precio-row').style.opacity = esRegalo ? '0.4' : '1';
+  document.getElementById('editar-venta-pagado-row').style.opacity = esRegalo ? '0.4' : '1';
+  if (esRegalo) {
+    document.getElementById('editar-venta-precio').value = 0;
+    document.getElementById('editar-venta-pagado').checked = true;
+    document.getElementById('editar-venta-fecha-pago-grupo').style.display = 'none';
+  }
+}
+
+function onEditarVentaPagadoChange() {
+  const pagado = document.getElementById('editar-venta-pagado').checked;
+  const esRegalo = document.getElementById('editar-venta-tipo').value === 'regalo';
+  document.getElementById('editar-venta-fecha-pago-grupo').style.display = (!pagado && !esRegalo) ? 'block' : 'none';
+}
+
+function guardarEditarVenta() {
+  const id = Number(document.getElementById('editar-venta-id').value);
+  const v = state.ventas.find(x => x.id === id);
+  if (!v) return;
+
+  const fecha = document.getElementById('editar-venta-fecha').value;
+  const tipo = document.getElementById('editar-venta-tipo').value;
+  const formato = Number(document.getElementById('editar-venta-formato').value);
+  const cantidad = Number(document.getElementById('editar-venta-cantidad').value);
+  const esRegalo = tipo === 'regalo';
+  const precio = esRegalo ? 0 : Number(document.getElementById('editar-venta-precio').value);
+  const comprador = document.getElementById('editar-venta-comprador').value.trim();
+  const medioPago = esRegalo ? 'Regalo' : document.getElementById('editar-venta-medio-pago').value;
+  const pagado = esRegalo ? true : document.getElementById('editar-venta-pagado').checked;
+  const entregado = document.getElementById('editar-venta-entregado').checked;
+  const fechaEstPago = (esRegalo || pagado) ? '' : (document.getElementById('editar-venta-fecha-pago').value || '');
+
+  if (!fecha) { showToast('Ingresá una fecha', 'error'); return; }
+  if (!cantidad || cantidad < 1) { showToast('Ingresá una cantidad válida', 'error'); return; }
+
+  v.fecha = fecha;
+  v.tipo = tipo;
+  v.formato = formato;
+  v.cantidad = cantidad;
+  v.precio = precio;
+  v.comprador = comprador;
+  v.medioPago = medioPago;
+  v.pagado = pagado;
+  v.entregado = entregado;
+  v.fechaEstPago = fechaEstPago;
+
+  guardarEnStorage(KEYS.ventas, state.ventas);
+  cerrarModal('modal-editar-venta');
+  showToast('Venta actualizada');
+  actualizarBadgeCobros();
+  renderHistorialVentas();
+  renderCobrosVentas();
+  renderClientesVentas();
+  renderDashboard();
+}
+
 function eliminarVenta(id) {
   confirmar(
     'Eliminar venta',
@@ -3062,8 +3221,12 @@ function renderHistorialVentas() {
             <td>${v.medioPago || 'Efectivo'}</td>
             <td>${badgePago}</td>
             <td>${badgeEntrega}</td>
-            <td style="white-space:nowrap;">
-              ${(!v.pagado && !esRegalo) ? `<button class="btn btn-secondary btn-sm" onclick="marcarPagado(${v.id})" style="margin-bottom:4px;">✓ Pagado</button>` : ''}
+            <td style="white-space:nowrap;display:flex;gap:4px;flex-wrap:wrap;align-items:center;">
+              ${(!v.pagado && !esRegalo) ? `<button class="btn btn-secondary btn-sm" onclick="marcarPagado(${v.id})">✓ Pagado</button>` : ''}
+              <button class="btn btn-secondary btn-sm" onclick="abrirEditarVenta(${v.id})">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                Editar
+              </button>
               <button class="btn btn-danger btn-sm" onclick="eliminarVenta(${v.id})">Eliminar</button>
             </td>
           </tr>`;
