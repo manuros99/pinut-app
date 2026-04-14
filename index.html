@@ -2116,7 +2116,13 @@ function getInventarioProducto() {
     ? (base.gramos || 0)
     : ((base.b250||0)*250 + (base.b300||0)*300 + (base.b500||0)*500);
   state.producciones.forEach(p => {
-    gramos += (Number(p.bolsas250||0)*250) + (Number(p.bolsas300||0)*300) + (Number(p.bolsas500||0)*500);
+    if (p.gramosProducidos !== undefined) {
+      gramos += Number(p.gramosProducidos);
+    } else {
+      // Compatibilidad con registros viejos: calcular desde la receta
+      const rec = getRecetaPorId(p.recetaId);
+      gramos += rec ? getPesoTandaReceta(rec) * Number(p.tandas) : 0;
+    }
   });
   // Ventas y regalos descuentan gramos según el formato
   state.ventas.forEach(v => {
@@ -2135,7 +2141,13 @@ function getInventarioProducto() {
 function getInventarioProductoCalcPuro() {
   let gramos = 0;
   state.producciones.forEach(p => {
-    gramos += (Number(p.bolsas250||0)*250) + (Number(p.bolsas300||0)*300) + (Number(p.bolsas500||0)*500);
+    if (p.gramosProducidos !== undefined) {
+      gramos += Number(p.gramosProducidos);
+    } else {
+      // Compatibilidad con registros viejos: calcular desde la receta
+      const rec = getRecetaPorId(p.recetaId);
+      gramos += rec ? getPesoTandaReceta(rec) * Number(p.tandas) : 0;
+    }
   });
   state.ventas.forEach(v => {
     gramos -= Number(v.cantidad) * Number(v.formato);
@@ -2788,6 +2800,7 @@ function guardarProduccion() {
     id: Date.now(),
     fecha,
     tandas,
+    gramosProducidos: pesoTanda * tandas,
     recetaId: r.id,
     recetaNombre: r.nombre,
     bolsas250: b250,
