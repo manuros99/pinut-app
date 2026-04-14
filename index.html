@@ -880,7 +880,7 @@ input[type="checkbox"] {
 
   <!-- SIDEBAR DESKTOP -->
   <nav class="sidebar" id="sidebar">
-    <div class="sidebar-logo">
+    <div class="sidebar-logo" onclick="navTo('dashboard')" style="cursor:pointer;">
       <svg class="isotipo" viewBox="0 0 924.64 1030.49" xmlns="http://www.w3.org/2000/svg">
         <path fill="#ffffff" d="M453.54,0l92.46,13.59-30.44,238.73,95.52-92.87,80.43,12.56-72.07,182.74,140.78-49.42,60.33,69.46s-159.36,139.85-180.16,199.31c0,0,247.69-4.01,250.99,3.28l33.26,91.34-226.47,101.34s54.04,39.79,157.83,67.72c0,0-56.45,118.08-207.96,118.08,0,0-72.92,74.63-177.47,74.63s-221.82-84.7-221.82-84.7c0,0-167.72,33.16-248.75-107.64l202.88-129.08-180.09-20.29,32.54-88.72s79.96-18.98,235.88-51.42c0,0-31.72-55.73-176.74-99.07l-44.18-104.57s111.87-10.87,263.28,32.39c0,0-1.37-41.87-139.48-162.89l38.8-60.36s39.85-6.86,145.52,77.55L453.54,0Z"/>
       </svg>
@@ -1500,7 +1500,7 @@ input[type="checkbox"] {
 
 <!-- MOBILE HEADER -->
 <header class="mobile-header" id="mobile-header">
-  <div class="mobile-header-logo">
+  <div class="mobile-header-logo" onclick="navTo('dashboard')" style="cursor:pointer;">
     <svg class="isotipo" viewBox="0 0 924.64 1030.49" xmlns="http://www.w3.org/2000/svg">
       <path fill="#ffffff" d="M453.54,0l92.46,13.59-30.44,238.73,95.52-92.87,80.43,12.56-72.07,182.74,140.78-49.42,60.33,69.46s-159.36,139.85-180.16,199.31c0,0,247.69-4.01,250.99,3.28l33.26,91.34-226.47,101.34s54.04,39.79,157.83,67.72c0,0-56.45,118.08-207.96,118.08,0,0-72.92,74.63-177.47,74.63s-221.82-84.7-221.82-84.7c0,0-167.72,33.16-248.75-107.64l202.88-129.08-180.09-20.29,32.54-88.72s79.96-18.98,235.88-51.42c0,0-31.72-55.73-176.74-99.07l-44.18-104.57s111.87-10.87,263.28,32.39c0,0-1.37-41.87-139.48-162.89l38.8-60.36s39.85-6.86,145.52,77.55L453.54,0Z"/>
     </svg>
@@ -1773,7 +1773,7 @@ let state = {
   gastosManual: [],
   gastoInicial: 148900,
   stockProductoBase: { b250: 0, b300: 0, b500: 0 },
-  stockEmpaque: { bolsas: 81, stickers: 18, timestamp: 0 },
+  stockEmpaque: { tamanos: [{gramos:250,cantidad:0},{gramos:300,cantidad:0},{gramos:500,cantidad:0}], stickers: 18, timestamp: 0 },
   pedidos: [],
 };
 
@@ -1865,7 +1865,20 @@ function cargarDatos() {
 
   // Stock de empaque (bolsas y stickers)
   const se = localStorage.getItem(KEYS.stockEmpaque);
-  state.stockEmpaque = se ? JSON.parse(se) : { bolsas: 81, stickers: 18, timestamp: 0 };
+  if (se) {
+    const parsed = JSON.parse(se);
+    // Migrar formato viejo {bolsas, stickers} al nuevo {tamanos, stickers}
+    if (!parsed.tamanos) {
+      parsed.tamanos = [
+        { gramos: 250, cantidad: parsed.bolsas || 0 },
+        { gramos: 300, cantidad: 0 },
+        { gramos: 500, cantidad: 0 },
+      ];
+    }
+    state.stockEmpaque = parsed;
+  } else {
+    state.stockEmpaque = { tamanos: [{gramos:250,cantidad:0},{gramos:300,cantidad:0},{gramos:500,cantidad:0}], stickers: 18, timestamp: 0 };
+  }
 
   // Pedidos pendientes
   const ped = localStorage.getItem(KEYS.pedidos);
@@ -2172,43 +2185,73 @@ function getInventarioProductoCalcPuro() {
    ===================================================== */
 
 function getStockEmpaque() {
-  const base = state.stockEmpaque || { bolsas: 0, stickers: 0, timestamp: 0 };
+  const base = state.stockEmpaque || {};
+  const tamanos = base.tamanos || [];
   const since = base.timestamp || 0;
-  // Cada unidad vendida (o regalada) consume 1 bolsa y 1 sticker
-  const usadas = state.ventas
-    .filter(v => v.id > since)
-    .reduce((s, v) => s + Number(v.cantidad), 0);
-  return {
-    bolsas: Math.max(0, (base.bolsas || 0) - usadas),
-    stickers: Math.max(0, (base.stickers || 0) - usadas),
-  };
+  const ventasSince = state.ventas.filter(v => v.id > since);
+
+  // Para cada tamaño, restar las ventas de ese formato específico
+  const tamanosSaldo = tamanos.map(t => {
+    const usadas = ventasSince
+      .filter(v => Number(v.formato) === Number(t.gramos))
+      .reduce((s, v) => s + Number(v.cantidad), 0);
+    return { gramos: t.gramos, cantidad: Math.max(0, t.cantidad - usadas) };
+  });
+
+  // Stickers: descuentan por toda venta sin importar el tamaño
+  const stickersUsados = ventasSince.reduce((s, v) => s + Number(v.cantidad), 0);
+  const stickers = Math.max(0, (base.stickers || 0) - stickersUsados);
+
+  return { tamanos: tamanosSaldo, stickers };
 }
 
 function renderStockEmpaqueDash() {
   const s = getStockEmpaque();
-  const alertaBolsas = s.bolsas <= 10 ? 'color:var(--rojo);font-weight:800;' : s.bolsas <= 25 ? 'color:var(--amarillo);font-weight:700;' : 'color:var(--verde);font-weight:800;';
+  const totalBolsas = s.tamanos.reduce((sum, t) => sum + t.cantidad, 0);
   const alertaStickers = s.stickers <= 5 ? 'color:var(--rojo);font-weight:800;' : s.stickers <= 15 ? 'color:var(--amarillo);font-weight:700;' : 'color:var(--verde);font-weight:800;';
-  document.getElementById('stock-empaque-dash').innerHTML = `
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
-      <div class="receta-stat">
-        <div class="val" style="${alertaBolsas}">${s.bolsas}</div>
-        <div class="lbl">Bolsas disponibles</div>
+
+  const bolsasHtml = s.tamanos.map(t => {
+    const alerta = t.cantidad <= 5 ? 'color:var(--rojo);font-weight:800;' : t.cantidad <= 15 ? 'color:var(--amarillo);font-weight:700;' : 'color:var(--verde);font-weight:800;';
+    return `<div class="receta-stat">
+      <div class="val" style="${alerta}">${t.cantidad}</div>
+      <div class="lbl">Bolsas ${t.gramos}g</div>
+    </div>`;
+  }).join('');
+
+  // Filas del formulario de ajuste
+  const base = state.stockEmpaque || {};
+  const tamanos = base.tamanos || [];
+  const filasForm = tamanos.map((t, i) => `
+    <div style="display:flex;gap:6px;align-items:flex-end;flex-wrap:wrap;" id="empaque-fila-${i}">
+      <div class="form-group" style="margin:0;">
+        <label style="font-size:11px;">Gramos</label>
+        <input type="number" class="empaque-gramos" min="1" value="${t.gramos}" style="max-width:70px;" data-idx="${i}">
       </div>
+      <div class="form-group" style="margin:0;">
+        <label style="font-size:11px;">Cantidad</label>
+        <input type="number" class="empaque-cantidad" min="0" value="${s.tamanos[i]?.cantidad ?? t.cantidad}" style="max-width:70px;" data-idx="${i}">
+      </div>
+      <button class="btn btn-danger btn-sm" onclick="eliminarFilaEmpaque(${i})" style="margin-bottom:2px;">✕</button>
+    </div>`).join('');
+
+  document.getElementById('stock-empaque-dash').innerHTML = `
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:10px;margin-bottom:12px;">
+      ${bolsasHtml}
       <div class="receta-stat">
         <div class="val" style="${alertaStickers}">${s.stickers}</div>
-        <div class="lbl">Stickers disponibles</div>
+        <div class="lbl">Stickers</div>
       </div>
     </div>
     <div id="ajuste-empaque-display">
       <button class="btn btn-secondary btn-sm" onclick="abrirAjusteEmpaque()">Corregir stock de empaque</button>
     </div>
     <div id="ajuste-empaque-form" style="display:none;margin-top:10px;">
-      <p class="text-sm text-muted" style="margin-bottom:8px;">Ingresá el stock real que tenés ahora.</p>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;">
-        <div class="form-group" style="margin:0;">
-          <label>Bolsas</label>
-          <input type="number" id="ajuste-bolsas" min="0" value="${s.bolsas}" style="max-width:80px;">
-        </div>
+      <p class="text-sm text-muted" style="margin-bottom:10px;">Ingresá el stock real. Podés cambiar los gramos por tamaño.</p>
+      <div id="empaque-filas" style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px;">
+        ${filasForm}
+      </div>
+      <button class="btn btn-secondary btn-sm" onclick="agregarFilaEmpaque()" style="margin-bottom:10px;">+ Agregar tamaño</button>
+      <div style="display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap;border-top:1px solid var(--borde);padding-top:10px;">
         <div class="form-group" style="margin:0;">
           <label>Stickers</label>
           <input type="number" id="ajuste-stickers" min="0" value="${s.stickers}" style="max-width:80px;">
@@ -2229,10 +2272,41 @@ function cancelarAjusteEmpaque() {
   document.getElementById('ajuste-empaque-form').style.display = 'none';
 }
 
+function agregarFilaEmpaque() {
+  const filas = document.getElementById('empaque-filas');
+  const idx = filas.children.length;
+  const div = document.createElement('div');
+  div.style.cssText = 'display:flex;gap:6px;align-items:flex-end;flex-wrap:wrap;';
+  div.id = `empaque-fila-${idx}`;
+  div.innerHTML = `
+    <div class="form-group" style="margin:0;">
+      <label style="font-size:11px;">Gramos</label>
+      <input type="number" class="empaque-gramos" min="1" value="" style="max-width:70px;" data-idx="${idx}">
+    </div>
+    <div class="form-group" style="margin:0;">
+      <label style="font-size:11px;">Cantidad</label>
+      <input type="number" class="empaque-cantidad" min="0" value="0" style="max-width:70px;" data-idx="${idx}">
+    </div>
+    <button class="btn btn-danger btn-sm" onclick="eliminarFilaEmpaque(${idx})" style="margin-bottom:2px;">✕</button>`;
+  filas.appendChild(div);
+}
+
+function eliminarFilaEmpaque(idx) {
+  const el = document.getElementById(`empaque-fila-${idx}`);
+  if (el) el.remove();
+}
+
 function guardarAjusteEmpaque() {
-  const bolsas = Number(document.getElementById('ajuste-bolsas').value) || 0;
+  const gramosInputs = document.querySelectorAll('.empaque-gramos');
+  const cantInputs = document.querySelectorAll('.empaque-cantidad');
+  const tamanos = [];
+  gramosInputs.forEach((gEl, i) => {
+    const gramos = Number(gEl.value);
+    const cantidad = Number(cantInputs[i]?.value) || 0;
+    if (gramos > 0) tamanos.push({ gramos, cantidad });
+  });
   const stickers = Number(document.getElementById('ajuste-stickers').value) || 0;
-  state.stockEmpaque = { bolsas, stickers, timestamp: Date.now() };
+  state.stockEmpaque = { tamanos, stickers, timestamp: Date.now() };
   guardarEnStorage(KEYS.stockEmpaque, state.stockEmpaque);
   showToast('Stock de empaque corregido');
   renderStockEmpaqueDash();
@@ -2365,9 +2439,11 @@ function renderAlertas() {
   }
   if (kpis.margen < 20 && kpis.ingresos > 0) html += `<div class="alert alert-rojo">📉 Margen bajo: ${fmt(kpis.margen, 1)}%</div>`;
   const empaque = getStockEmpaque();
-  if (empaque.bolsas === 0) html += `<div class="alert alert-rojo">🚨 Sin bolsas de empaque</div>`;
-  else if (empaque.bolsas <= 10) html += `<div class="alert alert-rojo">⚠️ Pocas bolsas: quedan ${empaque.bolsas}</div>`;
-  else if (empaque.bolsas <= 25) html += `<div class="alert alert-amarillo">⚠️ Bolsas bajas: quedan ${empaque.bolsas}</div>`;
+  empaque.tamanos.forEach(t => {
+    if (t.cantidad === 0) html += `<div class="alert alert-rojo">🚨 Sin bolsas de ${t.gramos}g</div>`;
+    else if (t.cantidad <= 5) html += `<div class="alert alert-rojo">⚠️ Pocas bolsas ${t.gramos}g: quedan ${t.cantidad}</div>`;
+    else if (t.cantidad <= 15) html += `<div class="alert alert-amarillo">⚠️ Bolsas ${t.gramos}g bajas: quedan ${t.cantidad}</div>`;
+  });
   if (empaque.stickers === 0) html += `<div class="alert alert-rojo">🚨 Sin stickers</div>`;
   else if (empaque.stickers <= 5) html += `<div class="alert alert-rojo">⚠️ Pocos stickers: quedan ${empaque.stickers}</div>`;
   else if (empaque.stickers <= 15) html += `<div class="alert alert-amarillo">⚠️ Stickers bajos: quedan ${empaque.stickers}</div>`;
@@ -2391,20 +2467,31 @@ function renderInvProductoDash() {
       <button class="btn btn-secondary btn-sm" onclick="abrirAjusteStock()">Corregir inventario</button>
     </div>
     <div id="ajuste-stock-form" style="display:none;margin-top:10px;">
-      <p class="text-sm text-muted" style="margin-bottom:8px;">Ingresá las bolsas reales que tenés. La app calcula el ajuste automáticamente.</p>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;">
+      <p class="text-sm text-muted" style="margin-bottom:10px;">Ingresá el total en gramos <em>o</em> la cantidad de bolsas por tamaño.</p>
+      <div class="form-group" style="margin-bottom:12px;">
+        <label>Total en gramos</label>
+        <input type="number" id="ajuste-gramos-total" min="0" placeholder="ej: 1540"
+          oninput="if(this.value){document.getElementById('ajuste-b250').value='';document.getElementById('ajuste-b300').value='';document.getElementById('ajuste-b500').value='';}">
+      </div>
+      <p class="text-sm text-muted" style="margin-bottom:8px;">— o por cantidad de bolsas —</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;margin-bottom:12px;">
         <div class="form-group" style="margin:0;">
           <label>Bolsas 250g</label>
-          <input type="number" id="ajuste-b250" min="0" value="0" style="max-width:80px;">
+          <input type="number" id="ajuste-b250" min="0" value="0" style="max-width:80px;"
+            oninput="document.getElementById('ajuste-gramos-total').value='';">
         </div>
         <div class="form-group" style="margin:0;">
           <label>Bolsas 300g</label>
-          <input type="number" id="ajuste-b300" min="0" value="0" style="max-width:80px;">
+          <input type="number" id="ajuste-b300" min="0" value="0" style="max-width:80px;"
+            oninput="document.getElementById('ajuste-gramos-total').value='';">
         </div>
         <div class="form-group" style="margin:0;">
           <label>Bolsas 500g</label>
-          <input type="number" id="ajuste-b500" min="0" value="0" style="max-width:80px;">
+          <input type="number" id="ajuste-b500" min="0" value="0" style="max-width:80px;"
+            oninput="document.getElementById('ajuste-gramos-total').value='';">
         </div>
+      </div>
+      <div style="display:flex;gap:8px;">
         <button class="btn btn-primary btn-sm" onclick="guardarAjusteStock()">Guardar</button>
         <button class="btn btn-secondary btn-sm" onclick="cancelarAjusteStock()">Cancelar</button>
       </div>
@@ -2422,10 +2509,16 @@ function cancelarAjusteStock() {
 }
 
 function guardarAjusteStock() {
-  const b250 = Number(document.getElementById('ajuste-b250').value) || 0;
-  const b300 = Number(document.getElementById('ajuste-b300').value) || 0;
-  const b500 = Number(document.getElementById('ajuste-b500').value) || 0;
-  const deseadoGramos = b250*250 + b300*300 + b500*500;
+  const gramosDirecto = document.getElementById('ajuste-gramos-total').value;
+  let deseadoGramos;
+  if (gramosDirecto !== '') {
+    deseadoGramos = Number(gramosDirecto) || 0;
+  } else {
+    const b250 = Number(document.getElementById('ajuste-b250').value) || 0;
+    const b300 = Number(document.getElementById('ajuste-b300').value) || 0;
+    const b500 = Number(document.getElementById('ajuste-b500').value) || 0;
+    deseadoGramos = b250*250 + b300*300 + b500*500;
+  }
   // Guardamos el total absoluto en gramos + el timestamp del ajuste.
   // Las producciones y ventas posteriores a este timestamp se suman/restan sobre este valor.
   state.stockProductoBase = { gramos: deseadoGramos, timestamp: Date.now() };
@@ -2856,7 +2949,7 @@ function actualizarPreviewProd() {
   const b300 = getBolsas(pesoTanda, 300);
   const b500 = getBolsas(pesoTanda, 500);
   document.getElementById('prod-preview').innerHTML =
-    `<strong>${tandas} tanda${tandas > 1 ? 's' : ''}</strong> → <strong>${tandas * b250}</strong> bolsas 250g + <strong>${tandas * b300}</strong> bolsas 300g + <strong>${tandas * b500}</strong> bolsas 500g`;
+    `<strong>${tandas} tanda${tandas > 1 ? 's' : ''}</strong> → <strong>${tandas * b250}</strong> bolsas 250g &nbsp;ó&nbsp; <strong>${tandas * b300}</strong> bolsas 300g &nbsp;ó&nbsp; <strong>${tandas * b500}</strong> bolsas 500g`;
 
   // Check MP disponible
   const stock = getStockCalculado();
