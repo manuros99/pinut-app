@@ -4048,16 +4048,9 @@ function calcularTotalesFinanzas(periodo, desdeId, hastaId) {
   const comprasMpFilt = finFiltrarPorPeriodo(state.comprasMp, 'fecha', periodo, desdeId, hastaId);
   const totalComprasMp = comprasMpFilt.reduce((s, c) => s + Number(c.precio || 0), 0);
 
-  // Costo empaque por producción (bolsas producidas × costo empaque de la receta)
   const prodFilt = finFiltrarPorPeriodo(state.producciones, 'fecha', periodo, desdeId, hastaId);
-  const totalEmpaqueProds = prodFilt.reduce((s, p) => {
-    const r = getRecetaPorId(p.recetaId) || getRecetaActiva();
-    if (!r) return s;
-    const totalBolsas = (p.bolsas250 || 0) + (p.bolsas300 || 0) + (p.bolsas500 || 0);
-    return s + totalBolsas * getCostoEmpaquePorBolsa(r);
-  }, 0);
 
-  const totalInvertido = gastoInicial + totalGastosManuales + totalComprasMp + totalEmpaqueProds;
+  const totalInvertido = gastoInicial + totalGastosManuales + totalComprasMp;
 
   // Ventas filtradas (regalos no cuentan como ingresos)
   const ventasFilt = finFiltrarPorPeriodo(state.ventas, 'fecha', periodo, desdeId, hastaId);
@@ -4073,7 +4066,7 @@ function calcularTotalesFinanzas(periodo, desdeId, hastaId) {
   const ingresoPorTanda = nTandas > 0 ? totalCobrado / nTandas : 0;
 
   return {
-    gastoInicial, totalGastosManuales, totalComprasMp, totalEmpaqueProds,
+    gastoInicial, totalGastosManuales, totalComprasMp,
     totalInvertido, totalCobrado, totalPendienteCobro, gananciaNeta,
     pctRecuperado, nTandas, costoPorTanda, ingresoPorTanda, ventasFilt, prodFilt
   };
@@ -4115,7 +4108,7 @@ function renderFinanzasResumen() {
         <div class="kpi-lbl">💰 Total invertido</div>
         <div class="kpi-val">${fmtPeso(Math.round(t.totalInvertido))}</div>
         <div style="font-size:11px;color:rgba(255,255,255,0.6);margin-top:4px;">
-          Inicial: ${fmtPeso(t.gastoInicial)} · MP: ${fmtPeso(Math.round(t.totalComprasMp))} · Empaque: ${fmtPeso(Math.round(t.totalEmpaqueProds))} · Otros: ${fmtPeso(Math.round(t.totalGastosManuales))}
+          Inicial: ${fmtPeso(t.gastoInicial)} · MP: ${fmtPeso(Math.round(t.totalComprasMp))} · Otros: ${fmtPeso(Math.round(t.totalGastosManuales))}
         </div>
       </div>
       <div class="kpi-grande">
@@ -4223,17 +4216,6 @@ function renderGastosTabla() {
   state.comprasMp.forEach(c => {
     if (c.precio) {
       gastos.push({ fecha: c.fecha, descripcion: `Compra MP: ${c.ingrediente} (${fmt(c.cantidad)}g)`, categoria: 'Materia Prima', monto: Number(c.precio || 0), tipo: 'compra-mp' });
-    }
-  });
-
-  // 3. Costo empaque por producción
-  state.producciones.forEach(p => {
-    const r = getRecetaPorId(p.recetaId) || getRecetaActiva();
-    if (!r) return;
-    const totalBolsas = (p.bolsas250 || 0) + (p.bolsas300 || 0) + (p.bolsas500 || 0);
-    const costoEmp = totalBolsas * getCostoEmpaquePorBolsa(r);
-    if (costoEmp > 0) {
-      gastos.push({ fecha: p.fecha, descripcion: `Empaque prod. (${p.recetaNombre || r.nombre}, ${totalBolsas} bolsas)`, categoria: 'Empaque', monto: costoEmp, tipo: 'empaque' });
     }
   });
 
