@@ -1773,7 +1773,7 @@ let state = {
   gastosManual: [],
   gastoInicial: 148900,
   stockProductoBase: { b250: 0, b300: 0, b500: 0 },
-  stockEmpaque: { tamanos: [{gramos:250,cantidad:0},{gramos:300,cantidad:0},{gramos:500,cantidad:0}], stickers: 18, timestamp: 0 },
+  stockEmpaque: { tamanos: [{label:'250g',formatos:[250],cantidad:0},{label:'300/500g',formatos:[300,500],fallbackPara:[250],cantidad:0}], stickers: 18, timestamp: 0 },
   pedidos: [],
 };
 
@@ -1867,17 +1867,22 @@ function cargarDatos() {
   const se = localStorage.getItem(KEYS.stockEmpaque);
   if (se) {
     const parsed = JSON.parse(se);
-    // Migrar formato viejo {bolsas, stickers} al nuevo {tamanos, stickers}
+    // Migrar formato viejo {bolsas, stickers}
     if (!parsed.tamanos) {
       parsed.tamanos = [
-        { gramos: 250, cantidad: parsed.bolsas || 0 },
-        { gramos: 300, cantidad: 0 },
-        { gramos: 500, cantidad: 0 },
+        { label: '250g', formatos: [250], cantidad: parsed.bolsas || 0 },
+        { label: '300/500g', formatos: [300, 500], fallbackPara: [250], cantidad: 0 },
       ];
     }
+    // Migrar tamanos con {gramos} al nuevo formato {label, formatos}
+    parsed.tamanos = parsed.tamanos.map(t => {
+      if (t.formatos) return t;
+      const g = t.gramos;
+      return { label: g + 'g', formatos: [g], cantidad: t.cantidad || 0 };
+    });
     state.stockEmpaque = parsed;
   } else {
-    state.stockEmpaque = { tamanos: [{gramos:250,cantidad:0},{gramos:300,cantidad:0},{gramos:500,cantidad:0}], stickers: 18, timestamp: 0 };
+    state.stockEmpaque = { tamanos: [{label:'250g',formatos:[250],cantidad:0},{label:'300/500g',formatos:[300,500],fallbackPara:[250],cantidad:0}], stickers: 18, timestamp: 0 };
   }
 
   // Pedidos pendientes
@@ -2188,21 +2193,49 @@ function getStockEmpaque() {
   const base = state.stockEmpaque || {};
   const tamanos = base.tamanos || [];
   const since = base.timestamp || 0;
-  const ventasSince = state.ventas.filter(v => v.id > since);
 
-  // Para cada tamaño, restar las ventas de ese formato específico
-  const tamanosSaldo = tamanos.map(t => {
-    const usadas = ventasSince
-      .filter(v => Number(v.formato) === Number(t.gramos))
-      .reduce((s, v) => s + Number(v.cantidad), 0);
-    return { gramos: t.gramos, cantidad: Math.max(0, t.cantidad - usadas) };
-  });
+  // Trabajar con saldos mutables para aplicar el cascade
+  const saldos = tamanos.map(t => ({
+    label: t.label || (t.gramos + 'g'),
+    formatos: t.formatos || [t.gramos],
+    fallbackPara: t.fallbackPara || [],
+    cantidad: t.cantidad || 0,
+  }));
+
+  // Procesar ventas en orden cronológico para aplicar prioridad y fallback
+  const ventasSince = state.ventas.filter(v => v.id > since).sort((a, b) => a.id - b.id);
+  for (const v of ventasSince) {
+    const fmt = Number(v.formato);
+    let restante = Number(v.cantidad);
+
+    // 1. Descontar del pool primario (el que tiene este formato en formatos[])
+    const primario = saldos.find(t => t.formatos.includes(fmt));
+    if (primario) {
+      const usar = Math.min(primario.cantidad, restante);
+      primario.cantidad -= usar;
+      restante -= usar;
+    }
+
+    // 2. Si sobra demanda, buscar pools que tengan este formato en fallbackPara[]
+    if (restante > 0) {
+      for (const t of saldos) {
+        if (t.fallbackPara.includes(fmt) && restante > 0) {
+          const usar = Math.min(t.cantidad, restante);
+          t.cantidad -= usar;
+          restante -= usar;
+        }
+      }
+    }
+  }
 
   // Stickers: descuentan por toda venta sin importar el tamaño
   const stickersUsados = ventasSince.reduce((s, v) => s + Number(v.cantidad), 0);
   const stickers = Math.max(0, (base.stickers || 0) - stickersUsados);
 
-  return { tamanos: tamanosSaldo, stickers };
+  return {
+    tamanos: saldos.map(t => ({ label: t.label, formatos: t.formatos, fallbackPara: t.fallbackPara, cantidad: Math.max(0, t.cantidad) })),
+    stickers,
+  };
 }
 
 function renderStockEmpaqueDash() {
@@ -2214,7 +2247,7 @@ function renderStockEmpaqueDash() {
     const alerta = t.cantidad <= 5 ? 'color:var(--rojo);font-weight:800;' : t.cantidad <= 15 ? 'color:var(--amarillo);font-weight:700;' : 'color:var(--verde);font-weight:800;';
     return `<div class="receta-stat">
       <div class="val" style="${alerta}">${t.cantidad}</div>
-      <div class="lbl">Bolsas ${t.gramos}g</div>
+      <div class="lbl">Bolsas ${t.label}</div>
     </div>`;
   }).join('');
 
@@ -2224,8 +2257,16 @@ function renderStockEmpaqueDash() {
   const filasForm = tamanos.map((t, i) => `
     <div style="display:flex;gap:6px;align-items:flex-end;flex-wrap:wrap;" id="empaque-fila-${i}">
       <div class="form-group" style="margin:0;">
-        <label style="font-size:11px;">Gramos</label>
-        <input type="number" class="empaque-gramos" min="1" value="${t.gramos}" style="max-width:70px;" data-idx="${i}">
+        <label style="font-size:11px;">Nombre</label>
+        <input type="text" class="empaque-label" value="${t.label || ''}" placeholder="ej: 300/500g" style="max-width:90px;" data-idx="${i}">
+      </div>
+      <div class="form-group" style="margin:0;">
+        <label style="font-size:11px;">Formatos primarios</label>
+        <input type="text" class="empaque-formatos" value="${(t.formatos || []).join(',')}" placeholder="ej: 300,500" style="max-width:100px;" data-idx="${i}">
+      </div>
+      <div class="form-group" style="margin:0;">
+        <label style="font-size:11px;">Fallback para</label>
+        <input type="text" class="empaque-fallback" value="${(t.fallbackPara || []).join(',')}" placeholder="ej: 250" style="max-width:80px;" data-idx="${i}">
       </div>
       <div class="form-group" style="margin:0;">
         <label style="font-size:11px;">Cantidad</label>
@@ -2280,8 +2321,16 @@ function agregarFilaEmpaque() {
   div.id = `empaque-fila-${idx}`;
   div.innerHTML = `
     <div class="form-group" style="margin:0;">
-      <label style="font-size:11px;">Gramos</label>
-      <input type="number" class="empaque-gramos" min="1" value="" style="max-width:70px;" data-idx="${idx}">
+      <label style="font-size:11px;">Nombre</label>
+      <input type="text" class="empaque-label" value="" placeholder="ej: 300/500g" style="max-width:90px;" data-idx="${idx}">
+    </div>
+    <div class="form-group" style="margin:0;">
+      <label style="font-size:11px;">Formatos primarios</label>
+      <input type="text" class="empaque-formatos" value="" placeholder="ej: 300,500" style="max-width:100px;" data-idx="${idx}">
+    </div>
+    <div class="form-group" style="margin:0;">
+      <label style="font-size:11px;">Fallback para</label>
+      <input type="text" class="empaque-fallback" value="" placeholder="ej: 250" style="max-width:80px;" data-idx="${idx}">
     </div>
     <div class="form-group" style="margin:0;">
       <label style="font-size:11px;">Cantidad</label>
@@ -2297,13 +2346,19 @@ function eliminarFilaEmpaque(idx) {
 }
 
 function guardarAjusteEmpaque() {
-  const gramosInputs = document.querySelectorAll('.empaque-gramos');
+  const labelInputs = document.querySelectorAll('.empaque-label');
+  const formatosInputs = document.querySelectorAll('.empaque-formatos');
+  const fallbackInputs = document.querySelectorAll('.empaque-fallback');
   const cantInputs = document.querySelectorAll('.empaque-cantidad');
   const tamanos = [];
-  gramosInputs.forEach((gEl, i) => {
-    const gramos = Number(gEl.value);
+  labelInputs.forEach((lEl, i) => {
+    const label = lEl.value.trim();
+    const formatos = (formatosInputs[i]?.value || '').split(',')
+      .map(f => Number(f.trim())).filter(f => f > 0);
+    const fallbackPara = (fallbackInputs[i]?.value || '').split(',')
+      .map(f => Number(f.trim())).filter(f => f > 0);
     const cantidad = Number(cantInputs[i]?.value) || 0;
-    if (gramos > 0) tamanos.push({ gramos, cantidad });
+    if (label && formatos.length > 0) tamanos.push({ label, formatos, fallbackPara, cantidad });
   });
   const stickers = Number(document.getElementById('ajuste-stickers').value) || 0;
   state.stockEmpaque = { tamanos, stickers, timestamp: Date.now() };
@@ -2440,9 +2495,10 @@ function renderAlertas() {
   if (kpis.margen < 20 && kpis.ingresos > 0) html += `<div class="alert alert-rojo">📉 Margen bajo: ${fmt(kpis.margen, 1)}%</div>`;
   const empaque = getStockEmpaque();
   empaque.tamanos.forEach(t => {
-    if (t.cantidad === 0) html += `<div class="alert alert-rojo">🚨 Sin bolsas de ${t.gramos}g</div>`;
-    else if (t.cantidad <= 5) html += `<div class="alert alert-rojo">⚠️ Pocas bolsas ${t.gramos}g: quedan ${t.cantidad}</div>`;
-    else if (t.cantidad <= 15) html += `<div class="alert alert-amarillo">⚠️ Bolsas ${t.gramos}g bajas: quedan ${t.cantidad}</div>`;
+    const lbl = t.label || (t.gramos + 'g');
+    if (t.cantidad === 0) html += `<div class="alert alert-rojo">🚨 Sin bolsas ${lbl}</div>`;
+    else if (t.cantidad <= 5) html += `<div class="alert alert-rojo">⚠️ Pocas bolsas ${lbl}: quedan ${t.cantidad}</div>`;
+    else if (t.cantidad <= 15) html += `<div class="alert alert-amarillo">⚠️ Bolsas ${lbl} bajas: quedan ${t.cantidad}</div>`;
   });
   if (empaque.stickers === 0) html += `<div class="alert alert-rojo">🚨 Sin stickers</div>`;
   else if (empaque.stickers <= 5) html += `<div class="alert alert-rojo">⚠️ Pocos stickers: quedan ${empaque.stickers}</div>`;
