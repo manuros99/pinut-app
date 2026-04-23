@@ -3990,14 +3990,14 @@ function renderMateriaprima() {
   if (fd && !fd.value) fd.value = hoy();
 }
 
+let _mpEditando = null;
+
 function renderTablaMP() {
   const stock = getStockCalculado();
-  // Show all unique ingredient names across all recipes
   const ingredientesUnicos = getAllIngredientesUnicos();
 
   const rows = ingredientesUnicos.map(nombre => {
     const sc = stock[nombre] || 0;
-    const sf = state.stockFisico[nombre] || 0;
     const comprado = state.comprasMp
       .filter(c => c.ingrediente === nombre)
       .reduce((s, c) => s + Number(c.cantidad), 0);
@@ -4007,7 +4007,6 @@ function renderTablaMP() {
         return s + (iu ? Number(iu.gramos) : 0);
       }, 0);
 
-    // Determine threshold from active recipe ingredient (if present)
     const r = getRecetaActiva();
     const ingRef = r ? r.ingredientes.find(i => i.nombre === nombre) : null;
     const umbral = ingRef ? ingRef.gramos : 1;
@@ -4018,6 +4017,24 @@ function renderTablaMP() {
 
     const pct = Math.min(100, sc > 0 ? (sc / (umbral * 5)) * 100 : 0);
     const barColor = sc <= 0 ? 'var(--rojo)' : sc < umbral ? 'var(--amarillo)' : 'var(--verde)';
+    const safeNombre = nombre.replace(/'/g, "\\'");
+    const editando = _mpEditando === nombre;
+
+    const filaEdicion = editando ? `
+      <tr id="mp-edit-row-${CSS.escape(nombre)}" style="background:var(--verde-light,#eafaf1);">
+        <td colspan="5" style="padding:10px 12px;">
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+            <span style="font-weight:700;color:var(--verde);">${nombre}</span>
+            <span style="font-size:13px;color:#555;">Ingresá el stock actual real:</span>
+            <input type="number" id="mp-edit-input-${CSS.escape(nombre)}" min="0" step="1"
+              value="${sc}" style="width:120px;padding:4px 8px;border-radius:6px;border:1px solid var(--verde);font-size:14px;"
+              onkeydown="if(event.key==='Enter')guardarCorreccionStockMP('${safeNombre}');if(event.key==='Escape')cancelarEdicionMP();">
+            <span style="font-size:12px;color:#888;">gramos</span>
+            <button class="btn btn-primary btn-sm" onclick="guardarCorreccionStockMP('${safeNombre}')">Guardar</button>
+            <button class="btn btn-secondary btn-sm" onclick="cancelarEdicionMP()">Cancelar</button>
+          </div>
+        </td>
+      </tr>` : '';
 
     return `<tr>
       <td><strong>${nombre}</strong></td>
@@ -4025,19 +4042,61 @@ function renderTablaMP() {
         <div>${fmt(sc)} gr</div>
         <div class="stock-bar"><div class="stock-bar-fill" style="width:${pct}%;background:${barColor};"></div></div>
       </td>
-      <td>${fmt(sf)} gr</td>
       <td>${fmt(comprado)} gr</td>
       <td>${fmt(consumido)} gr</td>
       <td><span class="dot ${semaforo}" title="${estado}"></span> ${estado}</td>
-    </tr>`;
+      <td>
+        <button class="btn btn-secondary btn-sm" onclick="abrirEdicionStockMP('${safeNombre}')">Corregir</button>
+      </td>
+    </tr>${filaEdicion}`;
   });
 
   document.getElementById('mp-tabla').innerHTML = `
     <table>
-      <thead><tr><th>Ingrediente</th><th>Stock calculado</th><th>Stock inicial</th><th>Comprado</th><th>Consumido</th><th>Estado</th></tr></thead>
+      <thead><tr><th>Ingrediente</th><th>Stock actual</th><th>Comprado</th><th>Consumido</th><th>Estado</th><th></th></tr></thead>
       <tbody>${rows.join('')}</tbody>
     </table>
   `;
+
+  if (_mpEditando) {
+    const inputEl = document.getElementById(`mp-edit-input-${CSS.escape(_mpEditando)}`);
+    if (inputEl) { inputEl.focus(); inputEl.select(); }
+  }
+}
+
+function abrirEdicionStockMP(nombre) {
+  _mpEditando = nombre;
+  renderTablaMP();
+}
+
+function cancelarEdicionMP() {
+  _mpEditando = null;
+  renderTablaMP();
+}
+
+function guardarCorreccionStockMP(nombre) {
+  const inputEl = document.getElementById(`mp-edit-input-${CSS.escape(nombre)}`);
+  if (!inputEl) return;
+  const nuevoStock = Number(inputEl.value);
+  if (isNaN(nuevoStock) || nuevoStock < 0) { showToast('Ingresá un valor válido', 'error'); return; }
+
+  const comprado = state.comprasMp
+    .filter(c => c.ingrediente === nombre)
+    .reduce((s, c) => s + Number(c.cantidad), 0);
+  const consumido = state.producciones
+    .reduce((s, p) => {
+      const iu = (p.ingredientesUsados || []).find(x => x.nombre === nombre);
+      return s + (iu ? Number(iu.gramos) : 0);
+    }, 0);
+
+  // Back-calculate stockFisico so that: nuevoStock = stockFisico + comprado - consumido
+  state.stockFisico[nombre] = nuevoStock - comprado + consumido;
+  guardarEnStorage(KEYS.stockFisico, state.stockFisico);
+
+  _mpEditando = null;
+  showToast(`Stock de ${nombre} actualizado a ${fmt(nuevoStock)} g`);
+  renderTablaMP();
+  renderAlertas();
 }
 
 function calcularNecesidades() {
